@@ -1,0 +1,16 @@
+version: '3.4'
+
+services:
+  findaroundapi:
+    image: findaroundapi:latest
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      ASPNETCORE_URLS: "https://*;http://*"
+      ASPNETCORE_HTTPS_PORT: "3737"
+    ports:
+      - "3736:80"
+      - "3737:443"
+    volumes:
+      - ${HOME}/.aspnet/https:/root/.aspnet/https/
+      - ${HOME}/.microsoft/usersecrets:/root/.microsoft/usersecrets/
+      - ${HOME}/findaround/config/json:/root/findaround/config/json/

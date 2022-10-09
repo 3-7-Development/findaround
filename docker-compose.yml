@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  findaroundapi:
+    image: ${DOCKER_REGISTRY-}findaroundapi
+    build:
+      context: .
+      dockerfile: findaroundAPI/Dockerfile
