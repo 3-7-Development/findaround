@@ -1,4 +1,6 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using Newtonsoft.Json;
+
+var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
@@ -9,6 +11,23 @@ builder.Services.AddSwaggerGen();
 
 HostCertConfig.CertPath = Environment.ExpandEnvironmentVariables(@builder.Configuration["CertPath"]);
 HostCertConfig.CertPass = Environment.ExpandEnvironmentVariables(@builder.Configuration["CertPassword"]);
+
+var folder = Environment.GetEnvironmentVariable("HOME");
+if (!string.IsNullOrWhiteSpace(folder))
+{
+    var path = $"{folder}/findaround/config/json/secrets.json";
+
+    string json;
+    //var config = new SecretsConfig();
+
+    using (var reader = new StreamReader(path))
+    {
+        json = reader.ReadToEnd();
+    }
+
+    var config = JsonConvert.DeserializeObject<SecretsConfig>(json);
+    HostCertConfig.CertPass = config.CertPassword;
+}
 
 //builder.Host.ConfigureWebHostDefaults(webBuilder =>
 //{
@@ -53,4 +72,9 @@ public static class HostCertConfig
 {
     public static string CertPath { get; set; }
     public static string CertPass { get; set; }
+}
+
+public class SecretsConfig
+{
+    public string CertPassword { get; set; }
 }
