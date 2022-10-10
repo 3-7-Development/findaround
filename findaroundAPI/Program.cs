@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using findaroundAPI.Entities;
+using findaroundAPI.Helpers;
+using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +10,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<DatabaseContext>(ServiceLifetime.Transient);
+builder.Services.AddScoped<DatabaseSeeder>();
 
 HostCertConfig.CertPath = Environment.ExpandEnvironmentVariables(@builder.Configuration["CertPath"]);
 HostCertConfig.CertPass = Environment.ExpandEnvironmentVariables(@builder.Configuration["CertPassword"]);
@@ -29,19 +33,6 @@ if (!string.IsNullOrWhiteSpace(folder))
     HostCertConfig.CertPass = config.CertPassword;
 }
 
-//builder.Host.ConfigureWebHostDefaults(webBuilder =>
-//{
-//    webBuilder.ConfigureKestrel(opt =>
-//    {
-//        opt.ListenAnyIP(80);
-
-//        opt.ListenAnyIP(443, listOpt =>
-//        {
-//            listOpt.UseHttps(HostCertConfig.CertPath, HostCertConfig.CertPass);
-//        });
-//    });
-//});
-
 builder.WebHost.ConfigureKestrel(options =>
 {
     options.ListenAnyIP(80);
@@ -52,6 +43,11 @@ builder.WebHost.ConfigureKestrel(options =>
 });
 
 var app = builder.Build();
+
+var scope = app.Services.CreateScope();
+var seeder = scope.ServiceProvider.GetRequiredService<DatabaseSeeder>();
+
+seeder.Seed();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
