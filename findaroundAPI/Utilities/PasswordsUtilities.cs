@@ -43,7 +43,7 @@ namespace findaroundAPI.Utilities
             return Convert.ToBase64String(argon2.GetBytes(16));
         }
 
-        public static bool ArePasswordsEqual(UserEnitity user, string password)
+        public static bool ArePasswordsEqual(UserEntity user, string password)
         {
             var secondHash = GenerateHash(password, user.Salt);
 

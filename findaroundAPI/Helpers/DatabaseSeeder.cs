@@ -233,21 +233,21 @@ namespace findaroundAPI.Helpers
             }
 		}
 
-        private IEnumerable<UserEnitity> GetUsers()
+        private IEnumerable<UserEntity> GetUsers()
         {
             var testUserPasswordData = PasswordsUtilities.HashPassword("Th3B35tT35tU53r");
             var proPlayerPasswordData = PasswordsUtilities.HashPassword("Pr0Pl4y3r2137");
 
-            return new List<UserEnitity>()
+            return new List<UserEntity>()
             {
-                new UserEnitity()
+                new UserEntity()
                 {
                     Login = "testUser",
                     PasswordHash = testUserPasswordData.PasswordHash,
                     Salt = testUserPasswordData.Salt,
                     ProfileImage = "defaultProfileImg.png"
                 },
-                new UserEnitity()
+                new UserEntity()
                 {
                     Login = "proPlayer2137",
                     PasswordHash = proPlayerPasswordData.PasswordHash,

@@ -9,6 +9,8 @@ namespace findaroundAPI.MappingProfiles
 	{
 		public ModelsMappingProfile()
 		{
+			CreateMap<UserEntity, User>();
+
 			CreateMap<Post, PostEntity>()
 				.ForMember(e => e.Latitude, mp => mp.MapFrom(p => p.Location.Latitude))
 				.ForMember(e => e.Longitude, mp => mp.MapFrom(p => p.Location.Longitute))

@@ -18,7 +18,7 @@ namespace findaroundAPI.Entities
 		//[ForeignKey("UserEntity")]
 		public int AuthorId { get; set; }
 
-		public UserEnitity Author { get; set; }
+		public UserEntity Author { get; set; }
 
 		[Required]
 		public string Content { get; set; }
