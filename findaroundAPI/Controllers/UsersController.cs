@@ -3,6 +3,8 @@ using findaroundShared.Models;
 using findaroundAPI.Entities;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
+using findaroundAPI.Services;
+using findaroundShared.Models.Dtos;
 
 namespace findaroundAPI.Controllers
 {
@@ -12,11 +14,13 @@ namespace findaroundAPI.Controllers
 	{
 		readonly DatabaseContext _dbContext;
 		readonly IMapper _mapper;
+		readonly IUserService _userService;
 
-		public UsersController(DatabaseContext context, IMapper mapper)
+		public UsersController(DatabaseContext context, IMapper mapper, IUserService userService)
 		{
             _dbContext = context;
 			_mapper = mapper;
+			_userService = userService;
 		}
 
 		[HttpGet("all")]
@@ -35,6 +39,14 @@ namespace findaroundAPI.Controllers
             }
 
             return Ok(usersList);
+		}
+
+		[HttpPost("register")]
+		public ActionResult RegisterUser([FromBody] RegisterUserDto dto)
+		{
+			_userService.RegisterUser(dto);
+
+			return Ok();
 		}
 	}
 }
