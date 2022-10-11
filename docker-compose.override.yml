@@ -15,3 +15,4 @@ services:
       #- ${HOME}/.microsoft/usersecrets:/root/.microsoft/usersecrets/
       - ${HOME}/findaround/config/json:/root/findaround/config/json/
       - ${HOME}/findaround/config:/root/findaround/config
+      - ./findaroundAPI/Config:/app/Config

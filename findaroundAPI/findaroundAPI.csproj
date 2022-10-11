@@ -38,11 +38,31 @@
     <None Remove="Utilities\" />
     <None Remove="Helpers\" />
     <None Remove="Konscious.Security.Cryptography.Argon2" />
+    <None Remove="Config\findaround.io.local.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Entities\" />
     <Folder Include="Models\" />
     <Folder Include="Utilities\" />
     <Folder Include="Helpers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="Config\json\secrets.json" />
+    <Content Remove="Config\json\dbConnectionConfig.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Config\json\secrets.json">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Config\json\dbConnectionConfig.json">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Config\findaround.io.local.pfx" />
   </ItemGroup>
 </Project>

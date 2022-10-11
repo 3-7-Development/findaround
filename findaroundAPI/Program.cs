@@ -1,5 +1,7 @@
-﻿using findaroundAPI.Entities;
+﻿using System.Reflection;
+using findaroundAPI.Entities;
 using findaroundAPI.Helpers;
+using findaroundAPI.Utilities;
 using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,25 +15,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DatabaseContext>(ServiceLifetime.Transient);
 builder.Services.AddScoped<DatabaseSeeder>();
 
-HostCertConfig.CertPath = Environment.ExpandEnvironmentVariables(@builder.Configuration["CertPath"]);
-HostCertConfig.CertPass = Environment.ExpandEnvironmentVariables(@builder.Configuration["CertPassword"]);
+// Configure inside dependencies
+DbConnectionUtilities.FilePath = builder.Configuration["DbConfigFile"];
 
-var folder = Environment.GetEnvironmentVariable("HOME");
-if (!string.IsNullOrWhiteSpace(folder))
-{
-    var path = $"{folder}/findaround/config/json/secrets.json";
-
-    string json;
-    //var config = new SecretsConfig();
-
-    using (var reader = new StreamReader(path))
-    {
-        json = reader.ReadToEnd();
-    }
-
-    var config = JsonConvert.DeserializeObject<SecretsConfig>(json);
-    HostCertConfig.CertPass = config.CertPassword;
-}
+HostCertConfig.CertPath = Path.Combine(System.IO.Directory.GetCurrentDirectory(), "Config/", @builder.Configuration["CertFileName"]);
+HostCertConfig.CertPass = HostCertConfig.ReadPassFromFile(builder);
 
 builder.WebHost.ConfigureKestrel(options =>
 {
@@ -68,6 +56,25 @@ public static class HostCertConfig
 {
     public static string CertPath { get; set; }
     public static string CertPass { get; set; }
+
+    public static string ReadPassFromFile(WebApplicationBuilder builder)
+    {
+        Assembly assembly = Assembly.GetExecutingAssembly();
+        string json = string.Empty;
+
+        var path = @builder.Configuration["CertPassword"];
+        using (var stream = assembly.GetManifestResourceStream(path))
+        {
+            using (var reader = new StreamReader(stream))
+            {
+                json = reader.ReadToEnd();
+            }
+        }
+
+        var config = JsonConvert.DeserializeObject<SecretsConfig>(json);
+
+        return config.CertPassword;
+    }
 }
 
 public class SecretsConfig
