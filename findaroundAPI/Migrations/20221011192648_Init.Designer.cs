@@ -11,8 +11,8 @@ using findaroundAPI.Entities;
 namespace findaroundAPI.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20221011125420_UserEntityLoggedInProperty")]
-    partial class UserEntityLoggedInProperty
+    [Migration("20221011192648_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
