@@ -2,6 +2,7 @@
 using findaroundAPI.Entities;
 using findaroundAPI.Helpers;
 using findaroundAPI.Utilities;
+using findaroundAPI.Middlewares;
 using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +16,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DatabaseContext>(ServiceLifetime.Transient);
 builder.Services.AddScoped<DatabaseSeeder>();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+builder.Services.AddScoped<ErrorHandlingMiddleware>();
 
 // Configure inside dependencies
 DbConnectionUtilities.FilePath = builder.Configuration["DbConfigFile"];
@@ -44,6 +46,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 

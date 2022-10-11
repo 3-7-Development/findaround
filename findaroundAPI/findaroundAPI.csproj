@@ -40,6 +40,8 @@
     <None Remove="Konscious.Security.Cryptography.Argon2" />
     <None Remove="Config\findaround.io.local.pfx" />
     <None Remove="MappingProfiles\" />
+    <None Remove="Middleware\" />
+    <None Remove="Exceptions\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Entities\" />
@@ -47,6 +49,8 @@
     <Folder Include="Utilities\" />
     <Folder Include="Helpers\" />
     <Folder Include="MappingProfiles\" />
+    <Folder Include="Middlewares\" />
+    <Folder Include="Exceptions\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Config\json\secrets.json" />
