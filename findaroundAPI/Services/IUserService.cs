@@ -6,7 +6,8 @@ namespace findaroundAPI.Services
 	public interface IUserService
 	{
 		void RegisterUser(RegisterUserDto dto);
-		string LoginUser(LoginUserDto dto);
+		string LogInUser(LoginUserDto dto);
+		void LogOutUser(int id);
 	}
 }
 

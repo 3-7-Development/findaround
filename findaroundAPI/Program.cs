@@ -4,13 +4,38 @@ using findaroundAPI.Helpers;
 using findaroundAPI.Utilities;
 using findaroundAPI.Middlewares;
 using findaroundAPI.Services;
+using findaroundAPI.Config;
 using Newtonsoft.Json;
 using findaroundShared.Models.Dtos;
 using findaroundAPI.Models.Validators;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var authenticationSettings = new AuthenticationSettings();
+builder.Configuration.GetSection("Authentication").Bind(authenticationSettings);
+
+builder.Services.AddSingleton(authenticationSettings);
+
+builder.Services.AddAuthentication(option =>
+{
+    option.DefaultAuthenticateScheme = "Bearer";
+    option.DefaultScheme = "Bearer";
+    option.DefaultChallengeScheme = "Bearer";
+}).AddJwtBearer(cfg =>
+{
+    cfg.RequireHttpsMetadata = false;
+    cfg.SaveToken = true;
+    cfg.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidIssuer = authenticationSettings.JwtIssuer,
+        ValidAudience = authenticationSettings.JwtIssuer,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authenticationSettings.JwtKey))
+    };
+});
 
 // Add services to the container.
 
@@ -21,10 +46,15 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DatabaseContext>(ServiceLifetime.Transient);
 builder.Services.AddScoped<DatabaseSeeder>();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
-builder.Services.AddScoped<ErrorHandlingMiddleware>();
-builder.Services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
 
-// Adding services
+// Configuring Middlewares
+builder.Services.AddScoped<ErrorHandlingMiddleware>();
+
+// Data models validators
+builder.Services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
+builder.Services.AddScoped<IValidator<LoginUserDto>, LoginUserDtoValidator>();
+
+// Configure Services
 builder.Services.AddScoped<IUserService, UserService>();
 
 // Configure inside dependencies
@@ -57,6 +87,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseMiddleware<ErrorHandlingMiddleware>();
+
+app.UseAuthentication();
 
 app.UseHttpsRedirection();
 

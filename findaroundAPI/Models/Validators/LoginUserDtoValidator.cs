@@ -5,24 +5,22 @@ using FluentValidation;
 
 namespace findaroundAPI.Models.Validators
 {
-	public class RegisterUserDtoValidator : AbstractValidator<RegisterUserDto>
+	public class LoginUserDtoValidator : AbstractValidator<LoginUserDto>
 	{
-		public RegisterUserDtoValidator(DatabaseContext dbContext)
+		public LoginUserDtoValidator(DatabaseContext dbContext)
 		{
 			RuleFor(x => x.Login).NotEmpty().MinimumLength(8).Custom((value, context) =>
 			{
-				var usernameInUse = dbContext.Users.Any(u => u.Login == value);
+				var userExists = dbContext.Users.Any(u => u.Login == value);
 
-				if (usernameInUse)
-					context.AddFailure("Login", "Login in use");
+				if (!userExists)
+					context.AddFailure("Login", "User not found");
 			});
 
 			RuleFor(x => x.Password).NotEmpty().MinimumLength(6);
 
 			RuleFor(x => x.ConfirmedPassword).NotEmpty().Equal(x => x.Password);
-
-			RuleFor(x => x.PhoneNumber).NotEmpty().Length(9, 11);
-        }
+		}
 	}
 }
 

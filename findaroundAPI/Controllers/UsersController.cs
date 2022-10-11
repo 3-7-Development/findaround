@@ -5,11 +5,13 @@ using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using findaroundAPI.Services;
 using findaroundShared.Models.Dtos;
+using Microsoft.AspNetCore.Authorization;
 
 namespace findaroundAPI.Controllers
 {
 	[ApiController]
 	[Route("/api/v1/findaround/users")]
+	[Authorize]
 	public class UsersController : ControllerBase
 	{
 		readonly DatabaseContext _dbContext;
@@ -42,9 +44,27 @@ namespace findaroundAPI.Controllers
 		}
 
 		[HttpPost("register")]
+		[AllowAnonymous]
 		public ActionResult RegisterUser([FromBody] RegisterUserDto dto)
 		{
 			_userService.RegisterUser(dto);
+
+			return Ok();
+		}
+
+		[HttpPost("login")]
+		[AllowAnonymous]
+		public ActionResult<string> LogInUser([FromBody] LoginUserDto dto)
+		{
+			var token = _userService.LogInUser(dto);
+
+			return Ok(token);
+		}
+
+		[HttpPost("logout/{id}")]
+		public ActionResult LogOutUser([FromRoute] int id)
+		{
+			_userService.LogOutUser(id);
 
 			return Ok();
 		}
