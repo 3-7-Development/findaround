@@ -1,5 +1,5 @@
 ﻿using System;
-using findaroundAPI.Models;
+using findaroundShared.Models;
 
 namespace findaroundAPI.Helpers
 {

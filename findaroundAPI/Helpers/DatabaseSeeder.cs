@@ -2,6 +2,7 @@
 using findaroundAPI.Entities;
 using findaroundAPI.Models;
 using findaroundAPI.Utilities;
+using findaroundShared.Models;
 
 namespace findaroundAPI.Helpers
 {
