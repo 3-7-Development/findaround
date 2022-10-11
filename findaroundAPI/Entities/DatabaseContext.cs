@@ -13,7 +13,7 @@ namespace findaroundAPI.Entities
 
         // Tables
 
-        public DbSet<UserEnitity> Users { get; set; }
+        public DbSet<UserEntity> Users { get; set; }
         public DbSet<PostEntity> Posts { get; set; }
         public DbSet<CommentEntity> PostsComments { get; set; }
         public DbSet<PostsImagesEntity> PostsImages { get; set; }
@@ -24,7 +24,7 @@ namespace findaroundAPI.Entities
 
             // Relationships between tables
 
-            modelBuilder.Entity<UserEnitity>().HasMany(u => u.Comments).WithOne(c => c.Author).HasForeignKey(u => u.AuthorId);
+            modelBuilder.Entity<UserEntity>().HasMany(u => u.Comments).WithOne(c => c.Author).HasForeignKey(u => u.AuthorId);
             modelBuilder.Entity<PostEntity>().HasMany(p => p.Comments).WithOne(c => c.Post).HasForeignKey(p => p.PostId);
             modelBuilder.Entity<PostEntity>().HasMany(p => p.Images).WithOne(i => i.Post).HasForeignKey(p => p.PostId);
         }

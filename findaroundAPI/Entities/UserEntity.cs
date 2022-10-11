@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace findaroundAPI.Entities
 {
-	public class UserEnitity
+	public class UserEntity
 	{
 		public int Id { get; set; }
 

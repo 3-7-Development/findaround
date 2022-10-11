@@ -14,6 +14,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DatabaseContext>(ServiceLifetime.Transient);
 builder.Services.AddScoped<DatabaseSeeder>();
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 // Configure inside dependencies
 DbConnectionUtilities.FilePath = builder.Configuration["DbConfigFile"];

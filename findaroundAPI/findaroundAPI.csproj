@@ -39,12 +39,14 @@
     <None Remove="Helpers\" />
     <None Remove="Konscious.Security.Cryptography.Argon2" />
     <None Remove="Config\findaround.io.local.pfx" />
+    <None Remove="MappingProfiles\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Entities\" />
     <Folder Include="Models\" />
     <Folder Include="Utilities\" />
     <Folder Include="Helpers\" />
+    <Folder Include="MappingProfiles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Config\json\secrets.json" />
@@ -64,5 +66,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Config\findaround.io.local.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\findaroundShared\findaroundShared.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
   </ItemGroup>
 </Project>

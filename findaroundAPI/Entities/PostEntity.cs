@@ -12,7 +12,7 @@ namespace findaroundAPI.Entities
 		//[ForeignKey("UserEntity")]
 		public int AuthorId { get; set; }
 
-		public UserEnitity Author { get; set; }
+		public UserEntity Author { get; set; }
 
 		public int ResponderId { get; set; } = -1;
 
