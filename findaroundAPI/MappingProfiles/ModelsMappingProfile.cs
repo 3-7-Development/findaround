@@ -2,6 +2,7 @@
 using AutoMapper;
 using findaroundAPI.Entities;
 using findaroundShared.Models;
+using findaroundAPI.Helpers;
 
 namespace findaroundAPI.MappingProfiles
 {
@@ -17,7 +18,9 @@ namespace findaroundAPI.MappingProfiles
 				.ForMember(e => e.Images, mp => mp.MapFrom(p => p.Images.Select(x => new PostsImagesEntity()
 				{
 					Image = x
-				})));
+				})))
+				.ForMember(e => e.Status, mp => mp.MapFrom(p => p.Status.ToString()))
+                .ForMember(e => e.Category, mp => mp.MapFrom(p => p.Category.ToString()));
 
 
 			CreateMap<PostEntity, Post>()
@@ -26,7 +29,9 @@ namespace findaroundAPI.MappingProfiles
 					Latitude = e.Latitude,
 					Longitute = e.Longitude
 				}))
-				.ForMember(p => p.Images, mp => mp.MapFrom(e => e.Images.Select(x => new string(x.Image))));
+				.ForMember(p => p.Images, mp => mp.MapFrom(e => e.Images.Select(x => new string(x.Image))))
+				.ForMember(p => p.Status, mp => mp.MapFrom(e => EnumHelpers.ToPostStatus(e.Status)))
+                .ForMember(p => p.Category, mp => mp.MapFrom(e => EnumHelpers.ToPostCategory(e.Category)));
 		}
 	}
 }
