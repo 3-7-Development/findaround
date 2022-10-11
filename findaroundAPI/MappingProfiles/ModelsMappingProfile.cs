@@ -10,9 +10,19 @@ namespace findaroundAPI.MappingProfiles
 	{
 		public ModelsMappingProfile()
 		{
-			CreateMap<UserEntity, User>();
+			CreateMap<UserEntity, User>()
+				.ForMember(u => u.loggedIn, mp => mp.MapFrom(e => e.LoggedIn));
 
-			CreateMap<Post, PostEntity>()
+			var userToEntity = CreateMap<User, UserEntity>();
+
+            userToEntity.ForAllMembers(options => options.Ignore());
+
+			userToEntity
+				.ForMember(e => e.Id, mp => mp.MapFrom(u => u.Id))
+				.ForMember(e => e.Login, mp => mp.MapFrom(u => u.Login))
+				.ForMember(e => e.ProfileImage, mp => mp.MapFrom(u => u.ProfileImage));
+
+            CreateMap<Post, PostEntity>()
 				.ForMember(e => e.Latitude, mp => mp.MapFrom(p => p.Location.Latitude))
 				.ForMember(e => e.Longitude, mp => mp.MapFrom(p => p.Location.Longitute))
 				.ForMember(e => e.Images, mp => mp.MapFrom(p => p.Images.Select(x => new PostsImagesEntity()

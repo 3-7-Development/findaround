@@ -23,6 +23,9 @@ namespace findaroundAPI.Entities
 		public virtual List<PostEntity> Posts { get; set; }
 
 		public virtual List<CommentEntity> Comments { get; set; }
+
+		[Required]
+		public bool LoggedIn { get; set; }
 	}
 }
 

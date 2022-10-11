@@ -246,14 +246,16 @@ namespace findaroundAPI.Helpers
                     Login = "testUser",
                     PasswordHash = testUserPasswordData.PasswordHash,
                     Salt = testUserPasswordData.Salt,
-                    ProfileImage = "defaultProfileImg.png"
+                    ProfileImage = "defaultProfileImg.png",
+                    LoggedIn = false
                 },
                 new UserEntity()
                 {
                     Login = "proPlayer2137",
                     PasswordHash = proPlayerPasswordData.PasswordHash,
                     Salt = testUserPasswordData.Salt,
-                    ProfileImage = "defaultProfileImg.png"
+                    ProfileImage = "defaultProfileImg.png",
+                    LoggedIn = false
                 }
             };
         }
