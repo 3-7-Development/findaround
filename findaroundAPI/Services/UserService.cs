@@ -8,6 +8,7 @@ using findaroundAPI.Exceptions;
 using findaroundAPI.Utilities;
 using findaroundShared.Models;
 using findaroundShared.Models.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 
 namespace findaroundAPI.Services
@@ -16,12 +17,17 @@ namespace findaroundAPI.Services
 	{
         readonly DatabaseContext _dbContext;
         readonly AuthenticationSettings _authenticationSettings;
+        readonly IAuthorizationService _authorizationService;
+        readonly IUserContextService _userContextService;
 
-		public UserService(DatabaseContext dbContext, AuthenticationSettings authenticationSettings)
+        public UserService(DatabaseContext dbContext, AuthenticationSettings authenticationSettings,
+            IAuthorizationService authorizationService, IUserContextService userContextService)
 		{
             _dbContext = dbContext;
             _authenticationSettings = authenticationSettings;
-		}
+            _authorizationService = authorizationService;
+            _userContextService = userContextService;
+        }
 
         public void RegisterUser(RegisterUserDto dto)
         {

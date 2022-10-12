@@ -17,17 +17,12 @@ namespace findaroundAPI.Controllers
 		readonly DatabaseContext _dbContext;
 		readonly IMapper _mapper;
 		readonly IUserService _userService;
-		readonly IAuthorizationService _authorizationService;
-		readonly IUserContextService _userContextService;
 
-		public UsersController(DatabaseContext context, IMapper mapper, IUserService userService,
-			IAuthorizationService authorizationService, IUserContextService userContextService)
+		public UsersController(DatabaseContext context, IMapper mapper, IUserService userService)
 		{
             _dbContext = context;
 			_mapper = mapper;
 			_userService = userService;
-			_authorizationService = authorizationService;
-			_userContextService = userContextService;
 		}
 
 		[HttpGet("all")]

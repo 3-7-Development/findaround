@@ -26,6 +26,10 @@ namespace findaroundAPI.Middlewares
                 context.Response.StatusCode = 400;
                 await context.Response.WriteAsync(e.Message);
             }
+            catch (ForbidException e)
+            {
+                context.Response.StatusCode = 403;
+            }
             catch (Exception e)
             {
                 context.Response.StatusCode = 500;
