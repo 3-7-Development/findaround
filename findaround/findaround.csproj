@@ -50,11 +50,15 @@
 
 	<ItemGroup>
 	  <None Remove="Newtonsoft.Json" />
+	  <None Remove="Services\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\findaroundShared\findaroundShared.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Services\" />
 	</ItemGroup>
 </Project>
