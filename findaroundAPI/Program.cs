@@ -12,6 +12,8 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
+using findaroundAPI.Authorization.Handlers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,6 +39,10 @@ builder.Services.AddAuthentication(option =>
     };
 });
 
+builder.Services.AddScoped<IAuthorizationHandler, UserOperationAuthorizationHandler>();
+builder.Services.AddScoped<IAuthorizationHandler, PostOperationAuthorizationHandler>();
+builder.Services.AddScoped<IAuthorizationHandler, CommentOperationAuthorizationHandler>();
+
 // Add services to the container.
 
 builder.Services.AddControllers().AddFluentValidation();
@@ -56,6 +62,8 @@ builder.Services.AddScoped<IValidator<LoginUserDto>, LoginUserDtoValidator>();
 
 // Configure Services
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserContextService, UserContextService>();
+builder.Services.AddHttpContextAccessor();
 
 // Configure inside dependencies
 DbConnectionUtilities.FilePath = builder.Configuration["DbConfigFile"];
