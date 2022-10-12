@@ -11,7 +11,7 @@ namespace findaroundShared.Models
         public PostStatus Status { get; set; }
         public PostCategory Category { get; set; }
         public PostLocation Location { get; set; }
-		public List<string> Images { get; set; }
+		public List<PostImage> Images { get; set; }
 		public int AuthorId { get; set; }
 	}
 }

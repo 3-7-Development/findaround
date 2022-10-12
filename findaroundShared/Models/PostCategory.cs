@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Text.Json.Serialization;
+
 namespace findaroundShared.Models
 {
-	public enum PostCategory
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public enum PostCategory
 	{
         Spotted,
         Lost,

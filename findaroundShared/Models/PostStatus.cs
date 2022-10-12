@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Text.Json.Serialization;
+
 namespace findaroundShared.Models
 {
-	public enum PostStatus
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public enum PostStatus
 	{
         Active,
         Ended,

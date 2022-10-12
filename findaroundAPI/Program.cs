@@ -62,6 +62,7 @@ builder.Services.AddScoped<IValidator<LoginUserDto>, LoginUserDtoValidator>();
 
 // Configure Services
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IPostService, PostService>();
 builder.Services.AddScoped<IUserContextService, UserContextService>();
 builder.Services.AddHttpContextAccessor();
 

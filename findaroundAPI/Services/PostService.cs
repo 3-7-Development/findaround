@@ -15,16 +15,14 @@ namespace findaroundAPI.Services
 	{
         readonly DatabaseContext _dbContext;
         readonly IMapper _mapper;
-        readonly IPostService _postService;
         readonly IAuthorizationService _authorizationService;
         readonly IUserContextService _userContextService;
 
-        public PostService(DatabaseContext dbContext, IMapper mapper, IPostService postService,
+        public PostService(DatabaseContext dbContext, IMapper mapper,
             IAuthorizationService authorizationService, IUserContextService userContextService)
 		{
             _dbContext = dbContext;
             _mapper = mapper;
-            _postService = postService;
             _authorizationService = authorizationService;
             _userContextService = userContextService;
 		}
@@ -33,12 +31,15 @@ namespace findaroundAPI.Services
         {
             var postModel = _mapper.Map<PostEntity>(post);
 
-            var userId = _userContextService.GetUserId;
+            var user = _dbContext.Users.FirstOrDefault(u => u.Id == _userContextService.GetUserId);
 
-            if (userId is null)
+            if (user is null)
                 throw new ArgumentException("Cannot add post. Something went wrong");
 
-            postModel.AuthorId = (int)userId;
+            if (!user.LoggedIn)
+                throw new UserNotLoggedInException();
+
+            postModel.AuthorId = (int)user.Id;
 
             _dbContext.Posts.Add(postModel);
             _dbContext.SaveChanges();
@@ -58,6 +59,9 @@ namespace findaroundAPI.Services
             if (author is null)
                 throw new ArgumentException("Cannot find author");
 
+            if (!author.LoggedIn)
+                throw new UserNotLoggedInException();
+
             var commentModel = _mapper.Map<CommentEntity>(comment);
             commentModel.AuthorId = author.Id;
 
@@ -72,6 +76,9 @@ namespace findaroundAPI.Services
             if (user is null)
                 throw new ArgumentException("Cannot find user");
 
+            if (!user.LoggedIn)
+                throw new UserNotLoggedInException();
+
             var post = _dbContext.Posts.FirstOrDefault(p => p.Id == postId);
 
             if (post is null)
@@ -81,6 +88,11 @@ namespace findaroundAPI.Services
 
             if (!authorizationResult.Succeeded)
                 throw new ForbidException();
+
+            var comments = _dbContext.PostsComments.Where(c => c.PostId == post.Id);
+
+            foreach (var comment in comments)
+                _dbContext.Remove(comment);
 
             _dbContext.Posts.Remove(post);
             _dbContext.SaveChanges();
@@ -92,6 +104,9 @@ namespace findaroundAPI.Services
 
             if (user is null)
                 throw new ArgumentException("Cannot find user");
+
+            if (!user.LoggedIn)
+                throw new UserNotLoggedInException();
 
             var comment = _dbContext.PostsComments.FirstOrDefault(c => c.Id == commentId);
 
@@ -109,7 +124,12 @@ namespace findaroundAPI.Services
 
         public IEnumerable<Post> GetAllPosts()
         {
-            var posts = _dbContext.Posts.ToList();
+            var user = _dbContext.Users.FirstOrDefault(u => u.Id == _userContextService.GetUserId);
+
+            if (user is null || !user.LoggedIn)
+                throw new ForbidException();
+
+            var posts = _dbContext.Posts.Include(p => p.Images).ToList();
 
             var postsList = new List<Post>();
 
@@ -126,7 +146,10 @@ namespace findaroundAPI.Services
             if (user is null)
                 throw new ArgumentException("Cannot find user");
 
-            var post = _dbContext.Posts.FirstOrDefault(p => p.Id == postId);
+            if (!user.LoggedIn)
+                throw new UserNotLoggedInException();
+
+            var post = _dbContext.Posts.Include(p => p.Images).FirstOrDefault(p => p.Id == postId);
 
             if (post is null)
                 throw new ArgumentException("Cannot find post");
@@ -143,7 +166,12 @@ namespace findaroundAPI.Services
 
         public IEnumerable<Comment> GetPostComments(int postId)
         {
-            var post = _dbContext.Posts.Include(p => p.Author).FirstOrDefault(p => p.Id == postId);
+            var user = _dbContext.Users.FirstOrDefault(u => u.Id == _userContextService.GetUserId);
+
+            if (user is null || !user.LoggedIn)
+                throw new ForbidException();
+
+            var post = _dbContext.Posts.Include(p => p.Author).Include(p => p.Images).FirstOrDefault(p => p.Id == postId);
 
             if (post is null)
                 throw new ArgumentException("Cannot find post");
@@ -165,7 +193,10 @@ namespace findaroundAPI.Services
             if (user is null)
                 throw new ArgumentException("Cannot find user");
 
-            var posts = _dbContext.Posts.Where(p => p.AuthorId == user.Id);
+            if (!user.LoggedIn)
+                throw new UserNotLoggedInException();
+
+            var posts = _dbContext.Posts.Include(p => p.Images).Where(p => p.AuthorId == user.Id);
 
             var postsList = new List<Post>();
 

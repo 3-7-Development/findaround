@@ -21,6 +21,10 @@ namespace findaroundAPI.Middlewares
                 context.Response.StatusCode = 404;
                 await context.Response.WriteAsync(e.Message);
             }
+            catch (UserNotLoggedInException e)
+            {
+                context.Response.StatusCode = 403;
+            }
             catch (ArgumentException e)
             {
                 context.Response.StatusCode = 400;
