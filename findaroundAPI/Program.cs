@@ -59,6 +59,7 @@ builder.Services.AddScoped<ErrorHandlingMiddleware>();
 // Data models validators
 builder.Services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
 builder.Services.AddScoped<IValidator<LoginUserDto>, LoginUserDtoValidator>();
+builder.Services.AddScoped<IValidator<PostMatchingDto>, PostMatchingDtoValidator>();
 
 // Configure Services
 builder.Services.AddScoped<IUserService, UserService>();

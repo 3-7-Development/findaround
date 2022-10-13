@@ -4,8 +4,10 @@ using AutoMapper;
 using findaroundAPI.Authorization;
 using findaroundAPI.Entities;
 using findaroundAPI.Exceptions;
+using findaroundAPI.Helpers;
 using findaroundShared.Models;
 using findaroundShared.Models.Dtos;
+using GeoCoordinatePortable;
 using LanguageExt.Common;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
@@ -278,7 +280,57 @@ namespace findaroundAPI.Services
 
         public Result<IEnumerable<Post>> MatchPosts(PostMatchingDto dto)
         {
-            throw new NotImplementedException();
+            var user = _dbContext.Users.FirstOrDefault(u => u.Id == _userContextService.GetUserId);
+
+            if (user is null)
+            {
+                var exception = new ArgumentException("User not found");
+                return new Result<IEnumerable<Post>>(exception);
+            }
+
+            var posts = _dbContext.Posts.Include(p => p.Images).AsEnumerable().Where(p =>
+                (EnumHelpers.ToPostCategory(p.Category) == dto.Category) &&
+                (p.Id == dto.Id || dto.Id == null) &&
+                (p.AuthorId == dto.AuthorId || dto.AuthorId == null) &&
+                //(p.Title.ToLower() == dto.Title.ToLower() || string.IsNullOrWhiteSpace(dto.Title)) &&
+                (p.Title.ToLower().Contains(dto.Title.ToLower()) || string.IsNullOrWhiteSpace(dto.Title)) &&
+                //(p.Description.ToLower() == dto.Description.ToLower() || string.IsNullOrWhiteSpace(dto.Description)) &&
+                (p.Description.ToLower().Contains(dto.Description.ToLower()) || string.IsNullOrWhiteSpace(dto.Description))
+            ).ToList();
+
+            if (posts is null || posts.Count == 0)
+                return new Result<IEnumerable<Post>>(new List<Post>());
+
+            var postsList = new List<Post>();
+            var postModel = new Post();
+
+            foreach (var post in posts) {
+                var postLocation = new GeoCoordinate(post.Latitude, post.Longitude);
+                var startSearchLocation = new GeoCoordinate(dto.Location.Latitude, dto.Location.Longitude);
+
+                var distanceFromUser = postLocation.GetDistanceTo(startSearchLocation);
+
+                if (distanceFromUser <= dto.Distance)
+                {
+                    postModel = _mapper.Map<Post>(post);
+                    postsList.Add(postModel);
+                }
+            }
+
+            return new Result<IEnumerable<Post>>(postsList);
+        }
+
+        private double GetPostDistance(PostLocation p1, PostLocation p2)
+        {
+            var d1 = p1.Latitude * (Math.PI / 180.00);
+            var d2 = p2.Latitude * (Math.PI / 180.00);
+
+            var num1 = p1.Longitude * (Math.PI / 180.00);
+            var num2 = p2.Longitude * (Math.PI / 180.00);
+
+            var d3 = Math.Pow(Math.Sin((d2 - d1) / 2.0), 2.0) + Math.Cos(d1) * Math.Cos(d2) * Math.Pow(Math.Sin(num2 / 2.0), 2.0);
+
+            return 6376500.0 * (2.0 * Math.Atan2(Math.Sqrt(d3), Math.Sqrt(1.0 - d3)));
         }
     }
 }

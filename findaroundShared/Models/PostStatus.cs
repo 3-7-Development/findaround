@@ -10,7 +10,8 @@ namespace findaroundShared.Models
         Ended,
         Banned,
         Hidden,
-        Removed
+        Removed,
+        Null
     }
 }
 

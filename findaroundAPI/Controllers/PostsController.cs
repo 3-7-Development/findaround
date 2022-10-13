@@ -3,6 +3,7 @@ using AutoMapper;
 using findaroundAPI.Entities;
 using findaroundAPI.Services;
 using findaroundShared.Models;
+using findaroundShared.Models.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -58,6 +59,14 @@ namespace findaroundAPI.Controllers
             var result = _postService.DeletePost(id);
 
             return result.GetResult();
+        }
+
+        [HttpPost("comments/match")]
+        public ActionResult<List<Post>> MatchPosts([FromBody] PostMatchingDto dto)
+        {
+            var result = _postService.MatchPosts(dto);
+
+            return result.ToList();
         }
 
         [HttpGet("comments/{postId}")]
