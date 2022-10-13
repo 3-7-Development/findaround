@@ -54,9 +54,14 @@
 	  <None Remove="Views\" />
 	  <None Remove="Models\" />
 	  <None Remove="ViewModels\" />
+	  <None Remove="Configuration\" />
+	  <None Remove="Utilities\" />
+	  <None Remove="Configuration\ServerConfig.json" />
+	  <None Remove="MonkeyCache.FileStore" />
 	</ItemGroup>
 	<ItemGroup>
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+	  <PackageReference Include="MonkeyCache.FileStore" Version="1.6.3" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\findaroundShared\findaroundShared.csproj" />
@@ -66,5 +71,10 @@
 	  <Folder Include="Views\" />
 	  <Folder Include="Models\" />
 	  <Folder Include="ViewModels\" />
+	  <Folder Include="Configuration\" />
+	  <Folder Include="Utilities\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <EmbeddedResource Include="Configuration\ServerConfig.json" />
 	</ItemGroup>
 </Project>
