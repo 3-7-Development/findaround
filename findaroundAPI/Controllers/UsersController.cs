@@ -47,26 +47,26 @@ namespace findaroundAPI.Controllers
 		[AllowAnonymous]
 		public ActionResult RegisterUser([FromBody] RegisterUserDto dto)
 		{
-			_userService.RegisterUser(dto);
+			var result = _userService.RegisterUser(dto);
 
-			return Ok();
+			return result.GetResult();
 		}
 
 		[HttpPost("login")]
 		[AllowAnonymous]
-		public ActionResult<string> LogInUser([FromBody] LoginUserDto dto)
+		public ActionResult LogInUser([FromBody] LoginUserDto dto)
 		{
-			var token = _userService.LogInUser(dto);
+			var result = _userService.LogInUser(dto);
 
-			return Ok(token);
+			return result.GetResult();
 		}
 
 		[HttpPost("logout/{id}")]
 		public ActionResult LogOutUser([FromRoute] int id)
 		{
-			_userService.LogOutUser(id);
+			var result = _userService.LogOutUser(id);
 
-			return Ok();
+			return result.GetResult();
 		}
 	}
 }

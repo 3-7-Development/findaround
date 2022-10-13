@@ -8,6 +8,7 @@ using findaroundAPI.Exceptions;
 using findaroundAPI.Utilities;
 using findaroundShared.Models;
 using findaroundShared.Models.Dtos;
+using LanguageExt.Common;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 
@@ -29,7 +30,7 @@ namespace findaroundAPI.Services
             _userContextService = userContextService;
         }
 
-        public void RegisterUser(RegisterUserDto dto)
+        public Result<int> RegisterUser(RegisterUserDto dto)
         {
             var userPasswordData = PasswordsUtilities.HashPassword(dto.Password);
 
@@ -46,19 +47,27 @@ namespace findaroundAPI.Services
 
             _dbContext.Users.Add(user);
             _dbContext.SaveChanges();
+
+            return new Result<int>(1);
         }
 
-        public string LogInUser(LoginUserDto dto)
+        public Result<string> LogInUser(LoginUserDto dto)
         {
             var user = _dbContext.Users.FirstOrDefault(u => u.Login == dto.Login);
 
             if (user is null)
-                throw new LoginUserException("User not found");
+            {
+                var exception = new LoginUserException("User not found");
+                return new Result<string>(exception);
+            }
 
             var arePasswordsEqual = PasswordsUtilities.ArePasswordsEqual(user, dto.Password);
 
             if (!arePasswordsEqual)
-                throw new LoginUserException("Invalid password");
+            {
+                var exception = new LoginUserException("Invalid password");
+                return new Result<string>(exception);
+            }
 
             var token = GenerateJwtToken(user);
 
@@ -66,7 +75,7 @@ namespace findaroundAPI.Services
             _dbContext.Users.Update(user);
             _dbContext.SaveChanges();
 
-            return token;
+            return new Result<string>(token);
         }
 
         private string GenerateJwtToken(UserEntity user)
@@ -92,19 +101,27 @@ namespace findaroundAPI.Services
             return tokenHandler.WriteToken(token);
         }
 
-        public void LogOutUser(int id)
+        public Result<string> LogOutUser(int id)
         {
             var user = _dbContext.Users.FirstOrDefault(u => u.Id == id);
 
             if (user is null)
-                throw new ArgumentException("Cannot log out");
+            {
+                var exception = new ArgumentException("Cannot log out");
+                return new Result<string>(exception);
+            }
 
             if (!user.LoggedIn)
-                throw new ArgumentException("Something went wrong");
+            {
+                var exception = new ArgumentException("Something went wrong");
+                return new Result<string>(exception);
+            }
 
             user.LoggedIn = false;
             _dbContext.Users.Update(user);
             _dbContext.SaveChanges();
+
+            return new Result<string>("Success");
         }
     }
 }

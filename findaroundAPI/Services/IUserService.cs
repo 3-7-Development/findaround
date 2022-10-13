@@ -1,13 +1,14 @@
 ﻿using System;
 using findaroundShared.Models.Dtos;
+using LanguageExt.Common;
 
 namespace findaroundAPI.Services
 {
 	public interface IUserService
 	{
-		void RegisterUser(RegisterUserDto dto);
-		string LogInUser(LoginUserDto dto);
-		void LogOutUser(int id);
+		Result<int> RegisterUser(RegisterUserDto dto);
+		Result<string> LogInUser(LoginUserDto dto);
+		Result<string> LogOutUser(int id);
 	}
 }
 
