@@ -1,20 +1,21 @@
 ﻿using System;
 using findaroundShared.Models;
 using findaroundShared.Models.Dtos;
+using LanguageExt.Common;
 
 namespace findaroundAPI.Services
 {
 	public interface IPostService
 	{
-		int AddPost(Post post);
-		void DeletePost(int postId);
-		Post GetPost(int postId);
-		IEnumerable<Post> GetUserPosts();
-		IEnumerable<Post> GetAllPosts();
-		IEnumerable<Post> MatchPosts(PostMatchingDto dto);
-		void AddPostComment(Comment comment);
-		void DeletePostComment(int commentId);
-		IEnumerable<Comment> GetPostComments(int postId);
+		Result<int> AddPost(Post post);
+        Result<string> DeletePost(int postId);
+		Result<Post> GetPost(int postId);
+		Result<IEnumerable<Post>> GetUserPosts();
+		Result<IEnumerable<Post>> GetAllPosts();
+		Result<IEnumerable<Post>> MatchPosts(PostMatchingDto dto);
+        Result<string> AddPostComment(Comment comment);
+        Result<string> DeletePostComment(int commentId);
+		Result<IEnumerable<Comment>> GetPostComments(int postId);
 	}
 }
 

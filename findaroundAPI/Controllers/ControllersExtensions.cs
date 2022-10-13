@@ -1,6 +1,7 @@
 ﻿using System;
 using findaroundAPI.Exceptions;
 using LanguageExt.Common;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace findaroundAPI.Controllers
@@ -14,20 +15,46 @@ namespace findaroundAPI.Controllers
                 return new OkObjectResult(result.ToString());
             }, exception =>
             {
-                var statusCode = 500;
-                switch (exception)
-                {
-                    case LoginUserException e:
-                        statusCode = 400;
-                        break;
-
-                    case ArgumentException e:
-                        statusCode = 403;
-                        break;
-                }
-
+                var statusCode = GetStatusCode(exception);
                 return new StatusCodeResult(statusCode);
             });
+        }
+
+        public static ActionResult ToList<TResult>(this Result<TResult> result) {
+            return result.Match<ActionResult>(b =>
+            {
+                return new OkObjectResult(b);
+            }, exception =>
+            {
+                var statusCode = GetStatusCode(exception);
+                return new StatusCodeResult(statusCode);
+            });
+        }
+
+        private static int GetStatusCode(Exception exception)
+        {
+            var statusCode = 500;
+
+            switch (exception)
+            {
+                case LoginUserException e:
+                    statusCode = 400;
+                    break;
+
+                case UserNotLoggedInException e:
+                    statusCode = 400;
+                    break;
+
+                case ForbidException e:
+                    statusCode = 403;
+                    break;
+
+                case ArgumentException e:
+                    statusCode = 400;
+                    break;
+            }
+
+            return statusCode;
         }
 	}
 }
