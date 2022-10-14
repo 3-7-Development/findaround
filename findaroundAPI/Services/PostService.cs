@@ -288,13 +288,12 @@ namespace findaroundAPI.Services
                 return new Result<IEnumerable<Post>>(exception);
             }
 
-            var posts = _dbContext.Posts.Include(p => p.Images).AsEnumerable().Where(p =>
+            var posts = _dbContext.Posts.Include(p => p.Author).Include(p => p.Images).AsEnumerable().Where(p =>
                 (EnumHelpers.ToPostCategory(p.Category) == dto.Category) &&
                 (p.Id == dto.Id || dto.Id == null) &&
                 (p.AuthorId == dto.AuthorId || dto.AuthorId == null) &&
-                //(p.Title.ToLower() == dto.Title.ToLower() || string.IsNullOrWhiteSpace(dto.Title)) &&
+                (p.Author.Login == dto.AuthorName || string.IsNullOrWhiteSpace(dto.AuthorName)) &&
                 (p.Title.ToLower().Contains(dto.Title.ToLower()) || string.IsNullOrWhiteSpace(dto.Title)) &&
-                //(p.Description.ToLower() == dto.Description.ToLower() || string.IsNullOrWhiteSpace(dto.Description)) &&
                 (p.Description.ToLower().Contains(dto.Description.ToLower()) || string.IsNullOrWhiteSpace(dto.Description))
             ).ToList();
 

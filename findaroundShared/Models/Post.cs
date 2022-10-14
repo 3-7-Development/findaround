@@ -13,6 +13,7 @@ namespace findaroundShared.Models
         public PostLocation Location { get; set; }
 		public List<PostImage> Images { get; set; }
 		public int AuthorId { get; set; }
+		public string AuthorName { get; set; }
 	}
 }
 

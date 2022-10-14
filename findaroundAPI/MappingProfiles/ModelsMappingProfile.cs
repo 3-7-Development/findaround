@@ -40,7 +40,8 @@ namespace findaroundAPI.MappingProfiles
 					Path = x.Image
 				})))
 				.ForMember(p => p.Status, mp => mp.MapFrom(e => EnumHelpers.ToPostStatus(e.Status)))
-                .ForMember(p => p.Category, mp => mp.MapFrom(e => EnumHelpers.ToPostCategory(e.Category)));
+                .ForMember(p => p.Category, mp => mp.MapFrom(e => EnumHelpers.ToPostCategory(e.Category)))
+				.ForMember(p => p.AuthorName, mp => mp.MapFrom(e => e.Author.Login));
 
 			CreateMap<PostsImagesEntity, PostImage>()
 				.ForMember(p => p.Path, mp => mp.MapFrom(e => e.Image));

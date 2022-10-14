@@ -11,6 +11,7 @@ namespace findaroundShared.Models.Dtos
         public PostLocation Location { get; set; }
         public double Distance { get; set; }
         public int? AuthorId { get; set; }
+        public string AuthorName { get; set; }
     }
 }
 
