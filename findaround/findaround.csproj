@@ -61,6 +61,7 @@
 	  <None Remove="Refractored.MvvmHelpers" />
 	  <None Remove="CommunityToolkit.Mvvm" />
 	  <None Remove="CommunityToolkit.Maui" />
+	  <None Remove="Helpers\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
@@ -79,6 +80,7 @@
 	  <Folder Include="ViewModels\" />
 	  <Folder Include="Configuration\" />
 	  <Folder Include="Utilities\" />
+	  <Folder Include="Helpers\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <EmbeddedResource Include="Configuration\ServerConfig.json" />

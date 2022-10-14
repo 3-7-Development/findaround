@@ -8,7 +8,7 @@ namespace findaround.Utilities
 {
 	public static class BackendUtilities
 	{
-		public static string GetBaseServerUrl()
+		public static Uri GetBaseServerUrl()
 		{
 			Assembly assembly = Assembly.GetExecutingAssembly();
 			string json = string.Empty;
@@ -25,10 +25,22 @@ namespace findaround.Utilities
 
 			var url = config.Remote + config.Port;
 
-			return url;
+			return new Uri(url);
 		}
 
-		public static void SetToken(string token)
+		public static HttpClient ProduceHttpClient()
+		{
+			var handler = new HttpClientHandler()
+			{
+				ClientCertificateOptions = ClientCertificateOption.Manual,
+				UseDefaultCredentials = true
+			};
+
+			var client = new HttpClient(handler);
+			return client;
+		}
+
+		public static void SaveToken(string token)
 		{
 			if (!string.IsNullOrWhiteSpace(token))
 				Barrel.Current.Add("UserToken", token, TimeSpan.FromDays(14));
