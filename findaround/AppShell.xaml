@@ -3,13 +3,28 @@
     x:Class="findaround.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:findaround"
+    xmlns:local="clr-namespace:findaround.Views"
     Shell.FlyoutBehavior="Disabled">
 
-    <ShellContent
+    <Shell.Items>
+        <ShellContent
         Title="Home"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
+
+    </Shell.Items>
+
+    <Tab Title="CategoriesPage" Icon="icon_about.png">
+        <ShellContent Route="CategoriesPage" ContentTemplate="{DataTemplate local:CategoriesPage}"/>
+    </Tab>
+
+    <Tab Title="NewPostPage" Icon="icon_about.png">
+        <ShellContent Route="NewPostPage" ContentTemplate="{DataTemplate local:NewPostPage}"/>
+    </Tab>
+
+    <Tab Title="ProfilePage" Icon="icon_about.png">
+        <ShellContent Route="ProfilePage" ContentTemplate="{DataTemplate local:ProfilePage}"/>
+    </Tab>
 
 </Shell>
 

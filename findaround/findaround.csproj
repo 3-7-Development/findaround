@@ -58,10 +58,16 @@
 	  <None Remove="Utilities\" />
 	  <None Remove="Configuration\ServerConfig.json" />
 	  <None Remove="MonkeyCache.FileStore" />
+	  <None Remove="Refractored.MvvmHelpers" />
+	  <None Remove="CommunityToolkit.Mvvm" />
+	  <None Remove="CommunityToolkit.Maui" />
 	</ItemGroup>
 	<ItemGroup>
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 	  <PackageReference Include="MonkeyCache.FileStore" Version="1.6.3" />
+	  <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
+	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
+	  <PackageReference Include="CommunityToolkit.Maui" Version="1.3.0" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\findaroundShared\findaroundShared.csproj" />
@@ -76,5 +82,31 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <EmbeddedResource Include="Configuration\ServerConfig.json" />
+	</ItemGroup>
+	<ItemGroup>
+	  <MauiXaml Update="Views\RegisterPage.xaml">
+	    <SubType></SubType>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\LoginPage.xaml">
+	    <SubType></SubType>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\MainPage.xaml">
+	    <SubType></SubType>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\CategoriesPage.xaml">
+	    <SubType></SubType>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\ProfilePage.xaml">
+	    <SubType></SubType>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\PostDetailsPage.xaml">
+	    <SubType></SubType>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\NewPostPage.xaml">
+	    <SubType></SubType>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\ContactsPage.xaml">
+	    <SubType></SubType>
+	  </MauiXaml>
 	</ItemGroup>
 </Project>

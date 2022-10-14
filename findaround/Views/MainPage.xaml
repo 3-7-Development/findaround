@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewmodels="clr-namespace:findaround.ViewModels"
+             xmlns:models="clr-namespace:findaroundShared.Models;assembly=findaroundShared"
+             x:Class="findaround.Views.MainPage"
+             x:DataType="viewmodels:MainPageViewModel"
+             Title="{Binding Title}">
+
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior
+            EventName="Appearing"
+            Command="{Binding RefreshCommand}"/>
+    </ContentPage.Behaviors>
+
+    <VerticalStackLayout>
+
+        <CollectionView ItemsSource="{Binding Posts}"
+                        SelectionMode="None"
+                        HorizontalOptions="Center"
+                        BackgroundColor="GreenYellow"
+                        HeightRequest="630">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <VerticalStackLayout x:DataType="models:Post"
+                                           HorizontalOptions="Center"
+                                           Margin="0,30">
+                        <Label Text="{Binding Title}" FontAttributes="Bold" FontSize="26"/>
+                        <Label Text="Description:" FontAttributes="Bold" FontSize="21"/>
+                        <Label Text="{Binding Description}" FontSize="15"
+                               Margin="0,0,0,30"/>
+                        <Label Text="{Binding Location.Latitude, StringFormat='Latitude: {0}'}"/>
+                        <Label Text="{Binding Location.Longitude, StringFormat='Longitude: {0}'}"/>
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <HorizontalStackLayout VerticalOptions="EndAndExpand"
+                               HorizontalOptions="Center"
+                               Margin="0,20,0,0">
+            <Button Text="Categories"
+                    HorizontalOptions="Center"
+                    Margin="20,0"
+                    Command="{Binding GoToCategoriesCommand}"/>
+
+            <Button Text="NewPost"
+                    HorizontalOptions="Center"
+                    Margin="20,0"
+                    Command="{Binding CreateNewPostCommand}"/>
+
+            <Button Text="Profile"
+                    HorizontalOptions="Center"
+                    Margin="20,0"
+                    Command="{Binding GoToProfileCommand}"/>
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>
