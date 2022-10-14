@@ -12,7 +12,7 @@ namespace findaround.ViewModels
 
 		List<Post> posts;
 		public List<Post> Posts { get => posts; set => SetProperty(ref posts, value); }
-
+		
 		public MainPageViewModel(IPostService postService)
 		{
 			_postService = postService;
@@ -20,7 +20,9 @@ namespace findaround.ViewModels
 			Title = "MainPage";
 
 			Posts = new List<Post>();
-		}
+			
+
+        }
 
 		[RelayCommand]
 		async Task Refresh()
@@ -46,5 +48,6 @@ namespace findaround.ViewModels
 			await Shell.Current.GoToAsync(nameof(CategoriesPage));
 		}
 	}
+
 }
 
