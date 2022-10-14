@@ -26,7 +26,7 @@ namespace findaroundAPI.Controllers
         {
             var result = _postService.GetAllPosts();
 
-            return result.ToList();
+            return result.GetResult();
         }
 
         [HttpGet("get/{postId}")]
@@ -42,7 +42,7 @@ namespace findaroundAPI.Controllers
         {
             var result = _postService.GetUserPosts();
 
-            return result.ToList();
+            return result.GetResult();
         }
 
         [HttpPost]
@@ -66,7 +66,7 @@ namespace findaroundAPI.Controllers
         {
             var result = _postService.MatchPosts(dto);
 
-            return result.ToList();
+            return result.GetResult();
         }
 
         [HttpGet("comments/{postId}")]
@@ -74,7 +74,7 @@ namespace findaroundAPI.Controllers
         {
             var result = _postService.GetPostComments(postId);
 
-            return result.ToList();
+            return result.GetResult();
         }
 
         [HttpPost("comments")]

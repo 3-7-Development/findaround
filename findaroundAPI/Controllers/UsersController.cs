@@ -61,10 +61,26 @@ namespace findaroundAPI.Controllers
 			return result.GetResult();
 		}
 
-		[HttpPost("logout/{id}")]
+		[HttpGet("logout/{id}")]
 		public ActionResult LogOutUser([FromRoute] int id)
 		{
 			var result = _userService.LogOutUser(id);
+
+			return result.GetResult();
+		}
+
+		[HttpGet("basicinfo/{userId}")]
+		public ActionResult<User> GetUserBasicInfo([FromRoute] int userId)
+		{
+			var result = _userService.GetUserBasicInfo(userId);
+
+			return result.GetResult();
+		}
+
+		[HttpGet("getlogin/{userId}")]
+		public ActionResult<string> GetUserLogin([FromRoute] int userId)
+		{
+			var result = _userService.GetUserLogin(userId);
 
 			return result.GetResult();
 		}

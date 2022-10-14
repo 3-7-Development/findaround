@@ -2,6 +2,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using AutoMapper;
 using findaroundAPI.Config;
 using findaroundAPI.Entities;
 using findaroundAPI.Exceptions;
@@ -17,14 +18,16 @@ namespace findaroundAPI.Services
 	public class UserService : IUserService
 	{
         readonly DatabaseContext _dbContext;
+        readonly IMapper _mapper;
         readonly AuthenticationSettings _authenticationSettings;
         readonly IAuthorizationService _authorizationService;
         readonly IUserContextService _userContextService;
 
-        public UserService(DatabaseContext dbContext, AuthenticationSettings authenticationSettings,
+        public UserService(DatabaseContext dbContext, IMapper mapper, AuthenticationSettings authenticationSettings,
             IAuthorizationService authorizationService, IUserContextService userContextService)
 		{
             _dbContext = dbContext;
+            _mapper = mapper;
             _authenticationSettings = authenticationSettings;
             _authorizationService = authorizationService;
             _userContextService = userContextService;
@@ -122,6 +125,34 @@ namespace findaroundAPI.Services
             _dbContext.SaveChanges();
 
             return new Result<string>("Success");
+        }
+
+        public Result<User> GetUserBasicInfo(int userId)
+        {
+            var user = _dbContext.Users.FirstOrDefault(u => u.Id == userId);
+
+            if (user is null)
+            {
+                var exception = new ArgumentException("User not found");
+                return new Result<User>(exception);
+            }
+
+            var userModel = _mapper.Map<User>(user);
+
+            return userModel;
+        }
+
+        public Result<string> GetUserLogin(int userId)
+        {
+            var user = _dbContext.Users.FirstOrDefault(u => u.Id == userId);
+
+            if (user is null)
+            {
+                var exception = new ArgumentException("User not found");
+                return new Result<string>(exception);
+            }
+
+            return user.Login;
         }
     }
 }

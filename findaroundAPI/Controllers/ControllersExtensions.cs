@@ -12,17 +12,6 @@ namespace findaroundAPI.Controllers
 		{
             return result.Match<ActionResult>(b =>
             {
-                return new OkObjectResult(result.ToString());
-            }, exception =>
-            {
-                var statusCode = GetStatusCode(exception);
-                return new StatusCodeResult(statusCode);
-            });
-        }
-
-        public static ActionResult ToList<TResult>(this Result<TResult> result) {
-            return result.Match<ActionResult>(b =>
-            {
                 return new OkObjectResult(b);
             }, exception =>
             {
