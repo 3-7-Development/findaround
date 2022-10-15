@@ -17,7 +17,9 @@ namespace findaround.ViewModels
 		{
 			_postService = postService;
 
-			Title = "MainPage";
+			double height = DeviceDisplay.Current.MainDisplayInfo.Height/ DeviceDisplay.Current.MainDisplayInfo.Density ;
+
+            Title = height.ToString();
 
 			Posts = new List<Post>();
 			
