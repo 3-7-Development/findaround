@@ -165,7 +165,7 @@ namespace findaround.Services
 
             try
             {
-                await _client.GetAsync($"api/v1/findaround/posts");
+                response = await _client.GetAsync($"api/v1/findaround/posts");
             }
             catch (HttpRequestException e)
             {

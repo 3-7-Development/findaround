@@ -60,6 +60,8 @@ namespace findaround.Services
                 return false;
 
             var token = await response.Content.ReadAsStringAsync();
+            token = token.Replace("\"", string.Empty);
+
             BackendUtilities.SaveToken(token);
             return true;
         }
@@ -69,12 +71,11 @@ namespace findaround.Services
             _client.SetBaseUrl();
             _client.SetAuthenticationToken();
 
-            var userId = UserHelpers.CurrentUser.Id;
             var response = new HttpResponseMessage();
 
             try
             {
-                response = await _client.GetAsync($"api/v1/findaround/users/logout/{userId}");
+                response = await _client.GetAsync($"api/v1/findaround/users/logout");
             }
             catch (HttpRequestException e)
             {

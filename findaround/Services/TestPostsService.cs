@@ -4,7 +4,7 @@ using findaroundShared.Models.Dtos;
 
 namespace findaround.Services
 {
-	public class TestPostsService : IPostService
+	public class TestPostsService 
 	{
 		public TestPostsService()
 		{
