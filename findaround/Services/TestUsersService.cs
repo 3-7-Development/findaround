@@ -10,6 +10,16 @@ namespace findaround.Services
 		{
 		}
 
+        public Task<User> GetBasicInfoAboutYourself()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<User> GetUserBasicData(int userId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<User> GetUserData(int userId)
         {
             throw new NotImplementedException();

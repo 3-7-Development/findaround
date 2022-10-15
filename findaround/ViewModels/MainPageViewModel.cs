@@ -8,26 +8,28 @@ namespace findaround.ViewModels
 {
 	public partial class MainPageViewModel : ViewModelBase
 	{
+		readonly IUserService _userService;
 		readonly IPostService _postService;
 
 		List<Post> posts;
 		public List<Post> Posts { get => posts; set => SetProperty(ref posts, value); }
 		
-		public MainPageViewModel(IPostService postService)
+		public MainPageViewModel(IUserService userService, IPostService postService)
 		{
+			_userService = userService;
 			_postService = postService;
 
 			Title = "MainPage";
 
 			Posts = new List<Post>();
-			
-
         }
 
 		[RelayCommand]
 		async Task Refresh()
 		{
+			IsBusy = true;
 			Posts = await _postService.GetUserPosts(1);
+			IsBusy = false;
 		}
 
 		[RelayCommand]
@@ -46,6 +48,25 @@ namespace findaround.ViewModels
 		async Task GoToCategories()
 		{
 			await Shell.Current.GoToAsync(nameof(CategoriesPage));
+		}
+
+		[RelayCommand]
+		async Task Logout()
+		{
+			IsBusy = true;
+
+			var isLoggedOut = await _userService.LogOutUser();
+
+			if (!isLoggedOut)
+			{
+				await Shell.Current.DisplayAlert("Cannot log out", "Please try again", "OK");
+				IsBusy = false;
+			}
+			else
+			{
+				IsBusy = false;
+				await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
+			}
 		}
 	}
 

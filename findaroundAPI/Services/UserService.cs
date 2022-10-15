@@ -142,6 +142,21 @@ namespace findaroundAPI.Services
             return userModel;
         }
 
+        public Result<User> GetInfoAboutYourself()
+        {
+            var user = _dbContext.Users.FirstOrDefault(u => u.Id == _userContextService.GetUserId);
+
+            if (user is null)
+            {
+                var exception = new ArgumentException("Cannot find user");
+                return new Result<User>(exception);
+            }
+
+            var userModel = _mapper.Map<User>(user);
+
+            return userModel;
+        }
+
         public Result<string> GetUserLogin(int userId)
         {
             var user = _dbContext.Users.FirstOrDefault(u => u.Id == userId);

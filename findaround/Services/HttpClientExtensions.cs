@@ -8,13 +8,14 @@ namespace findaround.Services
 	{
 		public static void SetAuthenticationToken(this HttpClient client)
 		{
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Utilities.BackendUtilities.GetToken());
+			var token = BackendUtilities.GetToken();
+			client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         }
 
-		public static async Task SetBaseUrl(this HttpClient client)
-		{
-			client.BaseAddress = await BackendUtilities.GetBaseUrlAsync();
-		}
+		//public static void SetBaseUrl(this HttpClient client)
+		//{
+		//	client.BaseAddress = BackendUtilities.GetBaseUrlAsync().Result;
+		//}
 	}
 }
 

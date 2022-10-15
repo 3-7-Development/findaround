@@ -16,28 +16,26 @@
     </ContentPage.Behaviors>
 
     <StackLayout>
-
         <Grid ColumnDefinitions="*"
               RowDefinitions="61,*,60"
-                    HeightRequest="630"      
-              >
+              HeightRequest="630">
 
 
+            <Grid Grid.Row="0" Grid.Column="0"
+                ColumnDefinitions="45,*"
+                BackgroundColor="#2D2C2C"
+                RowDefinitions="45"
+                Padding="8">
 
-            <Grid
-            Grid.Row="0"
-            Grid.Column="0"
-            ColumnDefinitions="45,*"
-            BackgroundColor="#2D2C2C"
-            RowDefinitions="45"
-            Padding="8"
-            >
                 <Image Source="findaround.svg"
-                Grid.Column="0"
-                  />
+                       Grid.Column="0"/>
             </Grid>
 
-
+            <Button Text="Logout"
+                    Command="{Binding LogoutCommand}"
+                    WidthRequest="100"
+                    HeightRequest="40"
+                    IsEnabled="{Binding IsNotBusy}"/>
 
 
             <CollectionView 

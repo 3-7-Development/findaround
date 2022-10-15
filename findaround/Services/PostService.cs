@@ -2,6 +2,7 @@
 using findaround.Utilities;
 using findaroundShared.Models;
 using findaroundShared.Models.Dtos;
+using MonkeyCache.FileStore;
 using Newtonsoft.Json;
 
 namespace findaround.Services
@@ -9,17 +10,16 @@ namespace findaround.Services
 	public class PostService : IPostService
 	{
         readonly HttpClient _client;
-        //readonly Uri _baseUrl = BackendUtilities.SetBaseServerUrlAsync();
+        readonly Uri _baseUrl = new Uri(Barrel.Current.Get<string>("BaseURL"));
 
-		public PostService()
+        public PostService()
 		{
             _client = BackendUtilities.ProduceHttpClient();
-            //_client.BaseAddress = _baseUrl;
-		}
+            _client.BaseAddress = _baseUrl;
+        }
 
         public async Task<bool> AddPost(Post post)
         {
-            await _client.SetBaseUrl();
             _client.SetAuthenticationToken();
 
             var content = this.GetRequestContent(post);
@@ -42,7 +42,6 @@ namespace findaround.Services
 
         public async Task<bool> AddPostComment(Comment comment)
         {
-            await _client.SetBaseUrl();
             _client.SetAuthenticationToken();
 
             var content = this.GetRequestContent(comment);
@@ -65,7 +64,6 @@ namespace findaround.Services
 
         public async Task<bool> DeletePost(int postId)
         {
-            await _client.SetBaseUrl();
             _client.SetAuthenticationToken();
 
             var response = new HttpResponseMessage();
@@ -87,7 +85,6 @@ namespace findaround.Services
 
         public async Task<bool> DeletePostComment(int commentId)
         {
-            await _client.SetBaseUrl();
             _client.SetAuthenticationToken();
 
             var response = new HttpResponseMessage();
@@ -109,7 +106,6 @@ namespace findaround.Services
 
         public async Task<Post> GetPost(int postId)
         {
-            await _client.SetBaseUrl();
             _client.SetAuthenticationToken();
 
             var response = new HttpResponseMessage();
@@ -134,7 +130,6 @@ namespace findaround.Services
 
         public async Task<List<Comment>> GetPostComments(int postId)
         {
-            await _client.SetBaseUrl();
             _client.SetAuthenticationToken();
 
             var response = new HttpResponseMessage();
@@ -159,7 +154,6 @@ namespace findaround.Services
 
         public async Task<List<Post>> GetUserPosts(int userId)
         {
-            await _client.SetBaseUrl();
             _client.SetAuthenticationToken();
 
             var response = new HttpResponseMessage();
@@ -184,7 +178,6 @@ namespace findaround.Services
 
         public async Task<List<Post>> MatchPosts(PostMatchingDto dto)
         {
-            await _client.SetBaseUrl();
             _client.SetAuthenticationToken();
 
             var content = this.GetRequestContent(dto);

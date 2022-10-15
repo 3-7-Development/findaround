@@ -9,7 +9,8 @@ namespace findaround.Services
 		Task<bool> RegisterUser(RegisterUserDto dto);
 		Task<bool> LogInUser(LoginUserDto dto);
 		Task<bool> LogOutUser();
-		Task<User> GetUserData(int userId);
+		Task<User> GetUserBasicData(int userId);
+		Task<User> GetBasicInfoAboutYourself();
 		Task<string> GetUserLogin(int userId);
 	}
 }

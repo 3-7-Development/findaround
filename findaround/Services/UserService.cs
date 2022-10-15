@@ -4,6 +4,7 @@ using findaround.Helpers;
 using findaround.Utilities;
 using findaroundShared.Models;
 using findaroundShared.Models.Dtos;
+using MonkeyCache.FileStore;
 using Newtonsoft.Json;
 
 namespace findaround.Services
@@ -11,18 +12,16 @@ namespace findaround.Services
 	public class UserService : IUserService
 	{
 		readonly HttpClient _client;
-		//readonly Uri _baseUrl = BackendUtilities.GetBaseServerUrlAsync().Result;
+		readonly Uri _baseUrl = new Uri(Barrel.Current.Get<string>("BaseURL"));
 
-		public UserService()
+        public UserService()
 		{
 			_client = BackendUtilities.ProduceHttpClient();
-			//_client.BaseAddress = _baseUrl;
+            _client.BaseAddress = _baseUrl;
 		}
 
         public async Task<bool> RegisterUser(RegisterUserDto dto)
         {
-            await _client.SetBaseUrl();
-
             var content = this.GetRequestContent(dto);
             var response = new HttpResponseMessage();
 
@@ -43,8 +42,6 @@ namespace findaround.Services
 
         public async Task<bool> LogInUser(LoginUserDto dto)
         {
-            await _client.SetBaseUrl();
-
             var content = this.GetRequestContent(dto);
             var response = new HttpResponseMessage();
 
@@ -67,7 +64,6 @@ namespace findaround.Services
 
         public async Task<bool> LogOutUser()
         {
-            await _client.SetBaseUrl();
             _client.SetAuthenticationToken();
 
             var userId = UserHelpers.CurrentUser.Id;
@@ -88,9 +84,8 @@ namespace findaround.Services
             return false;
         }
 
-        public async Task<User> GetUserData(int userId)
+        public async Task<User> GetUserBasicData(int userId)
         {
-            await _client.SetBaseUrl();
             _client.SetAuthenticationToken();
 
             var response = new HttpResponseMessage();
@@ -113,9 +108,32 @@ namespace findaround.Services
             return user;
         }
 
+        public async Task<User> GetBasicInfoAboutYourself()
+        {
+            _client.SetAuthenticationToken();
+
+            var response = new HttpResponseMessage();
+
+            try
+            {
+                response = await _client.GetAsync("api/v1/findaround/users/basicinfo/self");
+            }
+            catch (HttpRequestException e)
+            {
+                return null;
+            }
+
+            if (!response.IsSuccessStatusCode)
+                return null;
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var user = JsonConvert.DeserializeObject<User>(responseContent);
+
+            return user;
+        }
+
         public async Task<string> GetUserLogin(int userId)
         {
-            await _client.SetBaseUrl();
             _client.SetAuthenticationToken();
 
             var response = new HttpResponseMessage();

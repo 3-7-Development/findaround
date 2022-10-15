@@ -12,7 +12,8 @@ namespace findaroundAPI.Services
 		Result<string> LogInUser(LoginUserDto dto);
 		Result<string> LogOutUser(int id);
 		Result<User> GetUserBasicInfo(int userId);
+		Result<User> GetInfoAboutYourself();
 		Result<string> GetUserLogin(int userId);
-	}
+    }
 }
 

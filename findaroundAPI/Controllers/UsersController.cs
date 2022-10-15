@@ -77,6 +77,14 @@ namespace findaroundAPI.Controllers
 			return result.GetResult();
 		}
 
+		[HttpGet("basicinfo/self")]
+		public ActionResult<User> GetBasicInfoAboutYourself()
+		{
+			var result = _userService.GetInfoAboutYourself();
+
+			return result.GetResult();
+		}
+
 		[HttpGet("getlogin/{userId}")]
 		public ActionResult<string> GetUserLogin([FromRoute] int userId)
 		{

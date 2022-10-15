@@ -3,14 +3,13 @@ using findaround.Configuration;
 using System.Reflection;
 using Newtonsoft.Json;
 using MonkeyCache.FileStore;
-using NgrokApi;
 using System.Diagnostics;
 
 namespace findaround.Utilities
 {
 	public static class BackendUtilities
 	{
-		public static async Task<Uri> GetBaseUrlAsync()
+		public static async Task GetBaseUrlAsync()
 		{
             Assembly assembly = Assembly.GetExecutingAssembly();
             string json = string.Empty;
@@ -46,7 +45,10 @@ namespace findaround.Utilities
 
             var url = responseContent.Substring(start, length);
 
-            return new Uri(url);
+            if (string.IsNullOrWhiteSpace(url))
+                url = "";
+
+            Barrel.Current.Add("BaseURL", url, TimeSpan.FromDays(7));
 		}
 
 		public static HttpClient ProduceHttpClient()
@@ -58,13 +60,35 @@ namespace findaround.Utilities
 			};
 
 			var client = new HttpClient(handler);
-			return client;
+            client.DefaultRequestHeaders.Add("Accept", "application/json");
+            return client;
 		}
+
+        public async static Task<HttpClient> GetClient()
+        {
+            var handler = new HttpClientHandler()
+            {
+                ClientCertificateOptions = ClientCertificateOption.Manual,
+                UseDefaultCredentials = true
+            };
+
+            var client = new HttpClient(handler);
+
+            client.DefaultRequestHeaders.Add("Accept", "application/json");
+            client.BaseAddress = await BackendUtilities.GetBaseUrlAsync();
+
+            return client;
+        }
 
 		public static void SaveToken(string token)
 		{
 			if (!string.IsNullOrWhiteSpace(token))
+            {
+                if (Barrel.Current.Exists("UserToken"))
+                    Barrel.Current.Empty("UserToken");
+
 				Barrel.Current.Add("UserToken", token, TimeSpan.FromDays(14));
+            }
 		}
 
 		public static string GetToken()
