@@ -28,7 +28,7 @@ namespace findaround.ViewModels
 		async Task Refresh()
 		{
 			IsBusy = true;
-			Posts = await _postService.GetUserPosts(1);
+			Posts = await _postService.GetUserPosts();
 			IsBusy = false;
 		}
 

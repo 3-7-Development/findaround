@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Http.Headers;
 using findaround.Utilities;
+using MonkeyCache.FileStore;
 
 namespace findaround.Services
 {
@@ -12,10 +13,14 @@ namespace findaround.Services
 			client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         }
 
-		//public static void SetBaseUrl(this HttpClient client)
-		//{
-		//	client.BaseAddress = BackendUtilities.GetBaseUrlAsync().Result;
-		//}
+		public static void SetBaseUrl(this HttpClient client)
+		{
+			if (client.BaseAddress is null)
+			{
+                var address = Barrel.Current.Get<string>("BasicURL");
+                client.BaseAddress = new Uri(address);
+            }			
+		}
 	}
 }
 

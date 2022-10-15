@@ -9,7 +9,7 @@ namespace findaround.Services
 		Task<bool> AddPost(Post post);
 		Task<bool> DeletePost(int postId);
 		Task<Post> GetPost(int postId);
-		Task<List<Post>> GetUserPosts(int userId);
+		Task<List<Post>> GetUserPosts();
 		Task<List<Post>> MatchPosts(PostMatchingDto dto);
 		Task<bool> AddPostComment(Comment comment);
 		Task<bool> DeletePostComment(int commentId);

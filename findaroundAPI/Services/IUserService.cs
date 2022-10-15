@@ -10,7 +10,7 @@ namespace findaroundAPI.Services
 	{
 		Result<int> RegisterUser(RegisterUserDto dto);
 		Result<string> LogInUser(LoginUserDto dto);
-		Result<string> LogOutUser(int id);
+		Result<string> LogOutUser();
 		Result<User> GetUserBasicInfo(int userId);
 		Result<User> GetInfoAboutYourself();
 		Result<string> GetUserLogin(int userId);

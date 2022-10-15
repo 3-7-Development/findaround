@@ -9,7 +9,7 @@ namespace findaround.Utilities
 {
 	public static class BackendUtilities
 	{
-		public static async Task GetBaseUrlAsync()
+		public static async Task<string> GetBaseUrlAsync()
 		{
             Assembly assembly = Assembly.GetExecutingAssembly();
             string json = string.Empty;
@@ -48,8 +48,9 @@ namespace findaround.Utilities
             if (string.IsNullOrWhiteSpace(url))
                 url = "";
 
-            Barrel.Current.Add("BaseURL", url, TimeSpan.FromDays(7));
-		}
+            return url;
+            //return new Uri("https://192.168.1.3:3737");
+        }
 
 		public static HttpClient ProduceHttpClient()
 		{
@@ -63,22 +64,6 @@ namespace findaround.Utilities
             client.DefaultRequestHeaders.Add("Accept", "application/json");
             return client;
 		}
-
-        public async static Task<HttpClient> GetClient()
-        {
-            var handler = new HttpClientHandler()
-            {
-                ClientCertificateOptions = ClientCertificateOption.Manual,
-                UseDefaultCredentials = true
-            };
-
-            var client = new HttpClient(handler);
-
-            client.DefaultRequestHeaders.Add("Accept", "application/json");
-            client.BaseAddress = await BackendUtilities.GetBaseUrlAsync();
-
-            return client;
-        }
 
 		public static void SaveToken(string token)
 		{

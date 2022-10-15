@@ -12,16 +12,16 @@ namespace findaround.Services
 	public class UserService : IUserService
 	{
 		readonly HttpClient _client;
-		readonly Uri _baseUrl = new Uri(Barrel.Current.Get<string>("BaseURL"));
 
         public UserService()
 		{
 			_client = BackendUtilities.ProduceHttpClient();
-            _client.BaseAddress = _baseUrl;
 		}
 
         public async Task<bool> RegisterUser(RegisterUserDto dto)
         {
+            _client.SetBaseUrl();
+
             var content = this.GetRequestContent(dto);
             var response = new HttpResponseMessage();
 
@@ -42,6 +42,8 @@ namespace findaround.Services
 
         public async Task<bool> LogInUser(LoginUserDto dto)
         {
+            _client.SetBaseUrl();
+
             var content = this.GetRequestContent(dto);
             var response = new HttpResponseMessage();
 
@@ -64,6 +66,7 @@ namespace findaround.Services
 
         public async Task<bool> LogOutUser()
         {
+            _client.SetBaseUrl();
             _client.SetAuthenticationToken();
 
             var userId = UserHelpers.CurrentUser.Id;
@@ -86,6 +89,7 @@ namespace findaround.Services
 
         public async Task<User> GetUserBasicData(int userId)
         {
+            _client.SetBaseUrl();
             _client.SetAuthenticationToken();
 
             var response = new HttpResponseMessage();
@@ -110,6 +114,7 @@ namespace findaround.Services
 
         public async Task<User> GetBasicInfoAboutYourself()
         {
+            _client.SetBaseUrl();
             _client.SetAuthenticationToken();
 
             var response = new HttpResponseMessage();
@@ -134,6 +139,7 @@ namespace findaround.Services
 
         public async Task<string> GetUserLogin(int userId)
         {
+            _client.SetBaseUrl();
             _client.SetAuthenticationToken();
 
             var response = new HttpResponseMessage();

@@ -61,10 +61,10 @@ namespace findaroundAPI.Controllers
 			return result.GetResult();
 		}
 
-		[HttpGet("logout/{id}")]
-		public ActionResult LogOutUser([FromRoute] int id)
+		[HttpGet("logout")]
+		public ActionResult LogOutUser()
 		{
-			var result = _userService.LogOutUser(id);
+			var result = _userService.LogOutUser();
 
 			return result.GetResult();
 		}

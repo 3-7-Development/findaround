@@ -5,6 +5,7 @@ using findaround.Views;
 using findaround.Utilities;
 using findaround.Helpers;
 using findaroundShared.Models.Dtos;
+using MonkeyCache.FileStore;
 
 namespace findaround.ViewModels
 {
@@ -30,7 +31,8 @@ namespace findaround.ViewModels
 		{
 			IsBusy = true;
 			ResetInputData();
-			await BackendUtilities.GetBaseUrlAsync();
+			var url = await BackendUtilities.GetBaseUrlAsync();
+			Barrel.Current.Add("BasicURL", url, TimeSpan.FromDays(7));
 			IsBusy = false;
 		}
 

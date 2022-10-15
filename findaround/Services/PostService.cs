@@ -10,16 +10,15 @@ namespace findaround.Services
 	public class PostService : IPostService
 	{
         readonly HttpClient _client;
-        readonly Uri _baseUrl = new Uri(Barrel.Current.Get<string>("BaseURL"));
 
         public PostService()
 		{
             _client = BackendUtilities.ProduceHttpClient();
-            _client.BaseAddress = _baseUrl;
         }
 
         public async Task<bool> AddPost(Post post)
         {
+            _client.SetBaseUrl();
             _client.SetAuthenticationToken();
 
             var content = this.GetRequestContent(post);
@@ -42,6 +41,7 @@ namespace findaround.Services
 
         public async Task<bool> AddPostComment(Comment comment)
         {
+            _client.SetBaseUrl();
             _client.SetAuthenticationToken();
 
             var content = this.GetRequestContent(comment);
@@ -64,6 +64,7 @@ namespace findaround.Services
 
         public async Task<bool> DeletePost(int postId)
         {
+            _client.SetBaseUrl();
             _client.SetAuthenticationToken();
 
             var response = new HttpResponseMessage();
@@ -85,6 +86,7 @@ namespace findaround.Services
 
         public async Task<bool> DeletePostComment(int commentId)
         {
+            _client.SetBaseUrl();
             _client.SetAuthenticationToken();
 
             var response = new HttpResponseMessage();
@@ -106,6 +108,7 @@ namespace findaround.Services
 
         public async Task<Post> GetPost(int postId)
         {
+            _client.SetBaseUrl();
             _client.SetAuthenticationToken();
 
             var response = new HttpResponseMessage();
@@ -130,6 +133,7 @@ namespace findaround.Services
 
         public async Task<List<Comment>> GetPostComments(int postId)
         {
+            _client.SetBaseUrl();
             _client.SetAuthenticationToken();
 
             var response = new HttpResponseMessage();
@@ -152,8 +156,9 @@ namespace findaround.Services
             return comments;
         }
 
-        public async Task<List<Post>> GetUserPosts(int userId)
+        public async Task<List<Post>> GetUserPosts()
         {
+            _client.SetBaseUrl();
             _client.SetAuthenticationToken();
 
             var response = new HttpResponseMessage();
@@ -178,6 +183,7 @@ namespace findaround.Services
 
         public async Task<List<Post>> MatchPosts(PostMatchingDto dto)
         {
+            _client.SetBaseUrl();
             _client.SetAuthenticationToken();
 
             var content = this.GetRequestContent(dto);

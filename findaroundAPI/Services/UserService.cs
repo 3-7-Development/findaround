@@ -104,9 +104,9 @@ namespace findaroundAPI.Services
             return tokenHandler.WriteToken(token);
         }
 
-        public Result<string> LogOutUser(int id)
+        public Result<string> LogOutUser()
         {
-            var user = _dbContext.Users.FirstOrDefault(u => u.Id == id);
+            var user = _dbContext.Users.FirstOrDefault(u => u.Id == _userContextService.GetUserId);
 
             if (user is null)
             {
