@@ -1,15 +1,118 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="findaround.Views.RegisterPage"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:viewmodels="clr-namespace:findaround.ViewModels"
+             xmlns:models="clr-namespace:findaroundShared.Models;assembly=findaroundShared"
+             xmlns:local="clr-namespace:MAUI_Custom_Controls.CustomControls"
+             x:Class="findaround.Views.RegisterPage"
              x:DataType="viewmodels:RegisterPageViewModel"
-             Title="RegisterPage">
+             Title="{Binding Title}"
+             Shell.NavBarIsVisible="False">
 
-    <VerticalStackLayout>
-        <Label 
-            Text="{Binding Title}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <Grid RowDefinitions="Auto,*,Auto"
+          BackgroundColor="#2D2C2C">
+        <Grid   
+            Grid.Row="0"    
+            ColumnDefinitions="25,*,25"
+            BackgroundColor="#2D2C2C"
+            RowDefinitions="175"
+            Padding="8">
+
+            <Image Source="header.svg"
+                   Grid.Column="1"/>
+
+        </Grid>
+
+        <VerticalStackLayout Grid.Row="1">
+            <Grid RowDefinitions="Auto,Auto">
+                <Label Text="Login"
+                       TextColor="White"
+                       Grid.Row="0"
+                       Margin="15,0,0,0"
+                       FontSize="16"/>
+                <Frame
+                   Grid.Row="1"
+                   Padding = "15,5,15,0"
+                   CornerRadius ="10"
+                   IsClippedToBounds="true"
+                   HeightRequest="60"
+                   BackgroundColor="#333333"
+                   BorderColor="Transparent"
+                   Margin="10">
+                    <local:CustomEntry/>
+                </Frame>
+            </Grid>
+
+            <Grid RowDefinitions="Auto,Auto">
+                <Label Text="Password: "
+                       TextColor="White"
+                       Grid.Row="0"
+                       Margin="15,0,0,0"
+                       FontSize="16"/>
+                <Frame
+                   Grid.Row="1"
+                   Padding = "15,5,15,0"
+                   CornerRadius ="10"
+                   IsClippedToBounds="true"
+                   HeightRequest="60"
+                   BackgroundColor="#333333"
+                   BorderColor="Transparent"
+                   Margin="10">
+                    <local:CustomEntry IsPassword="True"/>
+                </Frame>
+            </Grid>
+
+            <Grid RowDefinitions="Auto,Auto">
+                <Label Text="Password: "
+                       TextColor="White"
+                       Grid.Row="0"
+                       Margin="15,0,0,0"
+                       FontSize="16"/>
+                <Frame
+                   Grid.Row="1"
+                   Padding = "15,5,15,0"
+                   CornerRadius ="10"
+                   IsClippedToBounds="true"
+                   HeightRequest="60"
+                   BackgroundColor="#333333"
+                   BorderColor="Transparent"
+                   Margin="10">
+                    <local:CustomEntry IsPassword="True"/>
+                </Frame>
+            </Grid>
+
+            <Grid RowDefinitions="Auto,Auto">
+                <Label Text="Phone Number: "
+                       TextColor="White"
+                       Grid.Row="0"
+                       Margin="15,0,0,0"
+                       FontSize="16"/>
+                <Frame
+                   Grid.Row="1"
+                   Padding = "15,5,15,0"
+                   CornerRadius ="10"
+                   IsClippedToBounds="true"
+                   HeightRequest="60"
+                   BackgroundColor="#333333"
+                   BorderColor="Transparent"
+                   Margin="10">
+                    <local:CustomEntry Keyboard="Numeric"
+                                       MaxLength="9"/>
+                </Frame>
+            </Grid>
+
+            <Grid ColumnDefinitions="135,*,135"
+                  Margin="0,25">
+                <Button Text="Register"
+                        Grid.Column="1"
+                        HeightRequest="60"
+                        WidthRequest="150"
+                        FontSize="24"
+                        BackgroundColor="#47BB6C"
+                        FontAttributes="Bold"/>
+            </Grid>
+
+        </VerticalStackLayout>
+    </Grid>
 </ContentPage>

@@ -47,6 +47,14 @@
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
+	<ItemGroup>
+	  <AndroidResource Remove="Nowy folder\**" />
+	  <Compile Remove="Nowy folder\**" />
+	  <EmbeddedResource Remove="Nowy folder\**" />
+	  <MauiCss Remove="Nowy folder\**" />
+	  <MauiXaml Remove="Nowy folder\**" />
+	  <None Remove="Nowy folder\**" />
+	</ItemGroup>
 
 	<ItemGroup>
 	  <None Remove="Newtonsoft.Json" />

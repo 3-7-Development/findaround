@@ -51,6 +51,12 @@ namespace findaround.ViewModels
 		}
 
 		[RelayCommand]
+		async Task NextPage()
+		{
+			await Shell.Current.GoToAsync(nameof(RegisterPage));
+		}
+
+		[RelayCommand]
 		async Task Logout()
 		{
 			IsBusy = true;
