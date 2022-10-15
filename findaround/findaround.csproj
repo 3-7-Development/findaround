@@ -52,7 +52,6 @@
 	  <None Remove="Newtonsoft.Json" />
 	  <None Remove="Services\" />
 	  <None Remove="Views\" />
-	  <None Remove="Models\" />
 	  <None Remove="ViewModels\" />
 	  <None Remove="Configuration\" />
 	  <None Remove="Utilities\" />
@@ -62,6 +61,7 @@
 	  <None Remove="CommunityToolkit.Mvvm" />
 	  <None Remove="CommunityToolkit.Maui" />
 	  <None Remove="Helpers\" />
+	  <None Remove="Configuration\ngrokConfig.json" />
 	</ItemGroup>
 	<ItemGroup>
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
@@ -76,7 +76,6 @@
 	<ItemGroup>
 	  <Folder Include="Services\" />
 	  <Folder Include="Views\" />
-	  <Folder Include="Models\" />
 	  <Folder Include="ViewModels\" />
 	  <Folder Include="Configuration\" />
 	  <Folder Include="Utilities\" />
@@ -84,6 +83,7 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <EmbeddedResource Include="Configuration\ServerConfig.json" />
+	  <EmbeddedResource Include="Configuration\ngrokConfig.json" />
 	</ItemGroup>
 	<ItemGroup>
 	  <MauiXaml Update="Views\RegisterPage.xaml">

@@ -4,7 +4,7 @@ using findaroundShared.Models.Dtos;
 
 namespace findaround.Services
 {
-	public interface IUserService
+	public interface IUserService : IWebService
 	{
 		Task<bool> RegisterUser(RegisterUserDto dto);
 		Task<bool> LogInUser(LoginUserDto dto);

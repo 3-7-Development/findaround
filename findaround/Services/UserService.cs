@@ -11,17 +11,19 @@ namespace findaround.Services
 	public class UserService : IUserService
 	{
 		readonly HttpClient _client;
-		readonly Uri _baseUrl = BackendUtilities.GetBaseServerUrl();
+		//readonly Uri _baseUrl = BackendUtilities.GetBaseServerUrlAsync().Result;
 
 		public UserService()
 		{
 			_client = BackendUtilities.ProduceHttpClient();
-			_client.BaseAddress = _baseUrl;
+			//_client.BaseAddress = _baseUrl;
 		}
 
         public async Task<bool> RegisterUser(RegisterUserDto dto)
         {
-            var content = GetRequestContent(dto);
+            await _client.SetBaseUrl();
+
+            var content = this.GetRequestContent(dto);
             var response = new HttpResponseMessage();
 
             try
@@ -41,7 +43,9 @@ namespace findaround.Services
 
         public async Task<bool> LogInUser(LoginUserDto dto)
         {
-            var content = GetRequestContent(dto);
+            await _client.SetBaseUrl();
+
+            var content = this.GetRequestContent(dto);
             var response = new HttpResponseMessage();
 
             try
@@ -63,6 +67,9 @@ namespace findaround.Services
 
         public async Task<bool> LogOutUser()
         {
+            await _client.SetBaseUrl();
+            _client.SetAuthenticationToken();
+
             var userId = UserHelpers.CurrentUser.Id;
             var response = new HttpResponseMessage();
 
@@ -83,6 +90,9 @@ namespace findaround.Services
 
         public async Task<User> GetUserData(int userId)
         {
+            await _client.SetBaseUrl();
+            _client.SetAuthenticationToken();
+
             var response = new HttpResponseMessage();
 
             try
@@ -105,6 +115,9 @@ namespace findaround.Services
 
         public async Task<string> GetUserLogin(int userId)
         {
+            await _client.SetBaseUrl();
+            _client.SetAuthenticationToken();
+
             var response = new HttpResponseMessage();
 
             try
@@ -121,14 +134,6 @@ namespace findaround.Services
 
             var userLogin = await response.Content.ReadAsStringAsync();
             return userLogin;
-        }
-
-        private StringContent GetRequestContent(object? value)
-        {
-            var json = JsonConvert.SerializeObject(value);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-            return content;
         }
     }
 }

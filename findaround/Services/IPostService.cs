@@ -4,7 +4,7 @@ using findaroundShared.Models.Dtos;
 
 namespace findaround.Services
 {
-	public interface IPostService
+	public interface IPostService : IWebService
 	{
 		Task<bool> AddPost(Post post);
 		Task<bool> DeletePost(int postId);

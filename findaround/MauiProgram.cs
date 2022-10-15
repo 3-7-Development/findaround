@@ -25,8 +25,8 @@ public static class MauiProgram
 		// Dependencies
 
 		// Services
-		builder.Services.AddSingleton<IUserService, TestUsersService>();
-        builder.Services.AddSingleton<IPostService, TestPostsService>();
+		builder.Services.AddSingleton<IUserService, UserService>();
+        builder.Services.AddSingleton<IPostService, PostService>();
 
 		// ViewModels
 		builder.Services.AddSingleton<RegisterPageViewModel>();

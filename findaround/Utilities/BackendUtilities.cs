@@ -3,29 +3,50 @@ using findaround.Configuration;
 using System.Reflection;
 using Newtonsoft.Json;
 using MonkeyCache.FileStore;
+using NgrokApi;
+using System.Diagnostics;
 
 namespace findaround.Utilities
 {
 	public static class BackendUtilities
 	{
-		public static Uri GetBaseServerUrl()
+		public static async Task<Uri> GetBaseUrlAsync()
 		{
-			Assembly assembly = Assembly.GetExecutingAssembly();
-			string json = string.Empty;
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            string json = string.Empty;
 
-			using (var stream = assembly.GetManifestResourceStream("findaround.Configuration.ServerConfig.json"))
-			{
-				using (var reader = new StreamReader(stream))
-				{
-					json = reader.ReadToEnd();
-				}
-			}
+            using (var stream = assembly.GetManifestResourceStream("findaround.Configuration.ngrokConfig.json"))
+            {
+                using (var reader = new StreamReader(stream))
+                {
+                    json = reader.ReadToEnd();
+                }
+            }
 
-			var config = JsonConvert.DeserializeObject<ServerConnectionConfig>(json);
+            var apiKey = JsonConvert.DeserializeObject<NgrokConfig>(json);
 
-			var url = config.Remote + config.Port;
+            var response = new HttpResponseMessage();
 
-			return new Uri(url);
+            using (var httpClient = new HttpClient())
+            {
+                using (var request = new HttpRequestMessage(new HttpMethod("GET"), "https://api.ngrok.com/tunnels"))
+                {
+                    request.Headers.TryAddWithoutValidation("Authorization", $"Bearer {apiKey.ApiKey}");
+                    request.Headers.TryAddWithoutValidation("Ngrok-Version", "2");
+
+                    response = await httpClient.SendAsync(request);
+                }
+            }
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+
+            var start = responseContent.IndexOf("\"public_url\":\"") + "\"public_url\":\"".Length;
+            var end = responseContent.IndexOf("ngrok.io") + "ngrok.io".Length;
+            var length = end - start;
+
+            var url = responseContent.Substring(start, length);
+
+            return new Uri(url);
 		}
 
 		public static HttpClient ProduceHttpClient()

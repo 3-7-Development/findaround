@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http.Headers;
+using findaround.Utilities;
 
 namespace findaround.Services
 {
@@ -9,6 +10,11 @@ namespace findaround.Services
 		{
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Utilities.BackendUtilities.GetToken());
         }
+
+		public static async Task SetBaseUrl(this HttpClient client)
+		{
+			client.BaseAddress = await BackendUtilities.GetBaseUrlAsync();
+		}
 	}
 }
 
