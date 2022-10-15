@@ -107,7 +107,6 @@
                         Command="{Binding LogInCommand}"
                         IsEnabled="{Binding IsNotBusy}"/>
             </Grid>
-
         </VerticalStackLayout>
     </Grid>
 </ContentPage>
