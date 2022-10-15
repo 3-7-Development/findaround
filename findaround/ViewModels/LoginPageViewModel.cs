@@ -69,7 +69,7 @@ namespace findaround.ViewModels
                     UserHelpers.CurrentUser = user;
 
 					IsBusy = false;
-                    await Shell.Current.GoToAsync(nameof(MainPage));
+                    await Shell.Current.GoToAsync($"///{nameof(MainPage)}");
                 }
             }
 		}

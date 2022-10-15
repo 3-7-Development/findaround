@@ -4,7 +4,12 @@
              xmlns:viewmodels="clr-namespace:findaround.ViewModels"
              x:Class="findaround.Views.CategoriesPage"
              x:DataType="viewmodels:CategoriesPageViewModel"
-             Title="CategoriesPage">
+             Title="CategoriesPage"
+             Shell.NavBarIsVisible="False">
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding GoToMainPageCommand}"/>
+    </Shell.BackButtonBehavior>
 
     <VerticalStackLayout>
         <Label 

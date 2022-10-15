@@ -71,8 +71,14 @@ namespace findaround.ViewModels
 			else
 			{
 				IsBusy = false;
-				await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
+				await Shell.Current.GoToAsync($"{nameof(LoginPage)}");
 			}
+		}
+
+		[RelayCommand]
+		async Task GoBack()
+		{
+			await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
 		}
 	}
 

@@ -1,9 +1,11 @@
 ﻿using System;
+using CommunityToolkit.Mvvm.Input;
 using findaround.Services;
+using findaround.Views;
 
 namespace findaround.ViewModels
 {
-	public class NewPostPageViewModel : ViewModelBase
+	public partial class NewPostPageViewModel : ViewModelBase
 	{
 		readonly IPostService _postService;
 
@@ -13,6 +15,6 @@ namespace findaround.ViewModels
 
 			Title = "NewPostPage";
 		}
-	}
+    }
 }
 

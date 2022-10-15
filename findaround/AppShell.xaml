@@ -4,28 +4,33 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:findaround.Views"
-    Shell.FlyoutBehavior="Disabled">
-    
+    Shell.FlyoutBehavior="Disabled"
+    Shell.TabBarIsVisible="False">
     
     <Shell.Items>
-        <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:LoginPage}"
-        Route="LoginPage" />
+        
 
     </Shell.Items>
 
-    <Tab Title="CategoriesPage" Icon="icon_about.png">
-        <ShellContent Route="CategoriesPage" ContentTemplate="{DataTemplate local:CategoriesPage}"/>
-    </Tab>
+    <ShellContent ContentTemplate="{DataTemplate local:LoginPage}" Route="LoginPage"/>
 
-    <Tab Title="NewPostPage" Icon="icon_about.png">
+    <ShellContent Route="MainPage" ContentTemplate="{DataTemplate local:MainPage}"/>
+
+    <FlyoutItem>
+        <ShellContent Route="RegisterPage" ContentTemplate="{DataTemplate local:RegisterPage}"/>
+
+        <ShellContent Route="PostDetailsPage" ContentTemplate="{DataTemplate local:PostDetailsPage}"/>
+
         <ShellContent Route="NewPostPage" ContentTemplate="{DataTemplate local:NewPostPage}"/>
-    </Tab>
 
-    <Tab Title="ProfilePage" Icon="icon_about.png">
+        <ShellContent Route="CategoriesPage" ContentTemplate="{DataTemplate local:CategoriesPage}"/>
+
+        <ShellContent Route="ContactsPage" ContentTemplate="{DataTemplate local:ContactsPage}"/>
+
+        <ShellContent Route="NewPostPage" ContentTemplate="{DataTemplate local:NewPostPage}"/>
+
         <ShellContent Route="ProfilePage" ContentTemplate="{DataTemplate local:ProfilePage}"/>
-    </Tab>
+    </FlyoutItem>
 
 </Shell>
 

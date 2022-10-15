@@ -4,7 +4,13 @@
              xmlns:viewmodels="clr-namespace:findaround.ViewModels"
              x:Class="findaround.Views.NewPostPage"
              x:DataType="viewmodels:NewPostPageViewModel"
-             Title="NewPostPage">
+             Title="NewPostPage"
+             Shell.NavBarIsVisible="False">
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding GoToMainPageCommand}"/>
+    </Shell.BackButtonBehavior>
+
     <VerticalStackLayout>
 
         <Label 

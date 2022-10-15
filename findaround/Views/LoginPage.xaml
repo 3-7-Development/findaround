@@ -6,8 +6,9 @@
              xmlns:viewmodels="clr-namespace:findaround.ViewModels"
              xmlns:local="clr-namespace:MAUI_Custom_Controls.CustomControls"
              x:DataType="viewmodels:LoginPageViewModel"
-             Title="LoginPage"
-             Shell.NavBarIsVisible="False">
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False"
+             Title="LoginPage">
 
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior
@@ -26,26 +27,27 @@
 
             <Image Source="header.svg"
                    Grid.Column="1"/>
-
         </Grid>
 
         <VerticalStackLayout Grid.Row="1">
             <Grid RowDefinitions="Auto,Auto"
                   Margin="15,0,15,0">
+
                 <Label Text="Login: "
                        TextColor="White"
                        Grid.Row="0"
                        Margin="15,0,0,0"
                        FontSize="16"/>
+
                 <Frame
-                   Grid.Row="1"
-                   Padding = "15,10,15,0"
-                   CornerRadius ="10"
-                   IsClippedToBounds="true"
-                   HeightRequest="70"
-                   BackgroundColor="#333333"
-                   BorderColor="Transparent"
-                   Margin="10">
+                    Grid.Row="1"
+                    Padding = "15,10,15,0"
+                    CornerRadius ="10"
+                    IsClippedToBounds="true"
+                    HeightRequest="70"
+                    BackgroundColor="#333333"
+                    BorderColor="Transparent"
+                    Margin="10">
                     <local:CustomEntry Text="{Binding Login}"
                                        IsEnabled="{Binding IsNotBusy}"/>
                 </Frame>
@@ -59,14 +61,15 @@
                        Margin="15,0,0,0"
                        FontSize="16"/>
                 <Frame
-                   Grid.Row="1"
-                   Padding = "15,10,15,0"
-                   CornerRadius ="10"
-                   IsClippedToBounds="true"
-                   HeightRequest="70"
-                   BackgroundColor="#333333"
-                   BorderColor="Transparent"
-                   Margin="10">
+                    Grid.Row="1"
+                    Padding = "15,10,15,0"
+                    CornerRadius ="10"
+                    IsClippedToBounds="true"
+                    HeightRequest="70"
+                    BackgroundColor="#333333"
+                    BorderColor="Transparent"
+                    Margin="10">
+
                     <local:CustomEntry Text="{Binding Password}"
                                        IsPassword="True"
                                        IsEnabled="{Binding IsNotBusy}"/>
@@ -90,6 +93,7 @@
 
             <Grid ColumnDefinitions="135,*,135"
                   Margin="0,0">
+
                 <Button Text="Register"
                         Grid.Column="1"
                         HeightRequest="60"
@@ -106,29 +110,4 @@
 
         </VerticalStackLayout>
     </Grid>
-    
-    
-    
-    
-    
-    
-    <!--<VerticalStackLayout>
-        <Label 
-            Text="{Binding Title}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center"
-            IsEnabled="{Binding IsNotBusy}"/>
-
-        <Entry Text="{Binding Login}"
-               Placeholder="Login"/>
-
-        <Entry Text="{Binding Password}"
-               Placeholder="Password"
-               IsPassword="True"
-               IsEnabled="{Binding IsNotBusy}"/>
-
-        <Button Text="Log In"
-                Command="{Binding LogInCommand}"
-                IsEnabled="{Binding IsNotBusy}"/>
-    </VerticalStackLayout>-->
 </ContentPage>
