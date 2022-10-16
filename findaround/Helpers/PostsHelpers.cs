@@ -61,7 +61,7 @@ namespace findaround.Helpers
                     Title = string.Empty,
                     Description = string.Empty,
                     Status = PostStatus.Null,
-                    Category = PostCategory.Lost,
+                    Category = PostCategory.Spotted,
                     Distance = 5.00 * KmConverter,
                     Location = new PostLocation()
                     {

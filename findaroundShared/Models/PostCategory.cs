@@ -6,10 +6,10 @@ namespace findaroundShared.Models
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum PostCategory
 	{
-        Spotted,
-        Lost,
-        HelpUkraine,
-        Other
+        Spotted=1,
+        Lost=2,
+        HelpUkraine=3,
+        Other=4
     }
 }
 

@@ -1,6 +1,6 @@
 {
-   "Address": "localhost",	// For local machine
-   //"Address": "host.docker.internal",	// For Docker
+   //"Address": "localhost",	// For local machine
+   "Address": "host.docker.internal",	// For Docker
    "Username": "findaroundUser",
    "Password": "Th!5D4t4b453!55053cur3dPr0m!53",
    "Database": "findarounddb",
