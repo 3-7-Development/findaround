@@ -28,7 +28,7 @@ namespace findaround.Services
             {
                 response = await _client.PostAsync("api/v1/findaround/posts", content);
             }
-            catch (HttpRequestException e)
+            catch (Exception e)
             {
                 return false;
             }
@@ -51,7 +51,7 @@ namespace findaround.Services
             {
                 response = await _client.PostAsync("api/v1/findaround/posts/comments", content);
             }
-            catch (HttpRequestException e)
+            catch (Exception e)
             {
                 return false;
             }
@@ -73,7 +73,7 @@ namespace findaround.Services
             {
                 await _client.DeleteAsync($"api/v1/findaround/posts/{postId}");
             }
-            catch (HttpRequestException e)
+            catch (Exception e)
             {
                 return false;
             }
@@ -95,7 +95,7 @@ namespace findaround.Services
             {
                 await _client.DeleteAsync($"api/v1/findaround/posts/comments/{commentId}");
             }
-            catch (HttpRequestException e)
+            catch (Exception e)
             {
                 return false;
             }
@@ -117,7 +117,7 @@ namespace findaround.Services
             {
                 await _client.GetAsync($"api/v1/findaround/posts/get/{postId}");
             }
-            catch (HttpRequestException e)
+            catch (Exception e)
             {
                 return null;
             }
@@ -142,7 +142,7 @@ namespace findaround.Services
             {
                 await _client.GetAsync($"api/v1/findaround/posts/comments/{postId}");
             }
-            catch (HttpRequestException e)
+            catch (Exception e)
             {
                 return null;
             }
@@ -167,7 +167,7 @@ namespace findaround.Services
             {
                 response = await _client.GetAsync($"api/v1/findaround/posts");
             }
-            catch (HttpRequestException e)
+            catch (Exception e)
             {
                 return null;
             }
@@ -193,7 +193,7 @@ namespace findaround.Services
             {
                 response = await _client.PostAsync("api/v1/findaround/posts/match", content);
             }
-            catch (HttpRequestException e)
+            catch (Exception e)
             {
                 return null;
             }

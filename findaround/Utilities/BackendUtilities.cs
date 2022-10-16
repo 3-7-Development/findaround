@@ -33,11 +33,21 @@ namespace findaround.Utilities
                     request.Headers.TryAddWithoutValidation("Authorization", $"Bearer {apiKey.ApiKey}");
                     request.Headers.TryAddWithoutValidation("Ngrok-Version", "2");
 
-                    response = await httpClient.SendAsync(request);
+                    try
+                    {
+                        response = await httpClient.SendAsync(request);
+                    }
+                    catch (HttpRequestException e)
+                    {
+                        response = new HttpResponseMessage();
+                    }
                 }
             }
 
             var responseContent = await response.Content.ReadAsStringAsync();
+
+            if (!responseContent.Contains("ngrok.io"))
+                return "https://localhost";
 
             var start = responseContent.IndexOf("\"public_url\":\"") + "\"public_url\":\"".Length;
             var end = responseContent.IndexOf("ngrok.io") + "ngrok.io".Length;
@@ -46,7 +56,7 @@ namespace findaround.Utilities
             var url = responseContent.Substring(start, length);
 
             if (string.IsNullOrWhiteSpace(url))
-                url = "";
+                url = "https://localhost";
 
             return url;
             //return new Uri("https://192.168.1.3:3737");

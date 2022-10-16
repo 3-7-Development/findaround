@@ -29,7 +29,7 @@ namespace findaround.Services
             {
                 response = await _client.PostAsync("api/v1/findaround/users/register", content);
             }
-            catch (HttpRequestException e)
+            catch (Exception e)
             {
                 return false;
             }
@@ -51,7 +51,7 @@ namespace findaround.Services
             {
                 response = await _client.PostAsync("api/v1/findaround/users/login", content);
             }
-            catch (HttpRequestException e)
+            catch (Exception e)
             {
                 return false;
             }
@@ -77,7 +77,7 @@ namespace findaround.Services
             {
                 response = await _client.GetAsync($"api/v1/findaround/users/logout");
             }
-            catch (HttpRequestException e)
+            catch (Exception e)
             {
                 return false;
             }
@@ -99,7 +99,7 @@ namespace findaround.Services
             {
                 response = await _client.GetAsync("api/v1/findaround/users/basicinfo");
             }
-            catch (HttpRequestException e)
+            catch (Exception e)
             {
                 return null;
             }
@@ -124,7 +124,7 @@ namespace findaround.Services
             {
                 response = await _client.GetAsync("api/v1/findaround/users/basicinfo/self");
             }
-            catch (HttpRequestException e)
+            catch (Exception e)
             {
                 return null;
             }
@@ -149,7 +149,7 @@ namespace findaround.Services
             {
                 response = await _client.GetAsync($"api/v1/findaround/users/getlogin/{userId}");
             }
-            catch (HttpRequestException e)
+            catch (Exception e)
             {
                 return null;
             }
