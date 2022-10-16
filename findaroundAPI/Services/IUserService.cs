@@ -6,7 +6,7 @@ using LanguageExt.Common;
 
 namespace findaroundAPI.Services
 {
-	public interface IUserService
+	public interface IUserService : IService
 	{
 		Result<int> RegisterUser(RegisterUserDto dto);
 		Result<string> LogInUser(LoginUserDto dto);

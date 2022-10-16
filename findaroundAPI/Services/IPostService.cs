@@ -5,7 +5,7 @@ using LanguageExt.Common;
 
 namespace findaroundAPI.Services
 {
-	public interface IPostService
+	public interface IPostService : IService
 	{
 		Result<int> AddPost(Post post);
         Result<string> DeletePost(int postId);

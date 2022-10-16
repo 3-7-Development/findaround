@@ -32,6 +32,12 @@ namespace findaroundAPI.Services
 
         public Result<int> AddPost(Post post)
         {
+            if (!this.CheckIfUserLoggedIn(_dbContext, _userContextService))
+            {
+                var exception = new UserNotLoggedInException();
+                return new Result<int>(exception);
+            }
+
             var postModel = _mapper.Map<PostEntity>(post);
 
             var user = _dbContext.Users.FirstOrDefault(u => u.Id == _userContextService.GetUserId);
@@ -58,6 +64,12 @@ namespace findaroundAPI.Services
 
         public Result<string> AddPostComment(Comment comment)
         {
+            if (!this.CheckIfUserLoggedIn(_dbContext, _userContextService))
+            {
+                var exception = new UserNotLoggedInException();
+                return new Result<string>(exception);
+            }
+
             var post = _dbContext.Posts.FirstOrDefault(p => p.Id == comment.PostId);
 
             if (post is null)
@@ -89,6 +101,12 @@ namespace findaroundAPI.Services
 
         public Result<string> DeletePost(int postId)
         {
+            if (!this.CheckIfUserLoggedIn(_dbContext, _userContextService))
+            {
+                var exception = new UserNotLoggedInException();
+                return new Result<string>(exception);
+            }
+
             var user = _dbContext.Users.FirstOrDefault(u => u.Id == _userContextService.GetUserId);
 
             if (user is null)
@@ -132,6 +150,12 @@ namespace findaroundAPI.Services
 
         public Result<string> DeletePostComment(int commentId)
         {
+            if (!this.CheckIfUserLoggedIn(_dbContext, _userContextService))
+            {
+                var exception = new UserNotLoggedInException();
+                return new Result<string>(exception);
+            }
+
             var user = _dbContext.Users.FirstOrDefault(u => u.Id == _userContextService.GetUserId);
 
             if (user is null)
@@ -170,6 +194,12 @@ namespace findaroundAPI.Services
 
         public Result<IEnumerable<Post>> GetAllPosts()
         {
+            if (!this.CheckIfUserLoggedIn(_dbContext, _userContextService))
+            {
+                var exception = new UserNotLoggedInException();
+                return new Result<IEnumerable<Post>>(exception);
+            }
+
             var user = _dbContext.Users.FirstOrDefault(u => u.Id == _userContextService.GetUserId);
 
             if (user is null || !user.LoggedIn)
@@ -190,6 +220,12 @@ namespace findaroundAPI.Services
 
         public Result<Post> GetPost(int postId)
         {
+            if (!this.CheckIfUserLoggedIn(_dbContext, _userContextService))
+            {
+                var exception = new UserNotLoggedInException();
+                return new Result<Post>(exception);
+            }
+
             var user = _dbContext.Users.FirstOrDefault(u => u.Id == _userContextService.GetUserId);
 
             if (user is null)
@@ -227,6 +263,12 @@ namespace findaroundAPI.Services
 
         public Result<IEnumerable<Comment>> GetPostComments(int postId)
         {
+            if (!this.CheckIfUserLoggedIn(_dbContext, _userContextService))
+            {
+                var exception = new UserNotLoggedInException();
+                return new Result<IEnumerable<Comment>>(exception);
+            }
+
             var user = _dbContext.Users.FirstOrDefault(u => u.Id == _userContextService.GetUserId);
 
             if (user is null || !user.LoggedIn) {
@@ -254,6 +296,12 @@ namespace findaroundAPI.Services
 
         public Result<IEnumerable<Post>> GetUserPosts()
         {
+            if (!this.CheckIfUserLoggedIn(_dbContext, _userContextService))
+            {
+                var exception = new UserNotLoggedInException();
+                return new Result<IEnumerable<Post>>(exception);
+            }
+
             var user = _dbContext.Users.FirstOrDefault(u => u.Id == _userContextService.GetUserId);
 
             if (user is null)
@@ -280,6 +328,12 @@ namespace findaroundAPI.Services
 
         public Result<IEnumerable<Post>> MatchPosts(PostMatchingDto dto)
         {
+            if (!this.CheckIfUserLoggedIn(_dbContext, _userContextService))
+            {
+                var exception = new UserNotLoggedInException();
+                return new Result<IEnumerable<Post>>(exception);
+            }
+
             var user = _dbContext.Users.FirstOrDefault(u => u.Id == _userContextService.GetUserId);
 
             if (user is null)

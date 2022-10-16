@@ -106,6 +106,12 @@ namespace findaroundAPI.Services
 
         public Result<string> LogOutUser()
         {
+            if (!this.CheckIfUserLoggedIn(_dbContext, _userContextService))
+            {
+                var exception = new UserNotLoggedInException();
+                return new Result<string>(exception);
+            }
+
             var user = _dbContext.Users.FirstOrDefault(u => u.Id == _userContextService.GetUserId);
 
             if (user is null)
@@ -129,6 +135,12 @@ namespace findaroundAPI.Services
 
         public Result<User> GetUserBasicInfo(int userId)
         {
+            if (!this.CheckIfUserLoggedIn(_dbContext, _userContextService))
+            {
+                var exception = new UserNotLoggedInException();
+                return new Result<User>(exception);
+            }
+
             var user = _dbContext.Users.FirstOrDefault(u => u.Id == userId);
 
             if (user is null)
@@ -144,6 +156,12 @@ namespace findaroundAPI.Services
 
         public Result<User> GetInfoAboutYourself()
         {
+            if (!this.CheckIfUserLoggedIn(_dbContext, _userContextService))
+            {
+                var exception = new UserNotLoggedInException();
+                return new Result<User>(exception);
+            }
+
             var user = _dbContext.Users.FirstOrDefault(u => u.Id == _userContextService.GetUserId);
 
             if (user is null)
@@ -159,6 +177,12 @@ namespace findaroundAPI.Services
 
         public Result<string> GetUserLogin(int userId)
         {
+            if (!this.CheckIfUserLoggedIn(_dbContext, _userContextService))
+            {
+                var exception = new UserNotLoggedInException();
+                return new Result<string>(exception);
+            }
+
             var user = _dbContext.Users.FirstOrDefault(u => u.Id == userId);
 
             if (user is null)
