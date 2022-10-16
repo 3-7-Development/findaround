@@ -291,6 +291,7 @@ namespace findaroundAPI.Services
             var posts = _dbContext.Posts.Include(p => p.Author).Include(p => p.Images).AsEnumerable().Where(p =>
                 (EnumHelpers.ToPostCategory(p.Category) == dto.Category) &&
                 (p.Id == dto.Id || dto.Id == null) &&
+                (p.Id != user.Id) &&
                 (p.AuthorId == dto.AuthorId || dto.AuthorId == null) &&
                 (p.Author.Login == dto.AuthorName || string.IsNullOrWhiteSpace(dto.AuthorName)) &&
                 (p.Title.ToLower().Contains(dto.Title.ToLower()) || string.IsNullOrWhiteSpace(dto.Title)) &&
