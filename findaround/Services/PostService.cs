@@ -1,5 +1,6 @@
 ﻿using System;
 using findaround.Utilities;
+using findaround.Helpers;
 using findaroundShared.Models;
 using findaroundShared.Models.Dtos;
 using MonkeyCache.FileStore;
@@ -204,7 +205,24 @@ namespace findaround.Services
             var responseContent = await response.Content.ReadAsStringAsync();
             var posts = JsonConvert.DeserializeObject<List<Post>>(responseContent);
 
-            return posts;
+            var sortedPosts = SortPosts(posts);
+
+            return sortedPosts;
+        }
+
+        private List<Post> SortPosts(List<Post> posts)
+        {
+            var sortedPosts = new List<Post>();
+
+            var userId = UserHelpers.CurrentUser.Id;
+
+            foreach (var post in posts)
+            {
+                if (post.AuthorId != userId)
+                    sortedPosts.Add(post);
+            }
+
+            return sortedPosts;
         }
     }
 }

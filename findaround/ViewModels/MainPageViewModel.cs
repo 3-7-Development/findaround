@@ -73,7 +73,7 @@ namespace findaround.ViewModels
 		[RelayCommand]
 		async Task NextPage()
 		{
-			await Shell.Current.GoToAsync(nameof(RegisterPage));
+			await Shell.Current.GoToAsync(nameof(NewPostPage));
 		}
 
 		[RelayCommand]
