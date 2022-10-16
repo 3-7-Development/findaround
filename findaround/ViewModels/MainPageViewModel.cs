@@ -1,8 +1,10 @@
 ﻿using System;
 using CommunityToolkit.Mvvm.Input;
+using findaround.Helpers;
 using findaround.Services;
 using findaround.Views;
 using findaroundShared.Models;
+using findaroundShared.Models.Dtos;
 
 namespace findaround.ViewModels
 {
@@ -10,14 +12,16 @@ namespace findaround.ViewModels
 	{
 		readonly IUserService _userService;
 		readonly IPostService _postService;
+		readonly IGeolocation _geolocation;
 
 		List<Post> posts;
 		public List<Post> Posts { get => posts; set => SetProperty(ref posts, value); }
 		
-		public MainPageViewModel(IUserService userService, IPostService postService)
+		public MainPageViewModel(IUserService userService, IPostService postService, IGeolocation geolocation)
 		{
 			_userService = userService;
 			_postService = postService;
+			_geolocation = geolocation;
 
 			Title = "MainPage";
 
@@ -27,10 +31,24 @@ namespace findaround.ViewModels
         }
 
 		[RelayCommand]
+		async Task OnAppearing()
+		{
+			IsBusy = true;
+
+			await PostsHelpers.RefreshSearchCriteria(_geolocation);
+
+			await Refresh();
+
+			IsBusy = false;
+        }
+
+		[RelayCommand]
 		async Task Refresh()
 		{
 			IsBusy = true;
-			Posts = await _postService.GetUserPosts();
+
+			Posts = await _postService.MatchPosts(PostsHelpers.MatchingCriteria);
+
 			IsBusy = false;
         }
 

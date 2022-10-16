@@ -2,6 +2,9 @@
 using findaround.Services;
 using findaround.ViewModels;
 using findaround.Views;
+using findaround.Helpers;
+using findaroundShared.Models;
+using findaroundShared.Models.Dtos;
 using MonkeyCache.FileStore;
 
 namespace findaround;
@@ -22,7 +25,10 @@ public static class MauiProgram
 
 		Barrel.ApplicationId = AppInfo.PackageName;
 
-		// Dependencies
+        // Dependencies
+
+        builder.Services.AddSingleton<IGeolocation>(Geolocation.Default);
+        builder.Services.AddSingleton<IMap>(Map.Default);
 
 		// Services
 		builder.Services.AddSingleton<IUserService, UserService>();

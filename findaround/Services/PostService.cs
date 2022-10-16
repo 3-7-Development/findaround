@@ -191,15 +191,15 @@ namespace findaround.Services
 
             try
             {
-                response = await _client.PostAsync("api/v1/findaround/posts/match", content);
+                response = await _client.PostAsync("api/v1/findaround/posts/comments/match", content);
             }
             catch (Exception e)
             {
-                return null;
+                return new List<Post>();
             }
 
             if (!response.IsSuccessStatusCode)
-                return null;
+                return new List<Post>();
 
             var responseContent = await response.Content.ReadAsStringAsync();
             var posts = JsonConvert.DeserializeObject<List<Post>>(responseContent);

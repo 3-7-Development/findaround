@@ -7,45 +7,107 @@
              x:Class="findaround.Views.MainPage"
              x:DataType="viewmodels:MainPageViewModel"
              Shell.NavBarIsVisible="False"
-             Title="{Binding Title}">
+             Title="{Binding Title}"
+             BackgroundColor="{StaticResource BackgroundColor}"
+             Padding="0">
 
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior
             EventName="Appearing"
-            Command="{Binding RefreshCommand}"/>
+            Command="{Binding AppearingCommand}"/>
 
         <toolkit:StatusBarBehavior StatusBarColor="{StaticResource StatusBarColor}"/>
     </ContentPage.Behaviors>
 
-    <Grid RowDefinitions="Auto,*,Auto" >
+    <Grid RowDefinitions="Auto,*,Auto"
+          HorizontalOptions="FillAndExpand"
+          Padding="0"
+          BackgroundColor="{StaticResource Secondary}">
         <Grid   
             Grid.Row="0"    
             ColumnDefinitions="45,*"
-            BackgroundColor="#2D2C2C"
+            BackgroundColor="{StaticResource BackgroundColor}"
             RowDefinitions="45"
             Padding="8">
 
             <Image Source="findaround.svg"
                    Grid.Column="0"/>
+
+            <Frame
+                Grid.Column="1"
+                Margin="0,0,5,0"
+                HorizontalOptions="End"
+                CornerRadius="50"
+                WidthRequest="45"
+                HeightRequest="45"
+                BorderColor="{StaticResource Primary}"
+                BackgroundColor="Transparent">
+
+                <Image Source="boyavatar2.png"
+                       HorizontalOptions="FillAndExpand"
+                       VerticalOptions="FillAndExpand"
+                       HeightRequest="40"
+                       WidthRequest="40">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding LogoutCommand}"/>
+                    </Image.GestureRecognizers>
+                </Image>
+
+            </Frame>
         </Grid>
 
-        <Button Text="Logout"
+        <!--<Button Text="Logout"
                 Command="{Binding LogoutCommand}"
                 WidthRequest="100"
                 HeightRequest="40"
-                IsEnabled="{Binding IsNotBusy}"/>
+                IsEnabled="{Binding IsNotBusy}"/>-->
+
+        <!--<HorizontalStackLayout
+            HorizontalOptions="FillAndExpand"
+            Padding="5,0"
+            BackgroundColor="{StaticResource BackgroundColor}">
+
+            <Image Source="findaround.svg"
+                   WidthRequest="45"
+                   HeightRequest="45"/>
+
+            <Image Source="findaround.svg"
+                   HorizontalOptions="End"
+                   WidthRequest="45"
+                   HeightRequest="45"/>
+        </HorizontalStackLayout>-->
 
         <CollectionView
             Grid.Row="1"
             ItemsSource="{Binding Posts}"
-            BackgroundColor="#282828">
+            BackgroundColor="{StaticResource BackgroundColor}">
+
+            <CollectionView.EmptyView>
+                <VerticalStackLayout
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center">
+                    <Label Text="No posts around"
+                       TextColor="White"
+                       FontSize="35"
+                       Margin="40,0,40,15"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center"
+                       HorizontalTextAlignment="Center"/>
+
+                <Label Text="Change the search range in Search Settings"
+                       TextColor="White"
+                       FontSize="15"
+                       Margin="40,0"
+                       HorizontalTextAlignment="Center"/>
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
 
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid x:DataType="models:Post"
                           ColumnDefinitions="50,Auto,*"
                           RowDefinitions="25,25,Auto,300"
-                          BackgroundColor="#2D2C2C"
+                          BackgroundColor="{StaticResource BackgroundColor}"
                           Margin="0,30,0,0"
                           Padding="10">
 
@@ -69,11 +131,12 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
         
-        <Grid
+        <!--<Grid
             Grid.Row="2"
-            ColumnDefinitions="*,Auto,Auto,Auto,*"
+            ColumnDefinitions="*,*,*"
             RowDefinitions="50"
             Padding="5"
+            HorizontalOptions="Center"
             BackgroundColor="#2D2C2C">
 
             <Image Source="avatar.svg" Grid.Column="1" Margin="0,0,20,0">
@@ -92,6 +155,31 @@
                 WidthRequest="100"
                 HeightRequest="40"
                 IsEnabled="{Binding IsNotBusy}"/>
-        </Grid>
+        </Grid>-->
+
+        <HorizontalStackLayout Grid.Row="2"
+                               VerticalOptions="EndAndExpand"
+                               HorizontalOptions="Center"
+                               Margin="0"
+                               Padding="00,10"
+                               BackgroundColor="{StaticResource Secondary}">
+            <Button Text="Categories"
+                    HorizontalOptions="Center"
+                    Margin="20,0"
+                    Command="{Binding GoToCategoriesCommand}"
+                    IsEnabled="{Binding IsNotBusy}"/>
+
+            <Button Text="NewPost"
+                    HorizontalOptions="Center"
+                    Margin="20,0"
+                    Command="{Binding CreateNewPostCommand}"
+                    IsEnabled="{Binding IsNotBusy}"/>
+
+            <Button Text="Profile"
+                    HorizontalOptions="Center"
+                    Margin="20,0"
+                    Command="{Binding GoToProfileCommand}"
+                    IsEnabled="{Binding IsNotBusy}"/>
+        </HorizontalStackLayout>
     </Grid>
 </ContentPage>
