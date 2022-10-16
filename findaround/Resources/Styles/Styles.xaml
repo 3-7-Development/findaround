@@ -382,5 +382,30 @@
     </Style>
 
 
+    <!--    Custom styles   -->
+
+    <Style x:Key="CustomEntryGrid" TargetType="Grid">
+        <Setter Property="RowDefinitions" Value="Auto, Auto"/>
+        <Setter Property="Margin" Value="15,10"/>
+    </Style>
+
+    <Style x:Key="CustomEntryLabel" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource EntryTextColor}"/>
+        <Setter Property="Grid.Row" Value="0"/>
+        <Setter Property="Margin" Value="15,0,0,0"/>
+        <Setter Property="FontSize" Value="16"/>
+    </Style>
+
+    <Style x:Key="CustomEntryFrame" TargetType="Frame">
+        <Setter Property="Grid.Row" Value="1"/>
+        <Setter Property="BackgroundColor" Value="{StaticResource Secondary}"/>
+        <Setter Property="Padding" Value="15,10,15,0"/>
+        <Setter Property="CornerRadius" Value="10"/>
+        <Setter Property="IsClippedToBounds" Value="True"/>
+        <Setter Property="HeightRequest" Value="70"/>
+        <Setter Property="BorderColor" Value="Transparent"/>
+        <Setter Property="Margin" Value="10"/>
+    </Style>
+
 </ResourceDictionary>
 

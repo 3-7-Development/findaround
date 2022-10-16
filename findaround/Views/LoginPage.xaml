@@ -32,45 +32,21 @@
         </Grid>
 
         <VerticalStackLayout Grid.Row="1">
-            <Grid RowDefinitions="Auto,Auto"
-                  Margin="15,0,15,0">
+            <Grid Style="{StaticResource CustomEntryGrid}">
 
                 <Label Text="Login: "
-                       TextColor="White"
-                       Grid.Row="0"
-                       Margin="15,0,0,0"
-                       FontSize="16"/>
+                       Style="{StaticResource CustomEntryLabel}"/>
 
-                <Frame
-                    Grid.Row="1"
-                    Padding = "15,10,15,0"
-                    CornerRadius ="10"
-                    IsClippedToBounds="true"
-                    HeightRequest="70"
-                    BackgroundColor="#333333"
-                    BorderColor="Transparent"
-                    Margin="10">
+                <Frame Style="{StaticResource CustomEntryFrame}">
                     <local:CustomEntry Text="{Binding Login}"
                                        IsEnabled="{Binding EntriesAvailable}"/>
                 </Frame>
             </Grid>
 
-            <Grid RowDefinitions="Auto,Auto"
-                  Margin="15,25,15,0">
+            <Grid Style="{StaticResource CustomEntryGrid}">
                 <Label Text="Password: "
-                       TextColor="White"
-                       Grid.Row="0"
-                       Margin="15,0,0,0"
-                       FontSize="16"/>
-                <Frame
-                    Grid.Row="1"
-                    Padding = "15,10,15,0"
-                    CornerRadius ="10"
-                    IsClippedToBounds="true"
-                    HeightRequest="70"
-                    BackgroundColor="#333333"
-                    BorderColor="Transparent"
-                    Margin="10">
+                       Style="{StaticResource CustomEntryLabel}"/>
+                <Frame Style="{StaticResource CustomEntryFrame}">
 
                     <local:CustomEntry Text="{Binding Password}"
                                        IsPassword="True"
@@ -88,10 +64,10 @@
                         FontSize="24"
                         Margin="0,30,0,0"
                         TextColor="White"
-                        BackgroundColor="#47BB6C"
                         FontAttributes="Bold"
                         Command="{Binding LogInCommand}"
-                        IsEnabled="{Binding IsNotBusy}"/>
+                        IsEnabled="{Binding IsNotBusy}"
+                        BackgroundColor="{Binding ButtonBackgroundColor}"/>
             </Grid>
 
             <Grid ColumnDefinitions="135,*,135"

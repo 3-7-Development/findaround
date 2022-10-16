@@ -14,7 +14,8 @@
         <toolkit:StatusBarBehavior StatusBarColor="{StaticResource StatusBarColor}"/>
     </ContentPage.Behaviors>
 
-    <Grid RowDefinitions="Auto,*,Auto"
+    <ScrollView>
+        <Grid RowDefinitions="Auto,*,Auto"
           BackgroundColor="#2D2C2C">
         <Grid   
             Grid.Row="0"    
@@ -29,83 +30,39 @@
         </Grid>
 
         <VerticalStackLayout Grid.Row="1">
-            <Grid RowDefinitions="Auto,Auto">
+            <Grid Style="{StaticResource CustomEntryGrid}">
                 <Label Text="Login"
-                       TextColor="White"
-                       Grid.Row="0"
-                       Margin="15,0,0,0"
-                       FontSize="16"/>
-                <Frame
-                   Grid.Row="1"
-                   Padding = "15,5,15,0"
-                   CornerRadius ="10"
-                   IsClippedToBounds="true"
-                   HeightRequest="60"
-                   BackgroundColor="#333333"
-                   BorderColor="Transparent"
-                   Margin="10">
+                       Style="{StaticResource CustomEntryLabel}"/>
+                <Frame Style="{StaticResource CustomEntryFrame}">
                     <local:CustomEntry
                         Text="{Binding Login}"/>
                 </Frame>
             </Grid>
 
-            <Grid RowDefinitions="Auto,Auto">
+            <Grid Style="{StaticResource CustomEntryGrid}">
                 <Label Text="Password: "
-                       TextColor="White"
-                       Grid.Row="0"
-                       Margin="15,0,0,0"
-                       FontSize="16"/>
-                <Frame
-                   Grid.Row="1"
-                   Padding = "15,5,15,0"
-                   CornerRadius ="10"
-                   IsClippedToBounds="true"
-                   HeightRequest="60"
-                   BackgroundColor="#333333"
-                   BorderColor="Transparent"
-                   Margin="10">
+                       Style="{StaticResource CustomEntryLabel}"/>
+                <Frame Style="{StaticResource CustomEntryFrame}">
                     <local:CustomEntry
                         Text="{Binding Password}"
                         IsPassword="True"/>
                 </Frame>
             </Grid>
 
-            <Grid RowDefinitions="Auto,Auto">
+            <Grid Style="{StaticResource CustomEntryGrid}">
                 <Label Text="Confirm password: "
-                       TextColor="White"
-                       Grid.Row="0"
-                       Margin="15,0,0,0"
-                       FontSize="16"/>
-                <Frame
-                   Grid.Row="1"
-                   Padding = "15,5,15,0"
-                   CornerRadius ="10"
-                   IsClippedToBounds="true"
-                   HeightRequest="60"
-                   BackgroundColor="#333333"
-                   BorderColor="Transparent"
-                   Margin="10">
+                       Style="{StaticResource CustomEntryLabel}"/>
+                <Frame Style="{StaticResource CustomEntryFrame}">
                     <local:CustomEntry
                         Text="{Binding ConfirmedPassword}"
                         IsPassword="True"/>
                 </Frame>
             </Grid>
 
-            <Grid RowDefinitions="Auto,Auto">
+            <Grid Style="{StaticResource CustomEntryGrid}">
                 <Label Text="Phone Number: "
-                       TextColor="White"
-                       Grid.Row="0"
-                       Margin="15,0,0,0"
-                       FontSize="16"/>
-                <Frame
-                   Grid.Row="1"
-                   Padding = "15,5,15,0"
-                   CornerRadius ="10"
-                   IsClippedToBounds="true"
-                   HeightRequest="60"
-                   BackgroundColor="#333333"
-                   BorderColor="Transparent"
-                   Margin="10">
+                       Style="{StaticResource CustomEntryLabel}"/>
+                <Frame Style="{StaticResource CustomEntryFrame}">
                     <local:CustomEntry
                         Text="{Binding PhoneNumber}"
                         Keyboard="Numeric"
@@ -128,4 +85,5 @@
 
         </VerticalStackLayout>
     </Grid>
+    </ScrollView>
 </ContentPage>

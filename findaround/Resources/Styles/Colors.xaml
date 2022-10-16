@@ -20,6 +20,8 @@
 
     <Color x:Key="StatusBarColor">#2D2C2C</Color>
     <Color x:Key="BackgroundColor">#2D2C2C</Color>
+    <Color x:Key="EntryTextColor">White</Color>
+    <Color x:Key="ButtonUnavailableColor">#404040</Color>
 
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}"/>
     <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Secondary}"/>
