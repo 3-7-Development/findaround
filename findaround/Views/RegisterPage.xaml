@@ -40,7 +40,8 @@
                    BackgroundColor="#333333"
                    BorderColor="Transparent"
                    Margin="10">
-                    <local:CustomEntry/>
+                    <local:CustomEntry
+                        Text="{Binding Login}"/>
                 </Frame>
             </Grid>
 
@@ -59,12 +60,14 @@
                    BackgroundColor="#333333"
                    BorderColor="Transparent"
                    Margin="10">
-                    <local:CustomEntry IsPassword="True"/>
+                    <local:CustomEntry
+                        Text="{Binding Password}"
+                        IsPassword="True"/>
                 </Frame>
             </Grid>
 
             <Grid RowDefinitions="Auto,Auto">
-                <Label Text="Password: "
+                <Label Text="Confirm password: "
                        TextColor="White"
                        Grid.Row="0"
                        Margin="15,0,0,0"
@@ -78,7 +81,9 @@
                    BackgroundColor="#333333"
                    BorderColor="Transparent"
                    Margin="10">
-                    <local:CustomEntry IsPassword="True"/>
+                    <local:CustomEntry
+                        Text="{Binding ConfirmedPassword}"
+                        IsPassword="True"/>
                 </Frame>
             </Grid>
 
@@ -97,20 +102,24 @@
                    BackgroundColor="#333333"
                    BorderColor="Transparent"
                    Margin="10">
-                    <local:CustomEntry Keyboard="Numeric"
-                                       MaxLength="9"/>
+                    <local:CustomEntry
+                        Text="{Binding PhoneNumber}"
+                        Keyboard="Numeric"
+                        MaxLength="9"/>
                 </Frame>
             </Grid>
 
             <Grid ColumnDefinitions="135,*,135"
                   Margin="0,25">
+
                 <Button Text="Register"
                         Grid.Column="1"
                         HeightRequest="60"
                         WidthRequest="150"
                         FontSize="24"
                         BackgroundColor="#47BB6C"
-                        FontAttributes="Bold"/>
+                        FontAttributes="Bold"
+                        Command="{Binding RegisterCommand}"/>
             </Grid>
 
         </VerticalStackLayout>

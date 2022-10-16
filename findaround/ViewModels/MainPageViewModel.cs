@@ -22,6 +22,8 @@ namespace findaround.ViewModels
 			Title = "MainPage";
 
 			Posts = new List<Post>();
+
+			
         }
 
 		[RelayCommand]
@@ -30,7 +32,7 @@ namespace findaround.ViewModels
 			IsBusy = true;
 			Posts = await _postService.GetUserPosts();
 			IsBusy = false;
-		}
+        }
 
 		[RelayCommand]
 		async Task CreateNewPost()

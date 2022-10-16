@@ -9,7 +9,10 @@ using MonkeyCache.FileStore;
 
 namespace findaround.ViewModels
 {
-	public partial class LoginPageViewModel : ViewModelBase
+	[QueryProperty(nameof(Login), nameof(Login))]
+    [QueryProperty(nameof(Password), nameof(Password))]
+	[QueryProperty(nameof(Autologin), nameof(Autologin))]
+    public partial class LoginPageViewModel : ViewModelBase
 	{
 		readonly IUserService _userService;
 
@@ -18,6 +21,9 @@ namespace findaround.ViewModels
 
         string password;
         public string Password { get => password; set => SetProperty(ref password, value); }
+
+		string autologin;
+		public string Autologin { get => autologin; set => SetProperty(ref autologin, value); }
 
         public LoginPageViewModel(IUserService userService)
 		{
@@ -30,6 +36,15 @@ namespace findaround.ViewModels
 		async void Refresh()
 		{
 			IsBusy = true;
+
+			bool.TryParse(Autologin, out var loginAutomatically);
+
+			if (loginAutomatically)
+			{
+				Autologin = "False";
+				await LogIn();
+			}
+
 			ResetInputData();
 			var url = await BackendUtilities.GetBaseUrlAsync();
 			Barrel.Current.Add("BasicURL", url, TimeSpan.FromDays(7));
@@ -59,7 +74,7 @@ namespace findaround.ViewModels
 
                 if (!isLoggedIn)
                 {
-                    await Shell.Current.DisplayAlert("Cannot log in", "Check your Internet connection and try again", "OK");
+                    await Shell.Current.DisplayAlert("Cannot log in", "Please try again", "OK");
                     ResetInputData();
 					IsBusy = false;
                 }
@@ -72,6 +87,12 @@ namespace findaround.ViewModels
                     await Shell.Current.GoToAsync($"///{nameof(MainPage)}");
                 }
             }
+		}
+
+		[RelayCommand]
+		async Task GoToRegisterPage()
+		{
+			await Shell.Current.GoToAsync($"{nameof(RegisterPage)}");
 		}
 
 		void ResetInputData()

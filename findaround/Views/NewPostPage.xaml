@@ -17,5 +17,9 @@
             Text="{Binding Title}"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+
+        <Image Source="{Binding MyImage}"
+            WidthRequest="100"
+            HeightRequest="100"/>
     </VerticalStackLayout>
 </ContentPage>

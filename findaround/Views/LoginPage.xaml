@@ -104,7 +104,7 @@
                         BorderWidth="0"
                         TextColor="#47BB6C"
                         BorderColor="#47BB6C"
-                        Command="{Binding LogInCommand}"
+                        Command="{Binding GoToRegisterPageCommand}"
                         IsEnabled="{Binding IsNotBusy}"/>
             </Grid>
         </VerticalStackLayout>
