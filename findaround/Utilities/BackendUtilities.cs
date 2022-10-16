@@ -11,6 +11,9 @@ namespace findaround.Utilities
 	{
 		public static async Task<string> GetBaseUrlAsync()
 		{
+            if (Connectivity.NetworkAccess != NetworkAccess.Internet)
+                return "https://localhost";
+
             Assembly assembly = Assembly.GetExecutingAssembly();
             string json = string.Empty;
 
@@ -37,7 +40,7 @@ namespace findaround.Utilities
                     {
                         response = await httpClient.SendAsync(request);
                     }
-                    catch (HttpRequestException e)
+                    catch (Exception e)
                     {
                         response = new HttpResponseMessage();
                     }

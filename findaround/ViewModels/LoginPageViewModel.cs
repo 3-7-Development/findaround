@@ -25,11 +25,16 @@ namespace findaround.ViewModels
 		string autologin;
 		public string Autologin { get => autologin; set => SetProperty(ref autologin, value); }
 
+		bool entriesAvailable;
+		public bool EntriesAvailable { get => entriesAvailable; set => SetProperty(ref entriesAvailable, value); }
+
         public LoginPageViewModel(IUserService userService)
 		{
 			_userService = userService;
 
 			Title = "LoginPage";
+
+			EntriesAvailable = true;
 		}
 
 		[RelayCommand]
@@ -55,11 +60,13 @@ namespace findaround.ViewModels
 		async Task LogIn()
 		{
 			IsBusy = true;
+			EntriesAvailable = false;
 
 			if (string.IsNullOrWhiteSpace(Login) || string.IsNullOrWhiteSpace(Password))
 			{
 				await Shell.Current.DisplayAlert("Invalid Login or Password", "Please try again", "OK");
-				IsBusy = false;
+                EntriesAvailable = true;
+                IsBusy = false;
 			}
 			else
 			{
@@ -76,14 +83,16 @@ namespace findaround.ViewModels
                 {
                     await Shell.Current.DisplayAlert("Cannot log in", "Please try again", "OK");
                     ResetInputData();
-					IsBusy = false;
+                    EntriesAvailable = true;
+                    IsBusy = false;
                 }
                 else
                 {
 					var user = await _userService.GetBasicInfoAboutYourself();
                     UserHelpers.CurrentUser = user;
 
-					IsBusy = false;
+                    EntriesAvailable = true;
+                    IsBusy = false;
                     await Shell.Current.GoToAsync($"///{nameof(MainPage)}");
                 }
             }

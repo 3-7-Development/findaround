@@ -14,10 +14,12 @@
         <toolkit:EventToCommandBehavior
             EventName="Appearing"
             Command="{Binding RefreshCommand}"/>
+
+        <toolkit:StatusBarBehavior StatusBarColor="{StaticResource StatusBarColor}"/>
     </ContentPage.Behaviors>
 
     <Grid RowDefinitions="Auto,*,Auto"
-          BackgroundColor="#2D2C2C">
+          BackgroundColor="{StaticResource BackgroundColor}">
         <Grid   
             Grid.Row="0"    
             ColumnDefinitions="25,*,25"
@@ -49,7 +51,7 @@
                     BorderColor="Transparent"
                     Margin="10">
                     <local:CustomEntry Text="{Binding Login}"
-                                       IsEnabled="{Binding IsNotBusy}"/>
+                                       IsEnabled="{Binding EntriesAvailable}"/>
                 </Frame>
             </Grid>
 
@@ -72,7 +74,7 @@
 
                     <local:CustomEntry Text="{Binding Password}"
                                        IsPassword="True"
-                                       IsEnabled="{Binding IsNotBusy}"/>
+                                       IsEnabled="{Binding EntriesAvailable}"/>
                 </Frame>
             </Grid>
 
@@ -85,6 +87,7 @@
                         WidthRequest="150"
                         FontSize="24"
                         Margin="0,30,0,0"
+                        TextColor="White"
                         BackgroundColor="#47BB6C"
                         FontAttributes="Bold"
                         Command="{Binding LogInCommand}"

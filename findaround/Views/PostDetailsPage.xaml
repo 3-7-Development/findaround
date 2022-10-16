@@ -2,10 +2,15 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodels="clr-namespace:findaround.ViewModels"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="findaround.Views.PostDetailsPage"
              x:DataType="viewmodels:PostDetailsPageViewModel"
              Shell.NavBarIsVisible="False"
              Title="PostDetailsPage">
+
+    <ContentPage.Behaviors>
+        <toolkit:StatusBarBehavior StatusBarColor="{StaticResource StatusBarColor}"/>
+    </ContentPage.Behaviors>
 
     <Grid BackgroundColor="#282828"
         RowDefinitions="Auto,*,Auto" >

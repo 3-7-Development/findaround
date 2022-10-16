@@ -10,6 +10,10 @@
              Title="{Binding Title}"
              Shell.NavBarIsVisible="False">
 
+    <ContentPage.Behaviors>
+        <toolkit:StatusBarBehavior StatusBarColor="{StaticResource StatusBarColor}"/>
+    </ContentPage.Behaviors>
+
     <Grid RowDefinitions="Auto,*,Auto"
           BackgroundColor="#2D2C2C">
         <Grid   

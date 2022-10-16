@@ -19,47 +19,64 @@ namespace findaround.ViewModels
 			Title = "NewPostPage";
 		}
 
-        [RelayCommand]
-        async Task UploadImages()
-        {
-            IsBusy = true;
+        //[RelayCommand]
+        //async Task UploadImages()
+        //{
+        //    IsBusy = true;
 
-            var imgs = await FilePicker.PickMultipleAsync(new PickOptions
-            {
-                PickerTitle = "Pick image",
-                FileTypes = FilePickerFileType.Images
-            });
+        //    //var imgs = await FilePicker.PickMultipleAsync(new PickOptions
+        //    //{
+        //    //    PickerTitle = "Pick image",
+        //    //    FileTypes = FilePickerFileType.Images
+        //    //});
 
-            if (imgs is null)
-                return;
+        //    var imgs = await MediaPicker.Default.CapturePhotoAsync();
 
-            var stream = await imgs.ToList()[0].OpenReadAsync();
-            MyImage = ImageSource.FromStream(() => stream);
+        //    if (imgs is null)
+        //        return;
 
-            var imagesList = new List<byte[]>();
+        //    //var stream = await imgs.ToList()[0].OpenReadAsync();
+        //    var stream = await imgs.OpenReadAsync();
+        //    MyImage = ImageSource.FromStream(() => stream);
 
-            foreach (var img in imgs)
-            {
-                var path = img.FullPath;
-                var format = img.ContentType;
-                var imgFormat = (format == "jpeg".ToLower()) ? ImageFormat.Jpeg : ImageFormat.Png;
-                var image = System.Drawing.Image.FromFile(path);
+        //    var imagesList = new List<byte[]>();
 
-                var ms = new MemoryStream();
+        //    //foreach (var img in imgs)
+        //    //{
+        //    //    var path = img.FullPath;
+        //    //    var format = img.ContentType;
+        //    //    var imgFormat = (format == "jpeg".ToLower()) ? ImageFormat.Jpeg : ImageFormat.Png;
+        //    //    var image = System.Drawing.Image.FromFile(path);
 
-                var imgSaveFormat = (imgFormat.ToString().ToLower() == "jpeg")
-                    ? System.Drawing.Imaging.ImageFormat.Jpeg : System.Drawing.Imaging.ImageFormat.Png;
+        //    //    var ms = new MemoryStream();
 
-                image.Save(ms, imgSaveFormat);
-                var bytes = ms.ToArray();
+        //    //    var imgSaveFormat = (imgFormat.ToString().ToLower() == "jpeg")
+        //    //        ? System.Drawing.Imaging.ImageFormat.Jpeg : System.Drawing.Imaging.ImageFormat.Png;
 
-                imagesList.Add(bytes);
-            }
+        //    //    image.Save(ms, imgSaveFormat);
+        //    //    var bytes = ms.ToArray();
 
-            //var imagesBytesToUpload = imagesList.ToArray();
+        //    //    imagesList.Add(bytes);
+        //    //}
 
-            IsBusy = false;
-        }
+        //    var imgPath = imgs.FullPath;
+        //    var imgContentType = imgs.ContentType;
+        //    var imgFormat = (imgContentType == "jpeg".ToLower()) ? ImageFormat.Jpeg : ImageFormat.Png;
+        //    var image = System.Drawing.Image.FromFile(imgPath);
+
+        //    var ms = new MemoryStream();
+
+        //    var imgSaveFormat = (imgFormat.ToString().ToLower() == "jpeg")
+        //        ? System.Drawing.Imaging.ImageFormat.Jpeg : System.Drawing.Imaging.ImageFormat.Png;
+
+        //    image.Save(ms, imgSaveFormat);
+        //    var imgBytes = ms.ToArray();
+
+
+        //    //var imagesBytesToUpload = imagesList.ToArray();
+
+        //    IsBusy = false;
+        //}
     }
 }
 

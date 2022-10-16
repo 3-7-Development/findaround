@@ -13,6 +13,8 @@
         <toolkit:EventToCommandBehavior
             EventName="Appearing"
             Command="{Binding RefreshCommand}"/>
+
+        <toolkit:StatusBarBehavior StatusBarColor="{StaticResource StatusBarColor}"/>
     </ContentPage.Behaviors>
 
     <Grid RowDefinitions="Auto,*,Auto" >
