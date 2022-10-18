@@ -5,6 +5,7 @@ using findaroundAPI.Authorization;
 using findaroundAPI.Entities;
 using findaroundAPI.Exceptions;
 using findaroundAPI.Helpers;
+using findaroundShared.Helpers;
 using findaroundShared.Models;
 using findaroundShared.Models.Dtos;
 using GeoCoordinatePortable;

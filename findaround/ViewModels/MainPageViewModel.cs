@@ -16,6 +16,9 @@ namespace findaround.ViewModels
 
 		List<Post> posts;
 		public List<Post> Posts { get => posts; set => SetProperty(ref posts, value); }
+
+		Post selectedPost;
+		public Post SelectedPost { get => selectedPost; set => SetProperty(ref selectedPost, value); }
 		
 		public MainPageViewModel(IUserService userService, IPostService postService, IGeolocation geolocation)
 		{
@@ -27,7 +30,7 @@ namespace findaround.ViewModels
 
 			Posts = new List<Post>();
 
-			
+			SelectedPost = new Post();
         }
 
 		[RelayCommand]
@@ -49,6 +52,14 @@ namespace findaround.ViewModels
 
 			Posts = await _postService.MatchPosts(PostsHelpers.MatchingCriteria);
 
+			var userLocation = LocationHelpers.GetCurrentLocation(_geolocation);
+
+			foreach (var post in Posts)
+			{
+				var distance = await LocationHelpers.GetDistanceToPost(_geolocation, post.Location) / PostsHelpers.ToKm;
+				post.DistanceFromUser = Math.Round(distance, 2);
+			}
+
 			IsBusy = false;
         }
 
@@ -59,7 +70,7 @@ namespace findaround.ViewModels
 		}
 
 		[RelayCommand]
-		async Task GoToProfile()
+		async Task GoToMessages()
 		{
 			await Shell.Current.GoToAsync(nameof(ProfilePage));
 		}
@@ -96,6 +107,19 @@ namespace findaround.ViewModels
 		}
 
 		[RelayCommand]
+        async Task GoToPostDetails(object args)
+		{
+			var post = args as Post;
+
+			if (post is null)
+				return;
+
+			selectedPost = null;
+
+			await Shell.Current.GoToAsync($"{nameof(PostDetailsPage)}");
+		}
+
+        [RelayCommand]
 		async Task GoBack()
 		{
 			await Shell.Current.GoToAsync($"//{nameof(MainPage)}");

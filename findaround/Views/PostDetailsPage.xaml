@@ -14,6 +14,99 @@
 
     <Grid BackgroundColor="#282828"
         RowDefinitions="Auto,*,Auto" >
+        <!--<Grid   
+            Grid.Row="0"    
+            ColumnDefinitions="45,Auto"
+            BackgroundColor="#2D2C2C"
+            RowDefinitions="45"
+            Padding="8">
+
+            <Image Source="findaround.svg"
+                   Grid.Column="0"/>
+        </Grid>-->
+
+        <ScrollView Grid.Row="1">
+        <Grid           
+                          ColumnDefinitions="50,Auto,*"
+                          RowDefinitions="25,25,Auto,300,Auto,Auto,Auto,Auto"
+                          BackgroundColor="#2D2C2C"
+                          Margin="0,30,0,30"
+                          Padding="10">
+
+            <Label Grid.ColumnSpan="3" Grid.Row="2" Margin="0,10,0,10" Text="Title" FontAttributes="Bold" FontSize="20" TextColor="White"/>
+            <Label Grid.Column="2" Grid.Row="0" Margin="160,0,0,0" Text="x KM away" TextColor="White"/>
+            <Label Grid.Column="1" Grid.Row="1" Margin="10,0,0,0" Text="x minutes ago" TextColor="White"/>
+            <Label Grid.Column="1" Grid.Row="0" Margin="10,0,0,0" Text="Jaś Kapela" TextColor="White"/>
+
+            <Image Grid.Column="0" Grid.RowSpan="2" Source="avatar.svg"/>
+            <Frame CornerRadius="20" Grid.ColumnSpan="3"  Grid.Row="3">
+                <Image Margin="-20" Aspect="AspectFill" Source="pobrany_plik.svg"/>
+            </Frame>
+            <Label FontAttributes="Bold" Grid.ColumnSpan="3" Margin="0,20,0,0" BackgroundColor="Transparent" TextColor="White" Text="Description" Grid.Row="4" />
+
+                <Frame  BorderColor="Transparent" BackgroundColor="#333333" Margin="0,10,0,0" CornerRadius="20" Grid.ColumnSpan="3"  Grid.Row="5">
+                    <Label MinimumHeightRequest="210" MaximumHeightRequest="400" VerticalOptions="FillAndExpand" BackgroundColor="#333333" TextColor="White" Text="s37lw is very dangedasdsadsadasdsarous animal it can bite u and kill ur family"/>
+                </Frame>
+                <Label FontAttributes="Bold" Grid.ColumnSpan="3" Margin="0,20,0,10" BackgroundColor="Transparent" TextColor="White" Text="Comments" Grid.Row="6" />
+               
+                    <CollectionView 
+                        Grid.Row="7"
+                 Grid.Column="0"
+                        Grid.ColumnSpan="3"
+                 
+                  >
+
+                        <CollectionView.ItemsSource>
+
+                            <x:Array Type="{x:Type x:String}">
+
+                                <x:String>halowqe</x:String>
+                                <x:String>10 na 10</x:String>
+                                <x:String>smierdzisz</x:String>
+                                <x:String>scam report</x:String>
+                            </x:Array>
+
+                        </CollectionView.ItemsSource>
+
+                        <CollectionView.ItemTemplate>
+
+                            <DataTemplate>
+
+
+                            <Grid   Margin="0,20,0,0"  ColumnDefinitions="45,*"
+                                  RowDefinitions="45,*">
+                                    <Image Source="avatar.svg" Grid.Column="0" Grid.Row="0"/>
+                                    <Label HorizontalOptions="StartAndExpand" Grid.Row="0" Grid.Column="1" TextColor="White" Margin="10,0,0,0" Text="Jaś Kapela"/>
+                                <Frame HorizontalOptions="FillAndExpand" BorderColor="Transparent" BackgroundColor="#333333" Margin="0,10,0,0" CornerRadius="20" Grid.ColumnSpan="2" Grid.Column="0"  Grid.Row="1">
+                                    <Label   HorizontalOptions="FillAndExpand" BackgroundColor="#333333" TextColor="White" Text="{Binding .}"/>
+                                </Frame>
+                               
+                            </Grid>
+
+
+                            </DataTemplate>
+
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Grid>    
+          
+        </ScrollView>
+        <Grid
+            Grid.Row="2"
+            ColumnDefinitions="*,Auto,Auto,Auto,*"
+            RowDefinitions="50"
+            Padding="5"
+            BackgroundColor="#2D2C2C">
+
+            <Image Source="avatar.svg" Grid.Column="1" Margin="0,0,20,0"/>
+            <Image Source="avatar.svg" Grid.Column="2" Margin="10,0,10,0"/>
+            <Image Source="avatar.svg" Grid.Column="3" Margin="20,0,0,0"/>
+
+        </Grid>
+    </Grid>
+
+    <!--<Grid BackgroundColor="#282828"
+        RowDefinitions="Auto,*,Auto" >
         <Grid   
             Grid.Row="0"    
             ColumnDefinitions="45,Auto"
@@ -61,5 +154,5 @@
             <Image Source="avatar.svg" Grid.Column="3" Margin="20,0,0,0"/>
 
         </Grid>
-    </Grid>
+    </Grid>-->
 </ContentPage>

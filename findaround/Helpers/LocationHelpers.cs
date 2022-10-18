@@ -1,6 +1,7 @@
 ﻿using System;
 using findaroundShared.Models;
 using findaroundShared.Models.Dtos;
+using GeoCoordinatePortable;
 
 namespace findaround.Helpers
 {
@@ -31,6 +32,18 @@ namespace findaround.Helpers
 
 			return location;
 		}
+
+		public static async Task<double> GetDistanceToPost(IGeolocation geolocation, PostLocation postLocation)
+		{
+			var location = await GetCurrentLocation(geolocation);
+			var userCoordinates = new GeoCoordinate(location.Latitude, location.Longitude);
+
+			var postCoordinates = new GeoCoordinate(postLocation.Latitude, postLocation.Longitude);
+
+			var distance = userCoordinates.GetDistanceTo(postCoordinates);
+
+			return distance;
+        }
 	}
 }
 

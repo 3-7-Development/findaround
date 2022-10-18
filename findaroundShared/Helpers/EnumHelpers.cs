@@ -1,7 +1,7 @@
 ﻿using System;
 using findaroundShared.Models;
 
-namespace findaroundAPI.Helpers
+namespace findaroundShared.Helpers
 {
 	public static class EnumHelpers
 	{

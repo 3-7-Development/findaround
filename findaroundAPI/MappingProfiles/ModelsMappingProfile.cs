@@ -2,7 +2,7 @@
 using AutoMapper;
 using findaroundAPI.Entities;
 using findaroundShared.Models;
-using findaroundAPI.Helpers;
+using findaroundShared.Helpers;
 
 namespace findaroundAPI.MappingProfiles
 {
