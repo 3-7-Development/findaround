@@ -50,16 +50,19 @@
                 <Image Grid.Column="0" Grid.RowSpan="2" Source="avatar.svg"/>
 
                 <CollectionView
+                    Grid.Row="3"
+                    Grid.ColumnSpan="3"
                     ItemsSource="{Binding Post.Images}"
-                    IsVisible="{Binding Post.HasImages}">
+                    IsVisible="{Binding Post.HasImages}"
+                    ItemsLayout="HorizontalList">
+
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:PostImage">
-                            <Frame CornerRadius="20" Grid.ColumnSpan="3" Grid.Row="3">
-                                <Image
-                                    Margin="-20"
-                                    Aspect="AspectFill"
-                                    Source="{Binding Path}"/>
-                            </Frame>
+                            <Image Margin="0"
+                                   HorizontalOptions="FillAndExpand"
+                                   VerticalOptions="FillAndExpand"
+                                   Aspect="AspectFill"
+                                   Source="{Binding Path}"/>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
@@ -133,16 +136,5 @@
                     </Grid>    
           
             </ScrollView>
-            <Grid
-                Grid.Row="2"
-                ColumnDefinitions="*,Auto,Auto,Auto,*"
-                RowDefinitions="50"
-                Padding="5"
-                BackgroundColor="#2D2C2C">
-
-                <Image Source="avatar.svg" Grid.Column="1" Margin="0,0,20,0"/>
-                <Image Source="avatar.svg" Grid.Column="2" Margin="10,0,10,0"/>
-                <Image Source="avatar.svg" Grid.Column="3" Margin="20,0,0,0"/>
-            </Grid>
     </Grid>
 </ContentPage>

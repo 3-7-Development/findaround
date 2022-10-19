@@ -95,7 +95,7 @@
                 <DataTemplate>
                     <Grid x:DataType="models:Post"
                           ColumnDefinitions="50,Auto,*"
-                          RowDefinitions="25,25,Auto,300"
+                          RowDefinitions="25,25,Auto,Auto"
                           BackgroundColor="{StaticResource BackgroundColor}"
                           Margin="0,30"
                           Padding="10">
@@ -124,7 +124,7 @@
 
                             <Image Margin="-20"
                                    Aspect="AspectFill"
-                                   Source="{Binding Images[0].Path}">
+                                   Source="{Binding Images[0].Path}" IsVisible="{Binding HasImages}">
 
                                 <Image.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MainPageViewModel}}, Path=GoToPostDetailsCommand}"

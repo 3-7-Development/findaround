@@ -49,7 +49,7 @@ namespace findaround.Helpers
             }
             else
             {
-                MatchingCriteria.Distance = 5.00 * ToKm;
+                MatchingCriteria.Distance = 50.00 * ToKm;
                 MatchingCriteria.Location = new PostLocation()
                 {
                     Latitude = userLocation.Latitude,
