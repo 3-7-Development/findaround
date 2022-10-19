@@ -8,6 +8,8 @@ namespace findaround.Helpers
 	{
         public static PostMatchingDto MatchingCriteria;
 
+        public static Post SelectedPost;
+
         public static double ToKm = 1000000;
 
         public static async Task RefreshSearchCriteria(IGeolocation geolocation)

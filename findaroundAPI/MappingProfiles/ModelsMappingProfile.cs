@@ -49,7 +49,8 @@ namespace findaroundAPI.MappingProfiles
 			CreateMap<PostImage, PostsImagesEntity>()
 				.ForMember(e => e.Image, mp => mp.MapFrom(i => i.Path));
 
-			CreateMap<CommentEntity, Comment>();
+			CreateMap<CommentEntity, Comment>()
+				.ForMember(c => c.AuthorName, mp => mp.MapFrom(e => e.Author.Login));
 
             CreateMap<Comment, CommentEntity>();
         }

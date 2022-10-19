@@ -246,7 +246,7 @@ namespace findaroundAPI.Helpers
                     Login = "testUser",
                     PasswordHash = testUserPasswordData.PasswordHash,
                     Salt = testUserPasswordData.Salt,
-                    ProfileImage = "defaultProfileImg.png",
+                    ProfileImage = "default_profile_img.png",
                     LoggedIn = false
                 },
                 new UserEntity()
@@ -254,7 +254,7 @@ namespace findaroundAPI.Helpers
                     Login = "proPlayer2137",
                     PasswordHash = proPlayerPasswordData.PasswordHash,
                     Salt = testUserPasswordData.Salt,
-                    ProfileImage = "defaultProfileImg.png",
+                    ProfileImage = "default_profile_img.png",
                     LoggedIn = false
                 }
             };
@@ -266,15 +266,15 @@ namespace findaroundAPI.Helpers
             {
                 new PostsImagesEntity()
                 {
-                    Image = "defaultPostImage.png"
+                    Image = "default_post_image.png"
                 },
                 new PostsImagesEntity()
                 {
-                    Image = "defaultPostImage.png"
+                    Image = "default_post_image.png"
                 },
                 new PostsImagesEntity()
                 {
-                    Image = "defaultPostImage.png"
+                    Image = "default_post_image.png"
                 }
             };
         }

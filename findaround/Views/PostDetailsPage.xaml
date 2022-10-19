@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodels="clr-namespace:findaround.ViewModels"
+             xmlns:models="clr-namespace:findaroundShared.Models;assembly=findaroundShared"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="findaround.Views.PostDetailsPage"
              x:DataType="viewmodels:PostDetailsPageViewModel"
@@ -10,149 +11,138 @@
 
     <ContentPage.Behaviors>
         <toolkit:StatusBarBehavior StatusBarColor="{StaticResource StatusBarColor}"/>
+
+        <toolkit:EventToCommandBehavior EventName="Appearing" Command="{Binding AppearingCommand}"/>
     </ContentPage.Behaviors>
 
     <Grid BackgroundColor="#282828"
         RowDefinitions="Auto,*,Auto" >
-        <!--<Grid   
-            Grid.Row="0"    
-            ColumnDefinitions="45,Auto"
-            BackgroundColor="#2D2C2C"
-            RowDefinitions="45"
-            Padding="8">
-
-            <Image Source="findaround.svg"
-                   Grid.Column="0"/>
-        </Grid>-->
 
         <ScrollView Grid.Row="1">
-        <Grid           
-                          ColumnDefinitions="50,Auto,*"
-                          RowDefinitions="25,25,Auto,300,Auto,Auto,Auto,Auto"
-                          BackgroundColor="#2D2C2C"
-                          Margin="0,30,0,30"
-                          Padding="10">
+            <Grid ColumnDefinitions="50,Auto,*"
+                  RowDefinitions="25,25,Auto,300,Auto,Auto,Auto,Auto"
+                  BackgroundColor="#2D2C2C"
+                  Margin="0,30,0,30"
+                  Padding="10">
 
-            <Label Grid.ColumnSpan="3" Grid.Row="2" Margin="0,10,0,10" Text="Title" FontAttributes="Bold" FontSize="20" TextColor="White"/>
-            <Label Grid.Column="2" Grid.Row="0" Margin="160,0,0,0" Text="x KM away" TextColor="White"/>
-            <Label Grid.Column="1" Grid.Row="1" Margin="10,0,0,0" Text="x minutes ago" TextColor="White"/>
-            <Label Grid.Column="1" Grid.Row="0" Margin="10,0,0,0" Text="Jaś Kapela" TextColor="White"/>
+                <Label Grid.ColumnSpan="3" Grid.Row="2"
+                       Margin="0,10,0,10"
+                       Text="{Binding Post.Title}"
+                       FontAttributes="Bold"
+                       FontSize="20"
+                       TextColor="White"/>
 
-            <Image Grid.Column="0" Grid.RowSpan="2" Source="avatar.svg"/>
-            <Frame CornerRadius="20" Grid.ColumnSpan="3"  Grid.Row="3">
-                <Image Margin="-20" Aspect="AspectFill" Source="pobrany_plik.svg"/>
-            </Frame>
-            <Label FontAttributes="Bold" Grid.ColumnSpan="3" Margin="0,20,0,0" BackgroundColor="Transparent" TextColor="White" Text="Description" Grid.Row="4" />
+                <Label Grid.Column="2" Grid.Row="0"
+                       Margin="160,0,0,0"
+                       Text="{Binding Post.DistanceFromUser, StringFormat='{0} KM'}"
+                       TextColor="White"/>
 
-                <Frame  BorderColor="Transparent" BackgroundColor="#333333" Margin="0,10,0,0" CornerRadius="20" Grid.ColumnSpan="3"  Grid.Row="5">
-                    <Label MinimumHeightRequest="210" MaximumHeightRequest="400" VerticalOptions="FillAndExpand" BackgroundColor="#333333" TextColor="White" Text="s37lw is very dangedasdsadsadasdsarous animal it can bite u and kill ur family"/>
-                </Frame>
-                <Label FontAttributes="Bold" Grid.ColumnSpan="3" Margin="0,20,0,10" BackgroundColor="Transparent" TextColor="White" Text="Comments" Grid.Row="6" />
+                <Label Grid.Column="1" Grid.Row="1"
+                       Margin="10,0,0,0"
+                       Text="x minutes ago"
+                       TextColor="White"/>
+
+                <Label Grid.Column="1" Grid.Row="0"
+                       Margin="10,0,0,0"
+                       Text="{Binding Post.AuthorName}"
+                       TextColor="White"/>
+
+                <Image Grid.Column="0" Grid.RowSpan="2" Source="avatar.svg"/>
+
+                <CollectionView
+                    ItemsSource="{Binding Post.Images}"
+                    IsVisible="{Binding Post.HasImages}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:PostImage">
+                            <Frame CornerRadius="20" Grid.ColumnSpan="3" Grid.Row="3">
+                                <Image
+                                    Margin="-20"
+                                    Aspect="AspectFill"
+                                    Source="{Binding Path}"/>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <Label FontAttributes="Bold"
+                       Grid.ColumnSpan="3"
+                       Grid.Row="4"
+                       Margin="0,20,0,0"
+                       BackgroundColor="Transparent"
+                       TextColor="White"
+                       Text="Description"/>
+
+                    <Frame BorderColor="Transparent"
+                           BackgroundColor="#333333"
+                           Margin="0,10,0,0"
+                           CornerRadius="20"
+                           Grid.ColumnSpan="3" Grid.Row="5">
+
+                        <Label MinimumHeightRequest="210"
+                               MaximumHeightRequest="400"
+                               VerticalOptions="FillAndExpand"
+                               BackgroundColor="#333333"
+                               TextColor="White"
+                               Text="{Binding Post.Description}"/>
+                    </Frame>
+
+                    <Label FontAttributes="Bold"
+                           Grid.ColumnSpan="3"
+                           Grid.Row="6"
+                           Margin="0,20,0,10"
+                           BackgroundColor="Transparent"
+                           TextColor="White"
+                           Text="Comments"/>
                
-                    <CollectionView 
-                        Grid.Row="7"
-                 Grid.Column="0"
-                        Grid.ColumnSpan="3"
-                 
-                  >
+                        <CollectionView 
+                            Grid.Row="7"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="3"
+                            ItemsSource="{Binding Post.Images}">
 
-                        <CollectionView.ItemsSource>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="models:Comment">
+                                    <Grid Margin="0,20,0,0"  ColumnDefinitions="45,*"
+                                          RowDefinitions="45,*">
 
-                            <x:Array Type="{x:Type x:String}">
-
-                                <x:String>halowqe</x:String>
-                                <x:String>10 na 10</x:String>
-                                <x:String>smierdzisz</x:String>
-                                <x:String>scam report</x:String>
-                            </x:Array>
-
-                        </CollectionView.ItemsSource>
-
-                        <CollectionView.ItemTemplate>
-
-                            <DataTemplate>
-
-
-                            <Grid   Margin="0,20,0,0"  ColumnDefinitions="45,*"
-                                  RowDefinitions="45,*">
                                     <Image Source="avatar.svg" Grid.Column="0" Grid.Row="0"/>
-                                    <Label HorizontalOptions="StartAndExpand" Grid.Row="0" Grid.Column="1" TextColor="White" Margin="10,0,0,0" Text="Jaś Kapela"/>
-                                <Frame HorizontalOptions="FillAndExpand" BorderColor="Transparent" BackgroundColor="#333333" Margin="0,10,0,0" CornerRadius="20" Grid.ColumnSpan="2" Grid.Column="0"  Grid.Row="1">
-                                    <Label   HorizontalOptions="FillAndExpand" BackgroundColor="#333333" TextColor="White" Text="{Binding .}"/>
-                                </Frame>
-                               
-                            </Grid>
 
+                                    <Label HorizontalOptions="StartAndExpand"
+                                           Grid.Row="0" Grid.Column="1"
+                                           TextColor="White"
+                                           Margin="10,0,0,0"
+                                           Text="{Binding AuthorName}"/>
 
-                            </DataTemplate>
+                                        <Frame HorizontalOptions="FillAndExpand"
+                                               BorderColor="Transparent"
+                                               BackgroundColor="#333333"
+                                               Margin="0,10,0,0"
+                                               CornerRadius="20"
+                                               Grid.ColumnSpan="2"
+                                               Grid.Column="0"  Grid.Row="1">
 
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                </Grid>    
+                                            <Label HorizontalOptions="FillAndExpand"
+                                                   BackgroundColor="#333333"
+                                                   TextColor="White"
+                                                   Text="{Binding Content}"/>
+                                        </Frame>
+                                    </Grid>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </Grid>    
           
-        </ScrollView>
-        <Grid
-            Grid.Row="2"
-            ColumnDefinitions="*,Auto,Auto,Auto,*"
-            RowDefinitions="50"
-            Padding="5"
-            BackgroundColor="#2D2C2C">
+            </ScrollView>
+            <Grid
+                Grid.Row="2"
+                ColumnDefinitions="*,Auto,Auto,Auto,*"
+                RowDefinitions="50"
+                Padding="5"
+                BackgroundColor="#2D2C2C">
 
-            <Image Source="avatar.svg" Grid.Column="1" Margin="0,0,20,0"/>
-            <Image Source="avatar.svg" Grid.Column="2" Margin="10,0,10,0"/>
-            <Image Source="avatar.svg" Grid.Column="3" Margin="20,0,0,0"/>
-
-        </Grid>
+                <Image Source="avatar.svg" Grid.Column="1" Margin="0,0,20,0"/>
+                <Image Source="avatar.svg" Grid.Column="2" Margin="10,0,10,0"/>
+                <Image Source="avatar.svg" Grid.Column="3" Margin="20,0,0,0"/>
+            </Grid>
     </Grid>
-
-    <!--<Grid BackgroundColor="#282828"
-        RowDefinitions="Auto,*,Auto" >
-        <Grid   
-            Grid.Row="0"    
-            ColumnDefinitions="45,Auto"
-            BackgroundColor="#2D2C2C"
-            RowDefinitions="45"
-            Padding="8">
-
-            <Image Source="findaround.svg"
-                   Grid.Column="0"/>
-        </Grid>
-
-        <ScrollView Grid.Row="1">
-        <Grid           
-                          ColumnDefinitions="50,Auto,*"
-                          RowDefinitions="25,25,Auto,300,Auto,Auto,Auto"
-                          BackgroundColor="#2D2C2C"
-                          Margin="0,30,0,30"
-                          Padding="10">
-
-            <Label Grid.ColumnSpan="3" Grid.Row="2" Margin="0,10,0,10" Text="Title" FontAttributes="Bold" FontSize="20" TextColor="White"/>
-            <Label Grid.Column="2" Grid.Row="0" Margin="160,0,0,0" Text="x KM away" TextColor="White"/>
-            <Label Grid.Column="1" Grid.Row="1" Margin="10,0,0,0" Text="x minutes ago" TextColor="White"/>
-            <Label Grid.Column="1" Grid.Row="0" Margin="10,0,0,0" Text="Jaś Kapela" TextColor="White"/>
-
-            <Image Grid.Column="0" Grid.RowSpan="2" Source="avatar.svg"/>
-            <Frame CornerRadius="20" Grid.ColumnSpan="3"  Grid.Row="3">
-                <Image Margin="-20" Aspect="AspectFill" Source="pobrany_plik.svg"/>
-            </Frame>
-            <Label FontAttributes="Bold" Grid.ColumnSpan="3" Margin="0,20,0,0" BackgroundColor="Transparent" TextColor="White" Text="Description" Grid.Row="4" />
-
-                <Frame  BorderColor="Transparent" BackgroundColor="#333333" Margin="0,10,0,0" CornerRadius="20" Grid.ColumnSpan="3"  Grid.Row="5">
-                    <Label MinimumHeightRequest="210" MaximumHeightRequest="400" VerticalOptions="FillAndExpand" BackgroundColor="#333333" TextColor="White" Text="s37lw is very dangedasdsadsadasdsarous animal it can bite u and kill ur family"/>
-                </Frame>
-        </Grid>
-        </ScrollView>
-        <Grid
-            Grid.Row="2"
-            ColumnDefinitions="*,Auto,Auto,Auto,*"
-            RowDefinitions="50"
-            Padding="5"
-            BackgroundColor="#2D2C2C">
-
-            <Image Source="avatar.svg" Grid.Column="1" Margin="0,0,20,0"/>
-            <Image Source="avatar.svg" Grid.Column="2" Margin="10,0,10,0"/>
-            <Image Source="avatar.svg" Grid.Column="3" Margin="20,0,0,0"/>
-
-        </Grid>
-    </Grid>-->
 </ContentPage>

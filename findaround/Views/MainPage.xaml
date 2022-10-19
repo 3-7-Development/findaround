@@ -117,8 +117,15 @@
 
                         <Image Grid.Column="0" Grid.RowSpan="2" Source="avatar.svg"/>
 
-                        <Frame CornerRadius="20" Grid.ColumnSpan="3"  Grid.Row="3">
-                            <Image Margin="-20" Aspect="AspectFill" Source="pobrany_plik.svg">
+                        <Frame CornerRadius="20"
+                               x:DataType="models:Post"
+                               Grid.ColumnSpan="3"  Grid.Row="3"
+                               IsVisible="{Binding HasImages}">
+
+                            <Image Margin="-20"
+                                   Aspect="AspectFill"
+                                   Source="{Binding Images[0].Path}">
+
                                 <Image.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MainPageViewModel}}, Path=GoToPostDetailsCommand}"
                                                   CommandParameter="{Binding .}"/>
