@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="findaround.Views.ProfilePage"
+             xmlns:local="clr-namespace:MAUI_Custom_Controls.CustomControls"
              Shell.NavBarIsVisible="False"
              Title="ProfilePage">
 
@@ -10,10 +11,116 @@
         <toolkit:StatusBarBehavior StatusBarColor="{StaticResource StatusBarColor}"/>
     </ContentPage.Behaviors>
 
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <Grid RowDefinitions="Auto,*,Auto"
+          HorizontalOptions="FillAndExpand"
+          Padding="0"
+          BackgroundColor="#282828">
+        <Grid   
+            Grid.Row="0"    
+            ColumnDefinitions="45,*"
+            RowDefinitions="45"
+            BackgroundColor="{StaticResource BackgroundColor}"
+            Padding="20">
+
+            <Image Source="findaround.svg"
+                   Grid.Column="0"/>
+        </Grid>
+
+        <Grid Grid.Row="1"
+              RowDefinitions="115,*"
+              BackgroundColor="#282828">
+            <Grid Grid.Row="1"
+                  BackgroundColor="#2D2C2C">
+
+            </Grid>
+            <Frame
+                Margin="0,115,0,0"
+                HorizontalOptions="Center"
+                CornerRadius="125"
+                WidthRequest="125"
+                HeightRequest="125"
+                BorderColor="{StaticResource Primary}"
+                BackgroundColor="#2D2C2C">
+
+                <Image Source="boyavatar2.png"
+                       HorizontalOptions="FillAndExpand"
+                       VerticalOptions="FillAndExpand"
+                       HeightRequest="125"
+                       WidthRequest="125"/>
+
+            </Frame>
+
+            <VerticalStackLayout>
+            
+            <Grid Style="{StaticResource CustomEntryGrid}"
+                  Grid.Row="1"
+                  Margin="0,180,0,0">
+                <Label Text="Name: "
+                       Style="{StaticResource CustomEntryLabel}"/>
+                    <Frame Style="{StaticResource CustomEntryFrame}">
+                        <local:CustomEntry
+                        Text=""/>
+                    </Frame>
+                </Grid>
+
+                <Frame BackgroundColor="#333333"
+                       Margin="10,25,10,0"
+                       HeightRequest="70"
+                       BorderColor="Transparent">
+
+                    <Label Text="Your Posts"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           TextColor="#FFF"
+                           FontSize="16"
+                           FontAttributes="Bold"/>
+
+                </Frame>
+
+                <Grid BackgroundColor="Transparent"
+                      ColumnDefinitions="*,*"
+                      RowDefinitions="125,60"
+                      HeightRequest="200">
+                    <Button Text="Change Password"
+                            Grid.Column="0"
+                            Grid.Row="1"
+                            Margin="20,0,20,10"
+                            FontSize="16"/>
+                    <Button Text="Logout"
+                            Grid.Column="1"
+                            Grid.Row="1"
+                            Margin="20,0,20,10"
+                            BackgroundColor="#FB4242"
+                            FontSize="16"/>
+                </Grid>
+
+                <HorizontalStackLayout BackgroundColor="#333"
+                                       HeightRequest="75">
+                    
+                        <Button Text="Categories"
+                                HorizontalOptions="Center"
+                                WidthRequest="100"
+                                HeightRequest="50"
+                                Margin="25,0,0,0"/>
+
+                        <Button Text="New Post"
+                                HorizontalOptions="Center"
+                                WidthRequest="100"
+                                HeightRequest="50"
+                                Margin="30,0,0,0"/>
+
+                        <Button Text="Messages"
+                                HorizontalOptions="Center"
+                                WidthRequest="100"
+                                HeightRequest="50"
+                                Margin="30,0,0,0"/>
+                </HorizontalStackLayout>
+
+                
+                               
+            </VerticalStackLayout>
+
+        </Grid>
+        
+    </Grid>
 </ContentPage>
