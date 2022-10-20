@@ -2,22 +2,137 @@
 using CommunityToolkit.Mvvm.Input;
 using findaround.Services;
 using findaround.Views;
+using findaround.Helpers;
+using findaroundShared.Models;
 
 namespace findaround.ViewModels
 {
 	public partial class NewPostPageViewModel : ViewModelBase
 	{
 		readonly IPostService _postService;
+        readonly IGeolocation _geolocation;
+
+        List<CategoryDisplayModel> categories;
+        public List<CategoryDisplayModel> Categories { get => categories; set => SetProperty(ref categories, value); }
+
+        CategoryDisplayModel selectedCategory;
+        public CategoryDisplayModel SelectedCategory { get => selectedCategory; set => SetProperty(ref selectedCategory, value); }
+
+        string postTitle;
+        public string PostTitle { get => postTitle; set => SetProperty(ref postTitle, value); }
+
+        string description;
+        public string Description { get => description; set => SetProperty(ref description, value); }
+
+        bool entriesAvailable;
+        public bool EntriesAvailable { get => entriesAvailable; set => SetProperty(ref entriesAvailable, value); }
 
         ImageSource myImage;
         public ImageSource MyImage { get => myImage; set => SetProperty(ref myImage, value); }
 
-		public NewPostPageViewModel(IPostService postService)
+		public NewPostPageViewModel(IPostService postService, IGeolocation geolocation)
 		{
 			_postService = postService;
+            _geolocation = geolocation;
 
-			Title = "NewPostPage";
+			Title = "Add your post";
+
+            PostTitle = string.Empty;
+            Description = string.Empty;
+
+            Categories = new List<CategoryDisplayModel>();
 		}
+
+        [RelayCommand]
+        void Appearing()
+        {
+            IsBusy = true;
+
+            foreach (PostCategory category in Enum.GetValues(typeof(PostCategory)))
+            {
+                Categories.Add(new CategoryDisplayModel()
+                {
+                    Category = category,
+                    Name = category.ToString(),
+                    Image = category.ToString().ToLower() + "_image.png"
+                }); ;
+            }
+
+            IsBusy = false;
+        }
+
+        [RelayCommand]
+        async Task AddPost()
+        {
+            IsBusy = true;
+            EntriesAvailable = false;
+
+            if (string.IsNullOrWhiteSpace(postTitle))
+            {
+                await Shell.Current.DisplayAlert("Error", "Post must have a title", "OK");
+                EntriesAvailable = true;
+                IsBusy = false;
+            }
+            else
+            {
+                if (SelectedCategory is null)
+                {
+                    await Shell.Current.DisplayAlert("Error", "Please select a category", "OK");
+                }
+                else
+                {
+                    var location = await LocationHelpers.GetCurrentLocation(_geolocation);
+
+                    if (location is null)
+                    {
+                        await Shell.Current.DisplayAlert("Error", "Cannot get location", "OK");
+                        EntriesAvailable = true;
+                        IsBusy = false;
+                    }
+                    else
+                    {
+                        var post = new Post()
+                        {
+                            AuthorId = UserHelpers.CurrentUser.Id,
+                            AuthorName = UserHelpers.CurrentUser.Login,
+                            Title = PostTitle,
+                            Description = Description,
+                            Status = PostStatus.Active,
+                            Category = SelectedCategory.Category,
+                            Location = new PostLocation
+                            {
+                                Latitude = location.Latitude,
+                                Longitude = location.Longitude
+                            },
+                            DistanceFromUser = 0.00,
+                            Images = new List<PostImage>(),
+                            HasImages = false
+                    };
+
+                        var isAdded = await _postService.AddPost(post);
+
+                        if (!isAdded)
+                        {
+                            await Shell.Current.DisplayAlert("Cannot add post", "Something went wrong", "OK");
+                            EntriesAvailable = true;
+                            IsBusy = false;
+                        }
+                        else
+                        {
+                            IsBusy = false;
+                            EntriesAvailable = true;
+                            await Shell.Current.GoToAsync($"///{nameof(MainPage)}");
+                        }
+                    }
+                }
+            }
+        }
+
+        [RelayCommand]
+        async Task Cancel()
+        {
+            await Shell.Current.GoToAsync($"///{nameof(MainPage)}");
+        }
 
         //[RelayCommand]
         //async Task UploadImages()

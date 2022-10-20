@@ -53,6 +53,7 @@
     <None Remove="LanguageExt.Core" />
     <None Remove="GeoCoordinate" />
     <None Remove="GeoCoordinate.NetCore" />
+    <None Remove="Config\findaround.online.certificate.pem" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Entities\" />

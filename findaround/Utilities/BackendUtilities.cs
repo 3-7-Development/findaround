@@ -47,6 +47,8 @@ namespace findaround.Utilities
                 }
             }
 
+            //return "https://192.168.1.3:3737";
+
             var responseContent = await response.Content.ReadAsStringAsync();
 
             if (!responseContent.Contains("ngrok.io"))
