@@ -57,6 +57,9 @@
 	  <None Remove="System.Drawing.Primitives" />
 	  <None Remove="System.Drawing.Common" />
 	  <None Remove="GeoCoordinate.NetCore" />
+	  <None Remove="Platforms\Android\Resources\raw\" />
+	  <None Remove="Platforms\Android\Resources\xml\findaround_online.pfx" />
+	  <None Remove="Platforms\Android\Resources\xml\findaround_online.crt" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -94,6 +97,7 @@
 	  <Folder Include="Configuration\" />
 	  <Folder Include="Utilities\" />
 	  <Folder Include="Helpers\" />
+	  <Folder Include="Platforms\Android\Resources\raw\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <EmbeddedResource Include="Configuration\ServerConfig.json" />

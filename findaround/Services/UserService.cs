@@ -20,8 +20,6 @@ namespace findaround.Services
 
         public async Task<bool> RegisterUser(RegisterUserDto dto)
         {
-            _client.SetBaseUrl();
-
             var content = this.GetRequestContent(dto);
             var response = new HttpResponseMessage();
 
@@ -42,8 +40,6 @@ namespace findaround.Services
 
         public async Task<bool> LogInUser(LoginUserDto dto)
         {
-            _client.SetBaseUrl();
-
             var content = this.GetRequestContent(dto);
             var response = new HttpResponseMessage();
 
@@ -68,7 +64,6 @@ namespace findaround.Services
 
         public async Task<bool> LogOutUser()
         {
-            _client.SetBaseUrl();
             _client.SetAuthenticationToken();
 
             var response = new HttpResponseMessage();
@@ -90,7 +85,6 @@ namespace findaround.Services
 
         public async Task<User> GetUserBasicData(int userId)
         {
-            _client.SetBaseUrl();
             _client.SetAuthenticationToken();
 
             var response = new HttpResponseMessage();
@@ -115,7 +109,6 @@ namespace findaround.Services
 
         public async Task<User> GetBasicInfoAboutYourself()
         {
-            _client.SetBaseUrl();
             _client.SetAuthenticationToken();
 
             var response = new HttpResponseMessage();
@@ -140,7 +133,6 @@ namespace findaround.Services
 
         public async Task<string> GetUserLogin(int userId)
         {
-            _client.SetBaseUrl();
             _client.SetAuthenticationToken();
 
             var response = new HttpResponseMessage();

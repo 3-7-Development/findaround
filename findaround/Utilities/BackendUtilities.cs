@@ -9,15 +9,12 @@ namespace findaround.Utilities
 {
 	public static class BackendUtilities
 	{
-		public static async Task<string> GetBaseUrlAsync()
+		public static string GetBaseUrl()
 		{
-            if (Connectivity.NetworkAccess != NetworkAccess.Internet)
-                return "https://localhost";
-
             Assembly assembly = Assembly.GetExecutingAssembly();
             string json = string.Empty;
 
-            using (var stream = assembly.GetManifestResourceStream("findaround.Configuration.ngrokConfig.json"))
+            using (var stream = assembly.GetManifestResourceStream("findaround.Configuration.ServerConfig.json"))
             {
                 using (var reader = new StreamReader(stream))
                 {
@@ -25,46 +22,9 @@ namespace findaround.Utilities
                 }
             }
 
-            var apiKey = JsonConvert.DeserializeObject<NgrokConfig>(json);
+            var config = JsonConvert.DeserializeObject<ServerConnectionConfig>(json);
 
-            var response = new HttpResponseMessage();
-
-            using (var httpClient = new HttpClient())
-            {
-                using (var request = new HttpRequestMessage(new HttpMethod("GET"), "https://api.ngrok.com/tunnels"))
-                {
-                    request.Headers.TryAddWithoutValidation("Authorization", $"Bearer {apiKey.ApiKey}");
-                    request.Headers.TryAddWithoutValidation("Ngrok-Version", "2");
-
-                    try
-                    {
-                        response = await httpClient.SendAsync(request);
-                    }
-                    catch (Exception e)
-                    {
-                        response = new HttpResponseMessage();
-                    }
-                }
-            }
-
-            //return "https://192.168.1.3:3737";
-
-            var responseContent = await response.Content.ReadAsStringAsync();
-
-            if (!responseContent.Contains("ngrok.io"))
-                return "https://localhost";
-
-            var start = responseContent.IndexOf("\"public_url\":\"") + "\"public_url\":\"".Length;
-            var end = responseContent.IndexOf("ngrok.io") + "ngrok.io".Length;
-            var length = end - start;
-
-            var url = responseContent.Substring(start, length);
-
-            if (string.IsNullOrWhiteSpace(url))
-                url = "https://localhost";
-
-            return url;
-            //return new Uri("https://192.168.1.3:3737");
+            return config.Remote;
         }
 
 		public static HttpClient ProduceHttpClient()
@@ -75,8 +35,16 @@ namespace findaround.Utilities
 				UseDefaultCredentials = true
 			};
 
-			var client = new HttpClient(handler);
+            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) =>
+            {
+                if (cert != null && cert.Issuer.Equals("CN=Certyfikat SSL, O=home.pl S.A., C=PL"))
+                    return true;
+                return errors == System.Net.Security.SslPolicyErrors.None;
+            };
+
+            var client = new HttpClient(handler);
             client.DefaultRequestHeaders.Add("Accept", "application/json");
+            client.BaseAddress = new Uri(GetBaseUrl());
             return client;
 		}
 

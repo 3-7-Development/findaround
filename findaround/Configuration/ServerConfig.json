@@ -1,6 +1,6 @@
 ﻿{
   "Android": "10.0.2.2",
-  "Remote": "https://www.findaround.io.local",
+  "Remote": "https://www.findaround.online:3737",
   //"Remote": "https://192.168.1.3:3737",
   "Port": "3737"
 }

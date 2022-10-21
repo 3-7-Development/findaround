@@ -51,8 +51,6 @@ namespace findaround.ViewModels
 			}
 
 			ResetInputData();
-			var url = await BackendUtilities.GetBaseUrlAsync();
-			Barrel.Current.Add("BasicURL", url, TimeSpan.FromDays(7));
 			IsBusy = false;
 		}
 
