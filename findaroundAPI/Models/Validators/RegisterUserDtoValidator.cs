@@ -20,8 +20,6 @@ namespace findaroundAPI.Models.Validators
 			RuleFor(x => x.Password).NotEmpty().MinimumLength(6);
 
 			RuleFor(x => x.ConfirmedPassword).NotEmpty().Equal(x => x.Password);
-
-			RuleFor(x => x.PhoneNumber).NotEmpty().Length(9, 11);
         }
 	}
 }
