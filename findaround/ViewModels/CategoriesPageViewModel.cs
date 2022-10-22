@@ -33,7 +33,7 @@ namespace findaround.ViewModels
 					Category = category,
 					Name = category.ToString(),
 					Image = category.ToString().ToLower() + "_image.png"
-				}); ;
+				});
 			}
 		}
 
@@ -79,12 +79,12 @@ namespace findaround.ViewModels
 			if (choosenCategory is null)
 				return;
 
-			//selectedCategory = null;
+			PostCategory = EnumHelpers.ToPostCategory(selectedCategory.Name);
+			PostsHelpers.MatchingCriteria.Category = selectedCategory.Category;
 
-            PostCategory = EnumHelpers.ToPostCategory(choosenCategory.Name);
-			PostsHelpers.MatchingCriteria.Category = postCategory;
+            selectedCategory = null;
 
-			await Shell.Current.GoToAsync($"///{nameof(MainPage)}");
+            await Shell.Current.GoToAsync($"///{nameof(MainPage)}");
 		}
 	}
 }
