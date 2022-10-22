@@ -49,7 +49,7 @@
                        HeightRequest="40"
                        WidthRequest="40">
                     <Image.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding LogoutCommand}"/>
+                        <TapGestureRecognizer Command="{Binding GoToProfileCommand}"/>
                     </Image.GestureRecognizers>
                 </Image>
 

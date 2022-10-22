@@ -83,8 +83,14 @@ namespace findaround.ViewModels
 		[RelayCommand]
 		async Task GoToMessages()
 		{
-			await Shell.Current.GoToAsync(nameof(ProfilePage));
+			await Shell.Current.DisplayAlert("Messages will be here", "Maybe some day", "OK");
 		}
+
+		[RelayCommand]
+		async Task GoToProfile()
+		{
+            await Shell.Current.GoToAsync(nameof(ProfilePage));
+        }
 
 		[RelayCommand]
 		async Task GoToCategories()
@@ -113,7 +119,7 @@ namespace findaround.ViewModels
 			else
 			{
 				IsBusy = false;
-				await Shell.Current.GoToAsync($"{nameof(LoginPage)}");
+				await Shell.Current.GoToAsync($"///{nameof(LoginPage)}");
 			}
 		}
 
