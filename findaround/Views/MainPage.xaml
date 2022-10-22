@@ -65,12 +65,6 @@
             SelectionChangedCommand="{Binding GoToPostDetailsCommand}"
             SelectionChangedCommandParameter="{Binding SelectedPost}">
 
-            
-            <!--SelectedItem="{Binding SelectedPost, Mode=OneWay}"
-            SelectionChangedCommand="{Binding GoToPostDetailsCommand}"
-            SelectionChangedCommandParameter="{Binding SelectedPost}"
-            SelectionMode="Single"-->
-
             <CollectionView.EmptyView>
                 <VerticalStackLayout
                        VerticalOptions="Center"

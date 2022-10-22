@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodels="clr-namespace:findaround.ViewModels"
+             xmlns:models="clr-namespace:findaroundShared.Models;assembly=findaroundShared"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:custom="clr-namespace:MAUI_Custom_Controls.CustomControls"
              x:Class="findaround.Views.NewPostPage"
@@ -38,23 +39,25 @@
                            Style="{StaticResource CustomEntryLabel}"/>
 
                     <Picker
-                        TextColor="White"
-                        VerticalOptions="Center"
-                        HorizontalOptions="Fill"
-                        Margin="20,20,0,0"
-                        BackgroundColor="#333333"
                         x:Name="picker"
+                        TextColor="White"
+                        BackgroundColor="{StaticResource BackgroundColor}"
+                        Title="{Binding SelectedCategory.Name, StringFormat='Selected:  {0}'}"
+                        HorizontalTextAlignment="Center"
+                        Margin="20,10,0,0"
                         ItemsSource="{Binding Categories}"
-                        SelectedItem="{Binding SelectedCategory}"/>
+                        ItemDisplayBinding="{Binding Name}"
+                        SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"/>
                 </VerticalStackLayout>
 
                 <Grid Grid.Row="2" Grid.ColumnSpan="2" Style="{StaticResource CustomEntryGrid}">
-                    <Label Text="Login: "
+                    <Label Text="Title: "
                            Style="{StaticResource CustomEntryLabel}"/>
 
                     <Frame Style="{StaticResource CustomEntryFrame}">
                         <custom:CustomEntry Text="{Binding PostTitle}"
-                                           IsEnabled="{Binding EntriesAvailable}"/>
+                                           IsEnabled="{Binding EntriesAvailable}"
+                                            FontSize="16"/>
                     </Frame>
                 </Grid>
 
@@ -64,60 +67,33 @@
 
                     <Frame Style="{StaticResource CustomEntryFrame}">
                         <custom:CustomEntry Text="{Binding Description}"
-                                           IsEnabled="{Binding EntriesAvailable}"/>
+                                           IsEnabled="{Binding EntriesAvailable}"
+                                            FontSize="16"/>
                     </Frame>
                 </Grid>
 
-                <Label Margin="20,10,20,5" Grid.Row="4" Grid.ColumnSpan="2" TextColor="White" FontAttributes="Bold" Text="Media (Optional)"/>
+                <Label Margin="30,10,20,10"
+                       Grid.Row="4" Grid.ColumnSpan="2"
+                       TextColor="White"
+                       Text="Media (optional):"
+                       FontSize="16"/>
 
-                <Frame Margin="20,0,20,5"
+                <Frame Margin="25,0,25,5"
                        CornerRadius="20"
                        BorderColor="#333333"
                        BackgroundColor="#333333"
                        Grid.Row="5"
-                       Grid.ColumnSpan="2">
+                       Grid.ColumnSpan="2"
+                       MinimumHeightRequest="300"
+                       HeightRequest="300">
 
-                    <Grid ColumnDefinitions="*,1*,*">
-                        <Image Grid.Column="1" VerticalOptions="Center" Source="dodajpost.svg"/>
-                    </Grid>
+                        <Image VerticalOptions="Center" Source="add_post.svg"/>
                 </Frame>
 
                 <Grid Grid.Row="6" Grid.ColumnSpan="2"
-                      RowDefinitions="80"
-                      ColumnDefinitions="25,*,*,25"
-                      Margin="0,40,0,0">
-
-                    <!--<Frame Padding="0"
-                           VerticalOptions="Center"
-                           CornerRadius="20"
-                           Margin="20,10,20,20"
-                           BackgroundColor="#FB4242"
-                           BorderColor="#FB4242"
-                           Grid.Column="1">
-
-                        <Label Margin="10,10,10,10"
-                               HorizontalTextAlignment="Center"
-                               TextColor="White"
-                               Text="Cancel"
-                               FontAttributes="Bold"
-                               FontSize="Medium"/>
-                    </Frame>
-
-                    <Frame Padding="0"
-                           CornerRadius="20"
-                           VerticalOptions="Center"
-                           Margin="20,10,20,20"
-                           BackgroundColor="#47BB6C"
-                           BorderColor="#47BB6C"
-                           Grid.Column="2">
-
-                        <Label Margin="10,10,10,10"
-                               HorizontalTextAlignment="Center"
-                               TextColor="White"
-                               Text="Publish"
-                               FontAttributes="Bold"
-                               FontSize="Medium"/>
-                    </Frame>-->
+                      Margin="0,40"
+                      Padding="60,0"
+                      ColumnDefinitions="auto, *, auto">
 
                     <Button Command="{Binding CancelCommand}"
                             Text="Cancel"
@@ -125,9 +101,8 @@
                             FontAttributes="Bold"
                             FontSize="Medium"
                             BackgroundColor="{StaticResource CancelRed}"
-                            Grid.Row="7"
-                            Grid.Column="1"
-                            HorizontalOptions="Start"/>
+                            HorizontalOptions="Start"
+                            Grid.Column="0"/>
 
                     <Button Command="{Binding AddPostCommand}"
                             Text="Publish"
@@ -135,9 +110,8 @@
                             FontAttributes="Bold"
                             FontSize="Medium"
                             BackgroundColor="{StaticResource Primary}"
-                            Grid.Row="7"
-                            Grid.Column="2"
-                            HorizontalOptions="End"/>
+                            HorizontalOptions="End"
+                            Grid.Column="2"/>
                 </Grid>
             </Grid>
         </ScrollView>

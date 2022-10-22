@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using findaround.Services;
 using findaround.Views;
 using findaround.Helpers;
+using findaroundShared.Helpers;
 using findaroundShared.Models;
 
 namespace findaround.ViewModels
@@ -16,7 +17,8 @@ namespace findaround.ViewModels
         public List<CategoryDisplayModel> Categories { get => categories; set => SetProperty(ref categories, value); }
 
         CategoryDisplayModel selectedCategory;
-        public CategoryDisplayModel SelectedCategory { get => selectedCategory; set => SetProperty(ref selectedCategory, value); }
+        public CategoryDisplayModel SelectedCategory { get => selectedCategory;
+            set => SetProperty(ref selectedCategory, value); }
 
         string postTitle;
         public string PostTitle { get => postTitle; set => SetProperty(ref postTitle, value); }
@@ -47,6 +49,9 @@ namespace findaround.ViewModels
         void Appearing()
         {
             IsBusy = true;
+            EntriesAvailable = false;
+
+            Categories.Clear();
 
             foreach (PostCategory category in Enum.GetValues(typeof(PostCategory)))
             {
@@ -55,9 +60,15 @@ namespace findaround.ViewModels
                     Category = category,
                     Name = category.ToString(),
                     Image = category.ToString().ToLower() + "_image.png"
-                }); ;
+                });
             }
 
+            PostTitle = string.Empty;
+            Description = string.Empty;
+
+            SelectedCategory = Categories[0];
+
+            EntriesAvailable = true;
             IsBusy = false;
         }
 
@@ -78,6 +89,7 @@ namespace findaround.ViewModels
                 if (SelectedCategory is null)
                 {
                     await Shell.Current.DisplayAlert("Error", "Please select a category", "OK");
+                    EntriesAvailable = true;
                 }
                 else
                 {
@@ -101,8 +113,8 @@ namespace findaround.ViewModels
                             Category = SelectedCategory.Category,
                             Location = new PostLocation
                             {
-                                Latitude = location.Latitude,
-                                Longitude = location.Longitude
+                                Latitude = location.Longitude,
+                                Longitude = location.Latitude
                             },
                             DistanceFromUser = 0.00,
                             Images = new List<PostImage>(),

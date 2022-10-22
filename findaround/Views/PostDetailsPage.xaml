@@ -20,7 +20,7 @@
 
         <ScrollView Grid.Row="1">
             <Grid ColumnDefinitions="50,Auto,*"
-                  RowDefinitions="25,25,Auto,300,Auto,Auto,Auto,Auto"
+                  RowDefinitions="25,25,Auto,Auto,Auto,Auto,Auto,Auto"
                   BackgroundColor="#2D2C2C"
                   Margin="0,30,0,30"
                   Padding="10">
@@ -48,6 +48,19 @@
                        TextColor="White"/>
 
                 <Image Grid.Column="0" Grid.RowSpan="2" Source="avatar.svg"/>
+
+                <Image Grid.Row="2"
+                       Grid.Column="2"
+                       Source="findaround.svg"
+                       HorizontalOptions="End"
+                       Margin="0,0,10,0"
+                       WidthRequest="60"
+                       HeightRequest="60">
+
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SeeOnMapCommand}"/>
+                    </Image.GestureRecognizers>
+                </Image>
 
                 <CollectionView
                     Grid.Row="3"
@@ -108,13 +121,13 @@
                                     <Grid Margin="0,20,0,0"  ColumnDefinitions="45,*"
                                           RowDefinitions="45,*">
 
-                                    <Image Source="avatar.svg" Grid.Column="0" Grid.Row="0"/>
+                                        <Image Source="avatar.svg" Grid.Column="0" Grid.Row="0"/>
 
-                                    <Label HorizontalOptions="StartAndExpand"
-                                           Grid.Row="0" Grid.Column="1"
-                                           TextColor="White"
-                                           Margin="10,0,0,0"
-                                           Text="{Binding AuthorName}"/>
+                                        <Label HorizontalOptions="StartAndExpand"
+                                               Grid.Row="0" Grid.Column="1"
+                                               TextColor="White"
+                                               Margin="10,0,0,0"
+                                               Text="{Binding AuthorName}"/>
 
                                         <Frame HorizontalOptions="FillAndExpand"
                                                BorderColor="Transparent"
