@@ -43,6 +43,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<PostDetailsPageViewModel>();
         builder.Services.AddSingleton<NewPostPageViewModel>();
         builder.Services.AddSingleton<ContactsPageViewModel>();
+        builder.Services.AddSingleton<SearchPostPageViewModel>();
 
         // Views
         builder.Services.AddTransient<RegisterPage>();
@@ -53,6 +54,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<PostDetailsPage>();
         builder.Services.AddSingleton<NewPostPage>();
         builder.Services.AddSingleton<ContactsPage>();
+        builder.Services.AddSingleton<SearchPostPage>();
 
         return builder.Build();
 	}

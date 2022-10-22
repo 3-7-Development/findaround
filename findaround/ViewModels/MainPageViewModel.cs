@@ -48,10 +48,12 @@ namespace findaround.ViewModels
 
             foreach (var post in Posts)
             {
-                var distance = await LocationHelpers.GetDistanceToPost(_geolocation, post.Location) / PostsHelpers.ToKm;
+                var distance = await LocationHelpers.GetDistanceToPost(_geolocation, post.Location);
                 post.DistanceFromUser = Math.Round(distance, 2);
 				post.HasImages = post.Images.Count > 0;
             }
+
+			Title = PostsHelpers.MatchingCriteria.Category.ToString();
 
             IsBusy = false;
         }
@@ -67,7 +69,7 @@ namespace findaround.ViewModels
 
 			foreach (var post in Posts)
 			{
-				var distance = await LocationHelpers.GetDistanceToPost(_geolocation, post.Location) / PostsHelpers.ToKm;
+				var distance = await LocationHelpers.GetDistanceToPost(_geolocation, post.Location);
 				post.DistanceFromUser = Math.Round(distance, 2);
 			}
 
@@ -81,9 +83,9 @@ namespace findaround.ViewModels
 		}
 
 		[RelayCommand]
-		async Task GoToMessages()
+		async Task GoToSearchPage()
 		{
-			await Shell.Current.DisplayAlert("Messages will be here", "Maybe some day", "OK");
+			await Shell.Current.GoToAsync($"{nameof(SearchPostPage)}");
 		}
 
 		[RelayCommand]

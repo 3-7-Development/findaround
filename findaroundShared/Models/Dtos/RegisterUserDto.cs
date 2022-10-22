@@ -6,7 +6,6 @@ namespace findaroundShared.Models.Dtos
 		public string Login { get; set; }
 		public string Password { get; set; }
         public string ConfirmedPassword { get; set; }
-		public string PhoneNumber { get; set; }
     }
 }
 

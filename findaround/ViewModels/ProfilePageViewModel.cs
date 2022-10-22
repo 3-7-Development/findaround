@@ -1,6 +1,7 @@
 ﻿using System;
 using CommunityToolkit.Mvvm.Input;
 using findaround.Services;
+using findaroundShared.Models;
 
 namespace findaround.ViewModels
 {
@@ -9,12 +10,25 @@ namespace findaround.ViewModels
 		readonly IUserService _userService;
 		readonly IPostService _postService;
 
+		private User user;
+		public User User { get => user; set => SetProperty(ref user, value); }
+
 		public ProfilePageViewModel(IUserService userService, IPostService postService)
 		{
 			_userService = userService;
 			_postService = postService;
 
 			Title = "ProfilePage";
+		}
+
+		[RelayCommand]
+		async Task Appearing()
+		{
+			IsBusy = true;
+
+			User = await _userService.GetBasicInfoAboutYourself();
+
+			IsBusy = false;
 		}
 
 		[RelayCommand]

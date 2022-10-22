@@ -19,9 +19,6 @@ namespace findaround.ViewModels
         string confirmedPassword;
         public string ConfirmedPassword { get => confirmedPassword; set => SetProperty(ref confirmedPassword, value); }
 
-        string phoneNumber;
-        public string PhoneNumber { get => phoneNumber; set => SetProperty(ref phoneNumber, value); }
-
         public RegisterPageViewModel(IUserService userService)
         {
             IsBusy = true;
@@ -55,33 +52,24 @@ namespace findaround.ViewModels
                 }
                 else
                 {
-                    if (string.IsNullOrWhiteSpace(PhoneNumber))
+                    var model = new RegisterUserDto()
                     {
-                        await Shell.Current.DisplayAlert("Error", "Phone number required", "OK");
+                        Login = Login,
+                        Password = Password,
+                        ConfirmedPassword = ConfirmedPassword
+                    };
+
+                    var isRegistered = await _userService.RegisterUser(model);
+
+                    if (!isRegistered)
+                    {
+                        await Shell.Current.DisplayAlert("Something went wrong", "Couldn't registered new account", "OK");
                         IsBusy = false;
                     }
                     else
                     {
-                        var model = new RegisterUserDto()
-                        {
-                            Login = Login,
-                            Password = Password,
-                            ConfirmedPassword = ConfirmedPassword,
-                            PhoneNumber = PhoneNumber
-                        };
-
-                        var isRegistered = await _userService.RegisterUser(model);
-
-                        if (!isRegistered)
-                        {
-                            await Shell.Current.DisplayAlert("Something went wrong", "Couldn't registered new account", "OK");
-                            IsBusy = false;
-                        }
-                        else
-                        {
-                            IsBusy = false;
-                            await Shell.Current.GoToAsync($"///{nameof(LoginPage)}?Login={Login}&Password={Password}&Autologin={true}");
-                        }
+                        IsBusy = false;
+                        await Shell.Current.GoToAsync($"///{nameof(LoginPage)}?Login={Login}&Password={Password}&Autologin={true}");
                     }
                 }
             }
@@ -92,7 +80,6 @@ namespace findaround.ViewModels
             Login = string.Empty;
             Password = string.Empty;
             ConfirmedPassword = string.Empty;
-            PhoneNumber = string.Empty;
         }
     }
 }

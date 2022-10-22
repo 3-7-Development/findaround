@@ -6,7 +6,7 @@
              xmlns:models="clr-namespace:findaroundShared.Models;assembly=findaroundShared"
              x:Class="findaround.Views.MainPage"
              x:DataType="viewmodels:MainPageViewModel"
-             Shell.NavBarIsVisible="False"
+             Shell.NavBarIsVisible="True"
              Title="{Binding Title}"
              BackgroundColor="{StaticResource BackgroundColor}"
              Padding="0">
@@ -165,7 +165,7 @@
                    HeightRequest="60"
                    IsEnabled="{Binding IsNotBusy}">
                 <Image.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding GoToMessagesCommand}"/>
+                    <TapGestureRecognizer Command="{Binding GoToSearchPageCommand}"/>
                 </Image.GestureRecognizers>
             </Image>
         </HorizontalStackLayout>

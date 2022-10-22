@@ -59,17 +59,6 @@
                 </Frame>
             </Grid>
 
-            <Grid Style="{StaticResource CustomEntryGrid}">
-                <Label Text="Phone Number: "
-                       Style="{StaticResource CustomEntryLabel}"/>
-                <Frame Style="{StaticResource CustomEntryFrame}">
-                    <local:CustomEntry
-                        Text="{Binding PhoneNumber}"
-                        Keyboard="Numeric"
-                        MaxLength="9"/>
-                </Frame>
-            </Grid>
-
             <Grid ColumnDefinitions="135,*,135"
                   Margin="0,25">
 
@@ -78,6 +67,7 @@
                         HeightRequest="60"
                         WidthRequest="150"
                         FontSize="24"
+                        TextColor="White"
                         BackgroundColor="#47BB6C"
                         FontAttributes="Bold"
                         Command="{Binding RegisterCommand}"/>

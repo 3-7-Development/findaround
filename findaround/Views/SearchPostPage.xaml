@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:findaround.ViewModels"
+             xmlns:models="clr-namespace:findaroundShared.Models;assembly=findaroundShared"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="findaround.Views.SearchPostPage"
+             Title="SearchPostPage"
+             x:DataType="viewmodels:SearchPostPageViewModel"
+             Shell.NavBarIsVisible="False">
+
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior Command="{Binding AppearingCommand}"/>
+
+        <toolkit:StatusBarBehavior StatusBarColor="{StaticResource StatusBarColor}"/>
+    </ContentPage.Behaviors>
+
+    <Grid Padding="30,20"
+          BackgroundColor="{StaticResource BackgroundColor}"
+          RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+          ColumnDefinitions="Auto,*,Auto">
+
+        <Label Text="Search settings"
+               FontSize="30"
+               Grid.ColumnSpan="2"
+               Margin="0,40"
+               HorizontalOptions="Center"
+               HorizontalTextAlignment="Center"/>
+
+        <!--<Label VerticalOptions="Center" Grid.Row="0" Grid.Column="0" FontSize="Large" Text="Search" FontAttributes="Bold" TextColor="White" />
+
+        <Frame Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" HeightRequest="40" Padding="10,0,10,0" Style="{StaticResource CustomEntryFrame}">
+            <Entry TextColor="White" Text="Search"/>
+        </Frame>-->
+        <Label Grid.Row="1" Grid.Column="0" FontSize="Large" Text="Range" FontAttributes="Bold" TextColor="White" />
+
+
+        <Frame Padding="10,8,10,8"
+               CornerRadius="10"
+               Grid.Row="1"
+               BorderColor="Transparent"
+               Grid.Column="2"
+               BackgroundColor="{StaticResource Secondary}">
+
+            <Label TextColor="White"
+                   Text="{Binding DistanceSlider}"
+                   FontSize="15"
+                   HorizontalOptions="Start"
+                   WidthRequest="100"/>
+        </Frame>
+        <Label HorizontalOptions="Center" Grid.Column="0" Grid.Row="2" TextColor="White" Text="min"/>
+
+        <Slider HorizontalOptions="Fill" Grid.Column="1" Grid.Row="2" Minimum="5.00"
+                    Maximum="50.00"
+                    MinimumTrackColor="{StaticResource Primary}"
+                    MaximumTrackColor="{StaticResource Primary}"
+                    ThumbColor="White"
+                    Value="{Binding DistanceSlider}"/>
+
+        <Label HorizontalOptions="Center" Grid.Column="2" Grid.Row="2" TextColor="White" Text="max"/>
+        <Label VerticalOptions="Center" HorizontalOptions="Center" Grid.Row="3" Grid.Column="0" FontSize="Large" Text="Category" Margin="0,20,0,0" FontAttributes="Bold" TextColor="White" />
+        <Picker TextColor="White"  VerticalOptions="Center" HorizontalOptions="Fill" Margin="20,30,0,0" BackgroundColor="#333333" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" x:Name="picker">
+            <!--<Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>Spotted</x:String>
+                    <x:String>Lost</x:String>
+                    <x:String>Help Ukraine</x:String>
+                    <x:String>Other</x:String>
+                </x:Array>
+            </Picker.ItemsSource>-->
+        </Picker>
+        <!--<Label Grid.Row="4" Grid.Column="0" FontSize="Large" Text="Status" Margin="0,20,0,0" FontAttributes="Bold" TextColor="White" />
+        <RadioButton HorizontalOptions="End" Grid.Row="5" Grid.Column="0"/>
+        <Label TextColor="White" Text="Resolved" Grid.Row="5" Grid.Column="1" VerticalOptions="Center" />
+        <RadioButton HorizontalOptions="End" Grid.Row="6" Grid.Column="0"/>
+        <Label TextColor="White" Text="Unresolved" Grid.Row="6" Grid.Column="1" VerticalOptions="Center" />-->
+        <Button
+                Grid.Row="5"
+                Grid.ColumnSpan="2"
+                Grid.RowSpan="2"
+                Text="Search"
+                Command="{Binding UpdateCriteriaCommand}"
+                BackgroundColor="{StaticResource Primary}"
+                TextColor="White"
+                FontAttributes="Bold"
+                Margin="30,40"
+            WidthRequest="150"
+            HeightRequest="50"
+            HorizontalOptions="Center"/>
+    </Grid>
+</ContentPage>

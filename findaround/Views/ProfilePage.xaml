@@ -11,22 +11,15 @@
 
     <ContentPage.Behaviors>
         <toolkit:StatusBarBehavior StatusBarColor="{StaticResource StatusBarColor}"/>
+
+        <toolkit:EventToCommandBehavior EventName="Appearing"
+                                        Command="{Binding AppearingCommand}"/>
     </ContentPage.Behaviors>
 
     <Grid RowDefinitions="Auto,*,Auto"
           HorizontalOptions="FillAndExpand"
-          Padding="0"
+          Padding="10,0"
           BackgroundColor="#282828">
-        <!--<Grid   
-            Grid.Row="0"    
-            ColumnDefinitions="45,*"
-            RowDefinitions="45"
-            BackgroundColor="{StaticResource BackgroundColor}"
-            Padding="20">
-
-            <Image Source="findaround.svg"
-                   Grid.Column="0"/>
-        </Grid>-->
 
         <Grid Grid.Row="1"
               RowDefinitions="115,*"
@@ -41,15 +34,15 @@
                 BorderColor="{StaticResource Primary}"
                 BackgroundColor="#2D2C2C">
 
-                <Image Source="boyavatar2.png"
+                <Image Source="boyavatar.svg"
                        HorizontalOptions="FillAndExpand"
                        VerticalOptions="FillAndExpand"
                        HeightRequest="125"
                        WidthRequest="125">
 
-                    <Image.GestureRecognizers>
+                    <!--<Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding LogoutUserCommand}"/>
-                    </Image.GestureRecognizers>
+                    </Image.GestureRecognizers>-->
                 </Image>
 
             </Frame>
@@ -58,12 +51,16 @@
             
             <Grid Style="{StaticResource CustomEntryGrid}"
                   Grid.Row="1"
-                  Margin="0,180,0,0">
-                <Label Text="Name: "
+                  Margin="0,220,0,0">
+                <Label Text="Hello,"
                        Style="{StaticResource CustomEntryLabel}"/>
                     <Frame Style="{StaticResource CustomEntryFrame}">
-                        <local:CustomEntry
-                        Text=""/>
+                        <Label Text="{Binding User.Login}"
+                               FontSize="20"
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Center"
+                               Margin="0,0,0,10"
+                               Padding="0"/>
                     </Frame>
                 </Grid>
 
@@ -78,36 +75,25 @@
                            TextColor="#FFF"
                            FontSize="16"
                            FontAttributes="Bold"/>
-
                 </Frame>
-
-                <Grid BackgroundColor="Transparent"
-                      ColumnDefinitions="*,*"
-                      RowDefinitions="125,60"
-                      HeightRequest="200">
-
-                    <Button Text="Change Password"
-                            Grid.Column="0"
-                            Grid.Row="1"
-                            Margin="20,0,20,10"
-                            TextColor="Black"
-                            FontAttributes="Bold"
-                            FontSize="16"/>
-
-                    <Button Text="Logout"
-                            Command="{Binding LogoutUserCommand}"
-                            Grid.Column="1"
-                            Grid.Row="1"
-                            Margin="20,0,20,10"
-                            BackgroundColor="#FB4242"
-                            TextColor="White"
-                            FontAttributes="Bold"
-                            FontSize="16"
-                            IsEnabled="True"/>
-                </Grid>                            
             </VerticalStackLayout>
-
         </Grid>
-        
+
+        <Frame BackgroundColor="{StaticResource CancelRed}"
+               Grid.Row="2"
+               WidthRequest="150"
+               HorizontalOptions="Center"
+               Margin="0,0,0,180">
+
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding LogoutUserCommand}"/>
+            </Frame.GestureRecognizers>
+
+            <Label Text="Logout"
+                   HorizontalTextAlignment="Center"
+                   FontSize="16"
+                   FontAttributes="Bold"
+                   TextColor="White"/>
+        </Frame>
     </Grid>
 </ContentPage>
