@@ -1,5 +1,5 @@
 {
-   "Address": "https://findaround.online",	// For local machine
+   "Address": "139.162.177.109",	// For local machine
    //"Address": "host.docker.internal",	// For Docker
    "Username": "findaroundUser",
    "Password": "Th!5D4t4b453!55053cur3dPr0m!53",
