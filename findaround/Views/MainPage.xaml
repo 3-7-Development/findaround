@@ -113,11 +113,12 @@
                         <Frame CornerRadius="20"
                                x:DataType="models:Post"
                                Grid.ColumnSpan="3"  Grid.Row="3"
-                               IsVisible="{Binding HasImages}">
+                               IsVisible="True"
+                               BackgroundColor="#333">
 
                             <Image Margin="-20"
                                    Aspect="AspectFill"
-                                   Source="{Binding Images[0].Path}" IsVisible="{Binding HasImages}">
+                                   Source="{Binding Images[0].Path}" IsVisible="True">
 
                                 <Image.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MainPageViewModel}}, Path=GoToPostDetailsCommand}"

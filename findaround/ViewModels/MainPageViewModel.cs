@@ -48,7 +48,17 @@ namespace findaround.ViewModels
             {
                 var distance = await LocationHelpers.GetDistanceToPost(_geolocation, post.Location);
                 post.DistanceFromUser = Math.Round(distance, 2);
-				post.HasImages = post.Images.Count > 0;
+				post.HasImages = true;
+				post.Images = new List<PostImage>() {
+					new PostImage()
+					{
+						Path = "default_post_image.png"
+					},
+                    new PostImage()
+                    {
+                        Path = "default_post_image.png"
+                    }
+                };
             }
 
             IsBusy = false;

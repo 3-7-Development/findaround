@@ -44,7 +44,7 @@
                         BackgroundColor="{StaticResource Secondary}"
                         WidthRequest="250"
                         HeightRequest="50"
-                        Title="{Binding SelectedCategory.Name}"
+                        Title="Choose a Category"
                         HorizontalTextAlignment="Center"
                         FontSize="18"
                         Margin="0,20"/>
