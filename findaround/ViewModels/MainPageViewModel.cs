@@ -5,6 +5,7 @@ using findaround.Services;
 using findaround.Views;
 using findaroundShared.Models;
 using findaroundShared.Models.Dtos;
+using System.Linq;
 
 namespace findaround.ViewModels
 {
@@ -60,6 +61,8 @@ namespace findaround.ViewModels
                     }
                 };
             }
+
+			Posts = Posts.OrderBy(p => p.DistanceFromUser).ToList();
 
             IsBusy = false;
         }
