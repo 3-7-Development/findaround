@@ -64,6 +64,7 @@
 	  <None Remove="Platforms\Android\Resources\xml\findaround_online.crt" />
 	  <None Remove="Resources\AppIcon\findaround.svg" />
 	  <None Remove="Resources\Splash\findaround.svg" />
+	  <None Remove="Resources\Images\seach_icon.svg" />
 	</ItemGroup>
 
 	<ItemGroup>

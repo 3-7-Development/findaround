@@ -53,8 +53,6 @@ namespace findaround.ViewModels
 				post.HasImages = post.Images.Count > 0;
             }
 
-			Title = PostsHelpers.MatchingCriteria.Category.ToString();
-
             IsBusy = false;
         }
 

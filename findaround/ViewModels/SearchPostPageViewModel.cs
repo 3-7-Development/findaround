@@ -32,8 +32,8 @@ namespace findaround.ViewModels
 		{
 			IsBusy = true;
 
-			PostsHelpers.MatchingCriteria.Distance = DistanceSlider;
-			PostsHelpers.MatchingCriteria.Category = SelectedCategory;
+			PostsHelpers.MatchingCriteria.Distance = DistanceSlider * PostsHelpers.ToKm;
+			PostsHelpers.MatchingCriteria.Category = PostCategory.Spotted;
 
 			IsBusy = false;
 			await Shell.Current.GoToAsync($"///{nameof(Views.MainPage)}");

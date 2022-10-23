@@ -135,7 +135,7 @@ namespace findaround.Services
 
             try
             {
-                await _client.GetAsync($"api/v1/findaround/posts/comments/{postId}");
+                response = await _client.GetAsync($"api/v1/findaround/posts/comments/{postId}");
             }
             catch (Exception e)
             {

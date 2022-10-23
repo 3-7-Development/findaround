@@ -10,7 +10,7 @@ namespace findaround.Helpers
 
         public static Post SelectedPost;
 
-        public static double ToKm = 1000000;
+        public static double ToKm = 1000;
 
         public static async Task RefreshSearchCriteria(IGeolocation geolocation)
         {
@@ -29,31 +29,20 @@ namespace findaround.Helpers
 
             var userLocation = await LocationHelpers.GetCurrentLocation(geolocation);
 
-            if (userLocation is null)
+            if (userLocation is null || DeviceInfo.DeviceType == DeviceType.Virtual)
             {
                 MatchingCriteria.Location = new PostLocation()
                 {
                     Latitude = 19.9623,
                     Longitude = 52.12222
                 };
-
-                if (DeviceInfo.DeviceType == DeviceType.Virtual)
-                {
-                    MatchingCriteria.Distance = 10000 * ToKm;
-                    MatchingCriteria.Location = new PostLocation()
-                    {
-                        Latitude = 19.9623,
-                        Longitude = 52.12222
-                    };
-                }
             }
             else
             {
-                MatchingCriteria.Distance = 50.00 * ToKm;
                 MatchingCriteria.Location = new PostLocation()
                 {
-                    Latitude = userLocation.Latitude,
-                    Longitude = userLocation.Longitude
+                    Latitude = userLocation.Longitude,
+                    Longitude = userLocation.Latitude
                 };
             }
         }
