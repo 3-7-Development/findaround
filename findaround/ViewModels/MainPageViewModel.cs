@@ -40,8 +40,6 @@ namespace findaround.ViewModels
 
 			await PostsHelpers.RefreshSearchCriteria(_geolocation);
 
-            //await Refresh();
-
             Posts = await _postService.MatchPosts(PostsHelpers.MatchingCriteria);
 
             var userLocation = LocationHelpers.GetCurrentLocation(_geolocation);
@@ -54,24 +52,6 @@ namespace findaround.ViewModels
             }
 
             IsBusy = false;
-        }
-
-		[RelayCommand]
-		async Task Refresh()
-		{
-			IsBusy = true;
-
-			Posts = await _postService.MatchPosts(PostsHelpers.MatchingCriteria);
-
-			var userLocation = LocationHelpers.GetCurrentLocation(_geolocation);
-
-			foreach (var post in Posts)
-			{
-				var distance = await LocationHelpers.GetDistanceToPost(_geolocation, post.Location);
-				post.DistanceFromUser = Math.Round(distance, 2);
-			}
-
-			IsBusy = false;
         }
 
 		[RelayCommand]
@@ -96,12 +76,6 @@ namespace findaround.ViewModels
 		async Task GoToCategories()
 		{
 			await Shell.Current.GoToAsync(nameof(CategoriesPage));
-		}
-
-		[RelayCommand]
-		async Task NextPage()
-		{
-			await Shell.Current.GoToAsync(nameof(NewPostPage));
 		}
 
 		[RelayCommand]

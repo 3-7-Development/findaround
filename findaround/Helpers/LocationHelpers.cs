@@ -65,7 +65,7 @@ namespace findaround.Helpers
 
             //await Shell.Current.DisplayAlert("Test", postCoordinates.ToString(), "ok");
 
-            var distance = GetDistance(location.Longitude, location.Latitude, postLocation.Latitude, postLocation.Longitude) / PostsHelpers.ToKm;
+            var distance = GetDistance(location.Longitude, location.Latitude, postLocation.Longitude, postLocation.Latitude) / PostsHelpers.ToKm;
 
             //await Shell.Current.DisplayAlert("Location", distance.ToString(), "ok");
 
