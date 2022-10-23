@@ -64,7 +64,37 @@ namespace findaround.ViewModels
 		[RelayCommand]
 		async Task AddComment()
 		{
-			await Shell.Current.DisplayAlert("YES", "Adding comment here", "OK");
+			IsBusy = true;
+
+			if (string.IsNullOrWhiteSpace(UserComment))
+			{
+				await Shell.Current.DisplayAlert("Empty comment", "Cannot add empty comment", "OK");
+				IsBusy = false;
+			}
+			else
+			{
+				var comment = new Comment()
+				{
+					Content = UserComment,
+					AuthorId = UserHelpers.CurrentUser.Id,
+					AuthorName = UserHelpers.CurrentUser.Login,
+					PostId = Post.Id
+				};
+
+				var isAdded = await _postService.AddPostComment(comment);
+
+				if (!isAdded)
+				{
+					await Shell.Current.DisplayAlert("Cannot add comment", "Please try again", "OK");
+					IsBusy = false;
+				}
+				else
+				{
+					UserComment = string.Empty;
+					Comments = await _postService.GetPostComments(Post.Id);
+					IsBusy = false;
+				}
+			}
 		}
 	}
 }
