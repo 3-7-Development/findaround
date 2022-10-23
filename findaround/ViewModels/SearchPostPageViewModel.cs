@@ -57,11 +57,19 @@ namespace findaround.ViewModels
 		{
 			IsBusy = true;
 
-			PostsHelpers.MatchingCriteria.Distance = distanceSlider * PostsHelpers.ToKm;
-			PostsHelpers.MatchingCriteria.Category = SelectedCategory.Category;
+			if (SelectedCategory is null)
+			{
+				await Shell.Current.DisplayAlert("Select category", "Please select post category", "OK");
+				IsBusy = false;
+			}
+			else
+			{
+                PostsHelpers.MatchingCriteria.Distance = distanceSlider * PostsHelpers.ToKm;
+                PostsHelpers.MatchingCriteria.Category = SelectedCategory.Category;
 
-			IsBusy = false;
-			await Shell.Current.GoToAsync($"///{nameof(Views.MainPage)}?Self={false}");
+                IsBusy = false;
+                await Shell.Current.GoToAsync($"///{nameof(Views.MainPage)}?Self={false}");
+            }
 		}
 	}
 }
