@@ -20,7 +20,7 @@ namespace findaround.Helpers
                     Id = null,
                     Title = string.Empty,
                     Description = string.Empty,
-                    Status = PostStatus.Null,
+                    Status = PostStatus.Active,
                     Category = PostCategory.Spotted,
                     Distance = 5.00 * ToKm,
                     AuthorId = null,
