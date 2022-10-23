@@ -360,12 +360,7 @@ namespace findaroundAPI.Services
             var postModel = new Post();
 
             foreach (var post in posts) {
-                //var postLocation = new GeoCoordinate(post.Latitude, post.Longitude);
-                //var startSearchLocation = new GeoCoordinate(dto.Location.Latitude, dto.Location.Longitude);
-
-                //var distanceFromUser = postLocation.GetDistanceTo(startSearchLocation);
-
-                var distanceFromUser = GetDistance(dto.Location.Longitude, dto.Location.Latitude, post.Longitude, post.Latitude);
+                var distanceFromUser = GetDistance(dto.Location.Longitude, dto.Location.Latitude, post.Latitude, post.Longitude);
 
                 if (distanceFromUser <= dto.Distance)
                 {

@@ -57,7 +57,7 @@ namespace findaround.ViewModels
 		{
 			IsBusy = true;
 
-			PostsHelpers.MatchingCriteria.Distance = DistanceSlider * PostsHelpers.ToKm;
+			PostsHelpers.MatchingCriteria.Distance = distanceSlider * PostsHelpers.ToKm;
 			PostsHelpers.MatchingCriteria.Category = SelectedCategory.Category;
 
 			IsBusy = false;

@@ -10,7 +10,7 @@ namespace findaround.Helpers
 
         public static Post SelectedPost;
 
-        public static double ToKm = 1000;
+        public static double ToKm = 1000.00;
 
         public static async Task RefreshSearchCriteria(IGeolocation geolocation)
         {
@@ -41,8 +41,8 @@ namespace findaround.Helpers
             {
                 MatchingCriteria.Location = new PostLocation()
                 {
-                    Latitude = userLocation.Longitude,
-                    Longitude = userLocation.Latitude
+                    Longitude = userLocation.Longitude,
+                    Latitude = userLocation.Latitude
                 };
             }
         }

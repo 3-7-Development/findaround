@@ -32,8 +32,8 @@ namespace findaroundAPI.MappingProfiles
 			CreateMap<PostEntity, Post>()
 				.ForMember(p => p.Location, mp => mp.MapFrom(e => new PostLocation()
 				{
-					Latitude = e.Latitude,
-					Longitude = e.Longitude
+					Latitude = e.Longitude,
+					Longitude = e.Latitude
 				}))
 				.ForMember(p => p.Images, mp => mp.MapFrom(e => e.Images.Select(x => new PostImage()
 				{
