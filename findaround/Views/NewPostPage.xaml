@@ -66,9 +66,11 @@
                            Style="{StaticResource CustomEntryLabel}"/>
 
                     <Frame Style="{StaticResource CustomEntryFrame}">
-                        <custom:CustomEntry Text="{Binding Description}"
-                                           IsEnabled="{Binding EntriesAvailable}"
-                                            FontSize="16"/>
+                        <Editor Text="{Binding Description}"
+                                IsEnabled="{Binding EntriesAvailable}"
+                                FontSize="16"
+                                MaxLength="1000"
+                                Margin="-10,-15"/>
                     </Frame>
                 </Grid>
 
