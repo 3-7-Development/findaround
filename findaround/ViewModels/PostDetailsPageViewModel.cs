@@ -19,6 +19,9 @@ namespace findaround.ViewModels
 		List<Comment> comments;
 		public List<Comment> Comments { get => comments; set => SetProperty(ref comments, value); }
 
+		string userComment;
+		public string UserComment { get => userComment; set => SetProperty(ref userComment, value); }
+
 		public PostDetailsPageViewModel(IPostService postService, IGeolocation geolocation, IMap map)
 		{
 			_postService = postService;
@@ -26,6 +29,8 @@ namespace findaround.ViewModels
 			_map = map;
 
             Title = "PostDetailsPage";
+
+			UserComment = string.Empty;
         }
 
 		[RelayCommand]
@@ -44,7 +49,7 @@ namespace findaround.ViewModels
 		{
 			try
 			{
-				await _map.OpenAsync(Post.Location.Longitude, Post.Location.Latitude, new MapLaunchOptions
+				await _map.OpenAsync(Post.Location.Latitude, Post.Location.Longitude, new MapLaunchOptions
 				{
 					Name = Post.Title,
 					NavigationMode = NavigationMode.None
@@ -54,6 +59,12 @@ namespace findaround.ViewModels
 			{
 				await Shell.Current.DisplayAlert("Cannot open map", "Check if your Maps app is working", "OK");
 			}
+		}
+
+		[RelayCommand]
+		async Task AddComment()
+		{
+			await Shell.Current.DisplayAlert("YES", "Adding comment here", "OK");
 		}
 	}
 }
