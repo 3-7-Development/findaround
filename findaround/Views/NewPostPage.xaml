@@ -58,7 +58,7 @@
                         <custom:CustomEntry Text="{Binding PostTitle}"
                                            IsEnabled="{Binding EntriesAvailable}"
                                             FontSize="16"
-                                            MaxLength="100"/>
+                                            MaxLength="45"/>
                     </Frame>
                 </Grid>
 

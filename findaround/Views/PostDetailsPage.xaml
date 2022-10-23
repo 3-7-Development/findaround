@@ -31,12 +31,13 @@
                        Text="{Binding Post.Title}"
                        FontAttributes="Bold"
                        FontSize="20"
-                       TextColor="White"/>
+                       TextColor="White"
+                       Padding="0,0,70,0"/>
 
                 <Label Grid.Column="1" Grid.Row="0"
                        Margin="0,0,0,0"
                        HorizontalOptions="End"
-                       Text="{Binding Post.DistanceFromUser, StringFormat='{0} Km Away'}"
+                       Text="{Binding Post.DistanceFromUser, StringFormat='Distance: {0} Km'}"
                        TextColor="#666"/>
 
                 <Label Grid.Column="1" Grid.Row="0"

@@ -37,33 +37,6 @@ namespace findaround.ViewModels
 			}
 		}
 
-		private string GetCategoryImage(PostCategory category)
-		{
-			var image = "spotted";
-
-			switch (category)
-			{
-				case PostCategory.Spotted:
-					image = "spotted";
-					break;
-
-				case PostCategory.Lost:
-					image = "lost";
-					break;
-
-				case PostCategory.HelpUkraine:
-					image = "helpukraine";
-					break;
-
-				case PostCategory.Other:
-					image = "other";
-					break;
-			}
-
-			image += "_image.png";
-
-			return image;
-		}
 
 		[RelayCommand]
 		void Appearing()

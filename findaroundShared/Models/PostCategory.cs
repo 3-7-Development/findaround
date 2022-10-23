@@ -8,8 +8,10 @@ namespace findaroundShared.Models
 	{
         Spotted=1,
         Lost=2,
-        HelpUkraine=3,
-        Other=4
+        Help=3,
+        Events=4,
+        HelpUkraine=5,
+        Other=6
     }
 }
 
