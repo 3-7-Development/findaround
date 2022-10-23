@@ -16,11 +16,11 @@
     </ContentPage.Behaviors>
 
     <Grid BackgroundColor="#282828"
-        RowDefinitions="Auto,*,Auto" >
+        RowDefinitions="*" >
 
         <ScrollView Grid.Row="1">
             <Grid ColumnDefinitions="50,Auto,*"
-                  RowDefinitions="25,25,Auto,Auto,Auto,Auto,Auto,Auto"
+                  RowDefinitions="25,25,Auto,Auto,Auto,Auto,*,*"
                   BackgroundColor="#2D2C2C"
                   Margin="0,30,0,30"
                   Padding="10">
@@ -90,7 +90,7 @@
                            CornerRadius="20"
                            Grid.ColumnSpan="2" Grid.Row="5">
 
-                        <Label MinimumHeightRequest="310"
+                        <Label MinimumHeightRequest="20"
                                WidthRequest="350"
                                VerticalOptions="FillAndExpand"
                                BackgroundColor="#333333"
@@ -110,7 +110,9 @@
                             Grid.Row="7"
                             Grid.Column="0"
                             Grid.ColumnSpan="3"
-                            ItemsSource="{Binding Comments}">
+                            ItemsSource="{Binding Comments}"
+                            VerticalOptions="FillAndExpand"
+                            MinimumHeightRequest="50">
 
                             <CollectionView.ItemTemplate>
                                 <DataTemplate x:DataType="models:Comment">

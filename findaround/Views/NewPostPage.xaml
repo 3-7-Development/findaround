@@ -38,16 +38,16 @@
                            Padding="10,0,0,0"
                            Style="{StaticResource CustomEntryLabel}"/>
 
-                    <Picker
-                        x:Name="picker"
-                        TextColor="White"
-                        BackgroundColor="{StaticResource BackgroundColor}"
-                        Title="{Binding SelectedCategory.Name, StringFormat='Selected:  {0}'}"
-                        HorizontalTextAlignment="Center"
-                        Margin="20,10,0,0"
+                    <Picker ItemDisplayBinding="{Binding Name}"
                         ItemsSource="{Binding Categories}"
-                        ItemDisplayBinding="{Binding Name}"
-                        SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"/>
+                        SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"
+                        BackgroundColor="{StaticResource Secondary}"
+                        WidthRequest="250"
+                        HeightRequest="50"
+                        Title="{Binding SelectedCategory.Name}"
+                        HorizontalTextAlignment="Center"
+                        FontSize="18"
+                        Margin="0,20"/>
                 </VerticalStackLayout>
 
                 <Grid Grid.Row="2" Grid.ColumnSpan="2" Style="{StaticResource CustomEntryGrid}">
@@ -89,7 +89,11 @@
                        MinimumHeightRequest="300"
                        HeightRequest="300">
 
-                        <Image VerticalOptions="Center" Source="add_post.svg"/>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding TryAddMediaCommand}"/>
+                    </Frame.GestureRecognizers>
+
+                    <Image VerticalOptions="Center" Source="add_post.svg"/>
                 </Frame>
 
                 <Grid Grid.Row="6" Grid.ColumnSpan="2"

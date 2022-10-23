@@ -43,7 +43,17 @@ namespace findaround.ViewModels
             Description = string.Empty;
 
             Categories = new List<CategoryDisplayModel>();
-		}
+
+            foreach (PostCategory category in Enum.GetValues(typeof(PostCategory)))
+            {
+                Categories.Add(new CategoryDisplayModel()
+                {
+                    Category = category,
+                    Name = category.ToString(),
+                    Image = category.ToString().ToLower() + "_image.png"
+                });
+            }
+        }
 
         [RelayCommand]
         void Appearing()
@@ -144,6 +154,12 @@ namespace findaround.ViewModels
         async Task Cancel()
         {
             await Shell.Current.GoToAsync($"///{nameof(MainPage)}");
+        }
+
+        [RelayCommand]
+        async Task TryAddMedia()
+        {
+            await Shell.Current.DisplayAlert("Not supported yet", "This feature will be available soon", "OK");
         }
 
         //[RelayCommand]

@@ -151,10 +151,10 @@
             <Line BackgroundColor="#282828"
                   WidthRequest="2"/>
 
-            <Image Source="new_post_icon.svg"
+            <Image Source="add_post_icon.svg"
                    Margin="28,0"
-                   WidthRequest="60"
-                   HeightRequest="60"
+                   WidthRequest="50"
+                   HeightRequest="50"
                    IsEnabled="{Binding IsNotBusy}">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding CreateNewPostCommand}"/>
@@ -166,8 +166,8 @@
             
             <Image Source="search_icon.svg"
                    Margin="30,0"
-                   WidthRequest="60"
-                   HeightRequest="60"
+                   WidthRequest="65"
+                   HeightRequest="65"
                    IsEnabled="{Binding IsNotBusy}">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding GoToSearchPageCommand}"/>
