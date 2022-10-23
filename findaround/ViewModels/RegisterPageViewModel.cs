@@ -52,6 +52,13 @@ namespace findaround.ViewModels
                 }
                 else
                 {
+                    if (Login.Length < 8 || Password.Length < 8)
+                    {
+                        await Shell.Current.DisplayAlert("Error", "Both Login and Password must be at least 8 characters long", "OK");
+                    }
+                
+                else
+                {
                     var model = new RegisterUserDto()
                     {
                         Login = Login,
@@ -61,15 +68,16 @@ namespace findaround.ViewModels
 
                     var isRegistered = await _userService.RegisterUser(model);
 
-                    if (!isRegistered)
-                    {
-                        await Shell.Current.DisplayAlert("Something went wrong", "Couldn't registered new account", "OK");
-                        IsBusy = false;
-                    }
-                    else
-                    {
-                        IsBusy = false;
-                        await Shell.Current.GoToAsync($"///{nameof(LoginPage)}?Login={Login}&Password={Password}&Autologin={true}");
+                        if (!isRegistered)
+                        {
+                            await Shell.Current.DisplayAlert("Something went wrong", "Couldn't register a new account", "OK");
+                            IsBusy = false;
+                        }
+                        else
+                        {
+                            IsBusy = false;
+                            await Shell.Current.GoToAsync($"///{nameof(LoginPage)}?Login={Login}&Password={Password}&Autologin={true}");
+                        }
                     }
                 }
             }
