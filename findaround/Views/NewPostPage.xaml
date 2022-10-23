@@ -103,7 +103,9 @@
                         <TapGestureRecognizer Command="{Binding TryAddMediaCommand}"/>
                     </Frame.GestureRecognizers>
 
-                    <Image VerticalOptions="Center" Source="add_post.svg"/>
+                    <Image VerticalOptions="Center" Source="add_post_icon.svg"
+                           WidthRequest="80"
+                           HeightRequest="80"/>
                 </Frame>
 
                 <Grid Grid.Row="6" Grid.ColumnSpan="2"
