@@ -285,12 +285,19 @@ namespace findaroundAPI.Services
                 return new Result<IEnumerable<Comment>>(exception);
             }
 
-            var comments = _dbContext.PostsComments.Where(c => c.PostId == postId);
+            var comments = _dbContext.PostsComments.Where(c => c.PostId == postId).ToList();
 
             var commentsList = new List<Comment>();
 
             foreach (var comment in comments)
-                commentsList.Add(_mapper.Map<Comment>(comment));
+            {
+                var author = _dbContext.Users.FirstOrDefault(u => u.Id == comment.AuthorId);
+
+                var commentModel = _mapper.Map<Comment>(comment);
+                commentModel.AuthorName = author.Login;
+
+                commentsList.Add(commentModel);
+            }
 
             return new Result<IEnumerable<Comment>>(commentsList);
         }
