@@ -57,7 +57,8 @@
                     <Frame Style="{StaticResource CustomEntryFrame}">
                         <custom:CustomEntry Text="{Binding PostTitle}"
                                            IsEnabled="{Binding EntriesAvailable}"
-                                            FontSize="16"/>
+                                            FontSize="16"
+                                            MaxLength="100"/>
                     </Frame>
                 </Grid>
 
@@ -65,12 +66,21 @@
                     <Label Text="Description: "
                            Style="{StaticResource CustomEntryLabel}"/>
 
-                    <Frame Style="{StaticResource CustomEntryFrame}">
+                    <Frame Margin="10,35"
+                           BorderColor="Transparent"
+                           BackgroundColor="{StaticResource Secondary}"
+                           VerticalOptions="FillAndExpand"
+                           HeightRequest="120"
+                           WidthRequest="360">
+
                         <Editor Text="{Binding Description}"
                                 IsEnabled="{Binding EntriesAvailable}"
+                                VerticalOptions="FillAndExpand"
+                                MaximumHeightRequest="120"
+                                WidthRequest="350"
                                 FontSize="16"
                                 MaxLength="1000"
-                                Margin="-10,-15"/>
+                                Margin="-5,-25"/>
                     </Frame>
                 </Grid>
 
