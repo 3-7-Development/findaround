@@ -143,7 +143,7 @@ namespace findaround.ViewModels
                         {
                             IsBusy = false;
                             EntriesAvailable = true;
-                            await Shell.Current.GoToAsync($"///{nameof(MainPage)}");
+                            await Shell.Current.GoToAsync($"///{nameof(MainPage)}?Self={false}");
                         }
                     }
                 }
@@ -153,7 +153,7 @@ namespace findaround.ViewModels
         [RelayCommand]
         async Task Cancel()
         {
-            await Shell.Current.GoToAsync($"///{nameof(MainPage)}");
+            await Shell.Current.GoToAsync($"///{nameof(MainPage)}?Self={false}");
         }
 
         [RelayCommand]

@@ -22,7 +22,7 @@
           BackgroundColor="#282828">
 
         <Grid Grid.Row="1"
-              RowDefinitions="115,*"
+              RowDefinitions="115,*,Auto"
               BackgroundColor="#282828">
 
             <Frame
@@ -39,10 +39,6 @@
                        VerticalOptions="FillAndExpand"
                        HeightRequest="125"
                        WidthRequest="125">
-
-                    <!--<Image.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding LogoutUserCommand}"/>
-                    </Image.GestureRecognizers>-->
                 </Image>
 
             </Frame>
@@ -63,20 +59,25 @@
                                Padding="0"/>
                     </Frame>
                 </Grid>
+            </VerticalStackLayout>
 
-                <Frame BackgroundColor="#333333"
+            <Frame BackgroundColor="{StaticResource Secondary}"
                        Margin="10,25,10,0"
+                   Grid.Row="1"
                        HeightRequest="70"
                        BorderColor="Transparent">
 
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SeeYourPostsCommand}"/>
+                    </Frame.GestureRecognizers>
+
                     <Label Text="Your Posts"
-                           HorizontalOptions="Center"
-                           VerticalOptions="Center"
-                           TextColor="#FFF"
-                           FontSize="16"
-                           FontAttributes="Bold"/>
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            TextColor="White"
+                            FontSize="16"
+                            FontAttributes="Bold"/>
                 </Frame>
-            </VerticalStackLayout>
         </Grid>
 
         <Frame BackgroundColor="{StaticResource CancelRed}"

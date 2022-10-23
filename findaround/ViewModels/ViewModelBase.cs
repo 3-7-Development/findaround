@@ -45,7 +45,7 @@ namespace findaround.ViewModels
         [RelayCommand]
         async Task GoToMainPage()
         {
-            await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+            await Shell.Current.GoToAsync($"//{nameof(MainPage)}?Self={false}");
         }
     }
 }

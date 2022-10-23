@@ -113,7 +113,7 @@
                                HorizontalOptions="Start"/>
 
                         <Label Grid.Column="2" Grid.Row="0"
-                               Text="{Binding DistanceFromUser, StringFormat='distance: {0} Km'}" 
+                               Text="{Binding DistanceFromUser, StringFormat='Distance: {0} Km'}" 
                                TextColor="#666"
                                HorizontalTextAlignment="End"/>
                         <Label Grid.Column="1" Grid.Row="0"

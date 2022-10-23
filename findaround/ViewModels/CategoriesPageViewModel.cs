@@ -84,7 +84,7 @@ namespace findaround.ViewModels
 
             selectedCategory = null;
 
-            await Shell.Current.GoToAsync($"///{nameof(MainPage)}");
+            await Shell.Current.GoToAsync($"///{nameof(MainPage)}?Self={false}");
 		}
 	}
 }

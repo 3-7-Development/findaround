@@ -9,11 +9,15 @@ using System.Linq;
 
 namespace findaround.ViewModels
 {
+	[QueryProperty(nameof(Self), nameof(Self))]
 	public partial class MainPageViewModel : ViewModelBase
 	{
 		readonly IUserService _userService;
 		readonly IPostService _postService;
 		readonly IGeolocation _geolocation;
+
+		string self;
+		public string Self { get => self; set => SetProperty(ref self, value); }
 
 		List<Post> posts;
 		public List<Post> Posts { get => posts; set => SetProperty(ref posts, value); }
@@ -32,6 +36,8 @@ namespace findaround.ViewModels
 			Posts = new List<Post>();
 
 			SelectedPost = new Post();
+
+			Self = "false";
         }
 
 		[RelayCommand]
@@ -39,9 +45,18 @@ namespace findaround.ViewModels
 		{
 			IsBusy = true;
 
-			await PostsHelpers.RefreshSearchCriteria(_geolocation);
+            await PostsHelpers.RefreshSearchCriteria(_geolocation);
 
-            Posts = await _postService.MatchPosts(PostsHelpers.MatchingCriteria);
+            bool.TryParse(Self, out var getYourPosts);
+
+			if (getYourPosts)
+			{
+                Posts = await _postService.GetUserPosts();
+            }
+			else
+			{
+                Posts = await _postService.MatchPosts(PostsHelpers.MatchingCriteria);
+            }
 
             var userLocation = LocationHelpers.GetCurrentLocation(_geolocation);
 
@@ -128,7 +143,7 @@ namespace findaround.ViewModels
         [RelayCommand]
 		async Task GoBack()
 		{
-			await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+			await Shell.Current.GoToAsync($"//{nameof(MainPage)}?Self={false}");
 		}
 	}
 

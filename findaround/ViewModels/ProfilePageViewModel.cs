@@ -49,6 +49,12 @@ namespace findaround.ViewModels
                 await Shell.Current.GoToAsync($"///{nameof(Views.LoginPage)}");
             }
         }
+
+		[RelayCommand]
+		async Task SeeYourPosts()
+		{
+			await Shell.Current.GoToAsync($"///{nameof(Views.MainPage)}?Self={true}");
+		}
 	}
 }
 

@@ -61,7 +61,7 @@ namespace findaround.ViewModels
 			PostsHelpers.MatchingCriteria.Category = SelectedCategory.Category;
 
 			IsBusy = false;
-			await Shell.Current.GoToAsync($"///{nameof(Views.MainPage)}");
+			await Shell.Current.GoToAsync($"///{nameof(Views.MainPage)}?Self={false}");
 		}
 	}
 }

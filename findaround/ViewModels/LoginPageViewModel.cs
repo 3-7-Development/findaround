@@ -91,7 +91,7 @@ namespace findaround.ViewModels
 
                     EntriesAvailable = true;
                     IsBusy = false;
-                    await Shell.Current.GoToAsync($"///{nameof(MainPage)}");
+                    await Shell.Current.GoToAsync($"///{nameof(MainPage)}?Self={false}");
                 }
             }
 		}
